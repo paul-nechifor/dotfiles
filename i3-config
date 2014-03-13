@@ -1,0 +1,140 @@
+set $mod Mod1
+set $mod2 Mod4
+
+exec --no-startup-id gnome-settings-daemon
+exec --no-startup-id i3-msg workspace 8, exec skype, exec pidgin
+
+# font for window titles. ISO 10646 = Unicode
+font -misc-fixed-medium-r-normal--13-120-75-75-C-70-iso10646-1
+#font pango:Terminus 9
+
+# Use Mouse+$mod to drag floating windows to their wanted position
+floating_modifier $mod
+
+# start a terminal
+bindsym $mod+Return exec i3-sensible-terminal
+
+# kill focused window
+bindsym $mod+q kill
+
+# start dmenu (a program launcher)
+bindsym $mod+d exec dmenu_run
+
+# change focus
+bindsym $mod+h focus left
+bindsym $mod+j focus down
+bindsym $mod+k focus up
+bindsym $mod+l focus right
+
+# move focused window
+bindsym $mod+Shift+H move left
+bindsym $mod+Shift+J move down
+bindsym $mod+Shift+K move up
+bindsym $mod+Shift+L move right
+
+# split in horizontal orientation
+bindsym $mod+g split h
+
+# split in vertical orientation
+bindsym $mod+v split v
+
+# enter fullscreen mode for the focused container
+bindsym $mod+f fullscreen
+
+# change container layout (stacked, tabbed, default)
+bindsym $mod+Shift+S layout stacking
+bindsym $mod+Shift+W layout tabbed
+bindsym $mod+Shift+e layout default
+
+# toggle tiling / floating
+bindsym $mod+Shift+space floating toggle
+
+# change focus between tiling / floating windows
+bindsym $mod+space focus mode_toggle
+
+# focus the parent container
+bindsym $mod+a focus parent
+
+# focus the child container
+#bindcode $mod+d focus child
+
+# switch to workspace
+bindsym $mod+1 workspace 1
+bindsym $mod+2 workspace 2
+bindsym $mod+3 workspace 3
+bindsym $mod+4 workspace 4
+bindsym $mod+5 workspace 5
+bindsym $mod+6 workspace 6
+bindsym $mod+7 workspace 7
+bindsym $mod+8 workspace 8
+bindsym $mod+9 workspace 9
+bindsym $mod+0 workspace 10
+
+# move focused container to workspace
+bindsym $mod+Shift+exclam move container to workspace 1
+bindsym $mod+Shift+at move container to workspace 2
+bindsym $mod+Shift+numbersign move container to workspace 3
+bindsym $mod+Shift+dollar move container to workspace 4
+bindsym $mod+Shift+percent move container to workspace 5
+bindsym $mod+Shift+asciicircum move container to workspace 6
+bindsym $mod+Shift+ampersand move container to workspace 7
+bindsym $mod+Shift+asterisk move container to workspace 8
+bindsym $mod+Shift+parenleft move container to workspace 9
+bindsym $mod+Shift+parenright move container to workspace 10
+
+# reload the configuration file
+bindsym $mod+Shift+C reload
+# restart i3 inplace (preserves your layout/session, can be used to upgrade i3)
+bindsym $mod+Shift+R restart
+# exit i3 (logs you out of your X session)
+# bindsym $mod+Shift+E exit
+
+bindsym $mod2+l resize shrink width 10 px or 4 ppt
+bindsym $mod2+k resize grow height 10 px or 4 ppt
+bindsym $mod2+j resize shrink height 10 px or 4 ppt
+bindsym $mod2+h resize grow width 10 px or 4 ppt
+
+# Start i3bar to display a workspace bar (plus the system information i3status
+# finds out, if available)
+bar {
+        position bottom
+        status_command i3status
+        mode hide
+        modifier $mod
+}
+
+# My new stuff -----------------------------------------------------------------
+
+# This doesn't work for some reason.
+#hide_edge_borders both
+
+new_window 1pixel
+
+# Move workspace to right or left.
+bindsym $mod+Ctrl+Shift+l move workspace to output right
+bindsym $mod+Ctrl+Shift+h move workspace to output left
+
+bindsym Menu workspace back_and_forth
+
+# Make the currently focused window a scratchpad.
+#bindsym $mod+Menu move scratchpad
+
+# Show the first scratchpad window.
+#bindsym Menu scratchpad show
+
+# Workspaces monitors.
+workspace 1 output LVDS1
+workspace 2 output LVDS1
+workspace 3 output LVDS1
+workspace 4 output LVDS1
+workspace 5 output LVDS1
+workspace 6 output LVDS1
+workspace 7 output LVDS1
+workspace 8 output LVDS1
+workspace 9 output VGA1
+workspace 10 output VGA1
+
+# Programs
+bindsym $mod+c exec google-chrome
+bindsym $mod+b exec thunar
+#bindsym $mod+n exec nautilus
