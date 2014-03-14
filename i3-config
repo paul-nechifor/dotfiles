@@ -142,5 +142,6 @@ bindsym $mod+b exec thunar
 
 bindsym Ctrl+Shift+F exec firefox
 bindsym Ctrl+Shift+N exec /bin/sh "/usr/local/netbeans-7.2.1/bin/netbeans"
+bindsym Ctrl+Shift+T exec transmission-gtk
 bindsym Ctrl+Shift+V exec VirtualBox
 bindsym Ctrl+Shift+W exec VBoxManage startvm 'Windows 7'
