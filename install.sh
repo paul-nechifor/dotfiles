@@ -28,6 +28,7 @@ function runAsRoot() {
 
 function runAsUser() {
     installDotfiles
+    installI3
 }
 
 function createUser() {
@@ -49,6 +50,24 @@ function installDotfiles() {
 
 function installForRoot() {
     cd /root
+}
+
+function installI3() {
+    installFile="/home/$username/.i3/config"
+    wantFile="/home/$username/$homeInstall/i3-config"
+    replace=true
+    if [ -f $installFile ]; then
+        read -p "#### Replace $installFile ? (y|n) " replaceI3
+        if [ "$replaceI3" = 'y' ]; then
+            replace=true
+        else
+            replace=false
+        fi
+    fi
+    if [ "$replace" = true ]; then
+        rm -fr $installFile
+        ln -s $wantFile $installFile
+    fi
 }
 
 main "$@"
