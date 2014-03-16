@@ -138,10 +138,10 @@ workspace 10 output VGA1
 # Programs
 bindsym $mod+c exec google-chrome
 bindsym $mod+b exec thunar
-#bindsym $mod+n exec nautilus
+bindsym $mod+w exec webstorm
 
-bindsym Ctrl+Shift+F exec firefox
-bindsym Ctrl+Shift+N exec /bin/sh "/usr/local/netbeans-7.2.1/bin/netbeans"
-bindsym Ctrl+Shift+T exec transmission-gtk
-bindsym Ctrl+Shift+V exec VirtualBox
-bindsym Ctrl+Shift+W exec VBoxManage startvm 'Windows 7'
+bindsym $mod+$mod2+f exec firefox
+bindsym $mod+$mod2+n exec /bin/sh "/usr/local/netbeans-7.2.1/bin/netbeans"
+bindsym $mod+$mod2+t exec transmission-gtk
+bindsym $mod+$mod2+v exec VirtualBox
+bindsym $mod+$mod2+w exec VBoxManage startvm 'Windows 7'
