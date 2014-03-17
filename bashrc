@@ -79,3 +79,10 @@ function gac() {
     git add --all
     git commit -m "$message"
 }
+
+# Create and go to a directory (possibly nested).
+function dc() {
+    dir="$@"
+    mkdir -p "$dir"
+    cd "$dir"
+}
