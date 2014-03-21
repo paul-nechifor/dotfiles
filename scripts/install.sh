@@ -21,7 +21,7 @@ function runAsRoot() {
 
     createUser
 
-    su $username -c 'bash install.sh run-as-user'
+    su $username -c 'bash scripts/install.sh run-as-user'
 
     installForRoot
 }
