@@ -72,7 +72,8 @@ function die() {
 
 # Git aliases and functions ----------------------------------------------------
 
-alias g="gitg"
+alias g="git"
+alias gg="gitg"
 
 function gac() {
     message="$@"
