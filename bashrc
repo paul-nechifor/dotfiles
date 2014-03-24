@@ -75,6 +75,14 @@ function die() {
     kill $1 || (sleep 3; kill -15 $1) || (sleep 3; kill -2 $1) || (sleep 3; kill -1 $1) || (sleep 5; kill -9 $1)
 }
 
+function dirdiff() {
+    # -Ewb ignore the bulk of whitespace changes
+    # -N detect new files
+    # -u unified
+    # -r recurse
+    diff -ENwbur "$1" "$2"  | kompare -o -
+}
+
 # Git aliases and functions ----------------------------------------------------
 
 alias g="git"
