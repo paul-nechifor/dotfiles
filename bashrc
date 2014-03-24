@@ -60,6 +60,11 @@ alias xp="echo -n 'NAME, CLASS = '; xprop | grep 'WM_CLASS' | cut -c20-"
 # dirs.
 alias resetmod="find . -type f -exec chmod 644 {} + ; find . -type d -exec chmod 755 {} +"
 
+# Script aliases ---------------------------------------------------------------
+
+alias light="bash ~/pro/dotfiles-installed/scripts/gnome-terminal-theme.sh solarized-ish-light"
+alias dark="bash ~/pro/dotfiles-installed/scripts/gnome-terminal-theme.sh solarized-ish-dark"
+
 # Functions --------------------------------------------------------------------
 
 function d() {
