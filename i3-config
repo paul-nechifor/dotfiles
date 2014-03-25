@@ -2,7 +2,7 @@ set $mod Mod1
 set $mod2 Mod4
 
 exec --no-startup-id gnome-settings-daemon
-exec --no-startup-id i3-msg workspace 8, exec skype, exec pidgin
+exec --no-startup-id i3-msg workspace 8, exec pidgin
 
 # font for window titles. ISO 10646 = Unicode
 font -misc-fixed-medium-r-normal--13-120-75-75-C-70-iso10646-1
