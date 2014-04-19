@@ -1,73 +1,76 @@
 #!/bin/bash
 
 username="p"
-homeInstall="pro/dotfiles-installed"
-installSource="`pwd`"
+install_dir="/opt/pn-dotfiles"
+install_source="`pwd`"
+install_script="$install_source/$0"
 
 function main() {
-    if [ "$@" == "run-as-user" ]; then
-        runAsUser
+    if [ "$#" -eq 0 ]; then
+        root_start
     else
-        runAsRoot
+        # Run which ever parameter is given.
+        $1
     fi
-    
 }
 
-function runAsRoot() {
+root_start() {
     if [ "`id -u`" != "0" ]; then
         echo "You are not root."
         exit 1
     fi
 
-    createUser
+    create_user
+    install_dotfiles
+    link_root_files
 
-    su $username -c 'bash scripts/install.sh run-as-user'
-
-    installForRoot
+    su $username -c "bash '$install_script' user_start"
 }
 
-function runAsUser() {
-    installDotfiles
-    installI3
+user_start() {
+    link_user_files
 }
 
-function createUser() {
+create_user() {
     id -u $username >/dev/null
-    if [ $? -eq 0 ]; then
-        echo "#### User $username exists."
+    if [ "$?" -eq 0 ]; then
         return
     fi
-    echo "#### Running 'useradd' to create the user."
     adduser $username --home /home/$username
 }
 
-function installDotfiles() {
-    cd ~
-    mkdir -p "$homeInstall" 2>/dev/null
-    echo "#### Installing the dotfiles."
-    rsync -a --del "$installSource/" "$homeInstall/"
+install_dotfiles() {
+    mkdir -p "$install_dir" 2>/dev/null
+    rsync -a --del "$install_source/" "$install_dir/"
 }
 
-function installForRoot() {
-    cd /root
+link_root_files() {
+    link_common_files
+
+    rm -f /usr/share/X11/xkb/symbols/ro
+    ln -s "$install_dir/xkb_layout" /usr/share/X11/xkb/symbols/ro
 }
 
-function installI3() {
-    installFile="/home/$username/.i3/config"
-    wantFile="/home/$username/$homeInstall/i3-config"
-    replace=true
-    if [ -f $installFile ]; then
-        read -p "#### Replace $installFile ? (y|n) " replaceI3
-        if [ "$replaceI3" = 'y' ]; then
-            replace=true
-        else
-            replace=false
-        fi
-    fi
-    if [ "$replace" = true ]; then
-        rm -fr $installFile
-        ln -s $wantFile $installFile
-    fi
+link_user_files() {
+    link_common_files
+
+    rm -f ~/.gitconfig
+    ln -s "$install_dir/gitconfig" ~/.gitconfig
+
+    rm -f ~/.gitignore
+    ln -s "$install_dir/gitignore" ~/.gitignore
+
+    rm -f ~/.i3/config
+    mkdir ~/.i3 2>/dev/null
+    ln -s "$install_dir/i3-config" ~/.i3/config
+}
+
+link_common_files() {
+    rm -f ~/.bashrc
+    ln -s "$install_dir/bashrc" ~/.bashrc
+
+    rm -f ~/.vimrc
+    ln -s "$install_dir/vimrc" ~/.vimrc
 }
 
 main "$@"

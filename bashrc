@@ -88,8 +88,8 @@ alias resetmod="find . -type f -exec chmod 644 {} + ; find . -type d -exec chmod
 
 # Script aliases ---------------------------------------------------------------
 
-alias light="python2 ~/pro/dotfiles-installed/bin/gnome-terminal-theme.py solarized-ish-light"
-alias dark="python2 ~/pro/dotfiles-installed/bin/gnome-terminal-theme.py solarized-ish-dark"
+alias light="python2 /opt/pn-dotfiles/bin/gnome-terminal-theme.py solarized-ish-light"
+alias dark="python2 /opt/pn-dotfiles/bin/gnome-terminal-theme.py solarized-ish-dark"
 
 # Functions --------------------------------------------------------------------
 
@@ -119,3 +119,9 @@ function gac() {
     git add --all
     git commit -m "$message"
 }
+
+# Load local bashrc ------------------------------------------------------------
+
+if [ -f ~/.bashrc-local ]; then
+    source ~/.bashrc-local
+fi
