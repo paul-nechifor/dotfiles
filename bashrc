@@ -67,8 +67,16 @@ alias dark="bash ~/pro/dotfiles-installed/scripts/gnome-terminal-theme.sh solari
 
 # Functions --------------------------------------------------------------------
 
+# Go to dir and list the contents.
 function d() {
-    cd $1 && l
+    cd "$1" && l
+}
+
+# Create and go to a directory (possibly nested).
+function dc() {
+    dir="$@"
+    mkdir -p "$dir"
+    cd "$dir"
 }
 
 function die() {
@@ -92,11 +100,4 @@ function gac() {
     message="$@"
     git add --all
     git commit -m "$message"
-}
-
-# Create and go to a directory (possibly nested).
-function dc() {
-    dir="$@"
-    mkdir -p "$dir"
-    cd "$dir"
 }
