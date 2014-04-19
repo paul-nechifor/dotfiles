@@ -1,0 +1,7 @@
+*.swp
+*.swo
+*.pyc
+*~
+.idea
+node_modules
+/private

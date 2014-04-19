@@ -1,6 +1,8 @@
 [user]
     name = Paul Nechifor
     email = paul@nechifor.net
+[core]
+    excludesfile = ~/.gitignore
 [color]
     ui = auto
 [color "diff"]
