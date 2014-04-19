@@ -62,8 +62,8 @@ alias resetmod="find . -type f -exec chmod 644 {} + ; find . -type d -exec chmod
 
 # Script aliases ---------------------------------------------------------------
 
-alias light="bash ~/pro/dotfiles-installed/scripts/gnome-terminal-theme.sh solarized-ish-light"
-alias dark="bash ~/pro/dotfiles-installed/scripts/gnome-terminal-theme.sh solarized-ish-dark"
+alias light="python2 ~/pro/dotfiles-installed/bin/gnome-terminal-theme.py solarized-ish-light"
+alias dark="python2 ~/pro/dotfiles-installed/bin/gnome-terminal-theme.py solarized-ish-dark"
 
 # Functions --------------------------------------------------------------------
 
