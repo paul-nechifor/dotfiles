@@ -37,14 +37,40 @@ export JAVA_HOME="/usr/lib/jvm/java-7-openjdk-amd64"
 
 export TERM='xterm-256color'
 
-# Lazy aliases -----------------------------------------------------------------
+# File system management -------------------------------------------------------
 
-alias ..="cd .."
+alias ls="ls --color=auto"
+
+# List dirs humanly, show dirs first and hide the total.
+function l() {
+    ls --color=always --group-directories-first -h -l "$@" | tail --lines=+2
+}
+
+alias la="l -A"
+
+# Go to dir and list the contents.
+function d() {
+    if [ $# -eq 0 ]; then
+        cd && l
+    else
+        cd "$@" && l
+    fi
+}
+
+# Create and go to a directory (possibly nested).
+function dc() {
+    dir="$@"
+    mkdir -p "$dir"
+    cd "$dir"
+}
+
+alias ..="d .."
+
 alias df="df -ah --si"
 alias du="du -h"
-alias ls="ls --color=auto -h"
-alias l="ls -l"
-alias la="ls -lA"
+
+# Lazy aliases -----------------------------------------------------------------
+
 alias grep="grep --color=auto"
 alias egrep="egrep --color=auto"
 alias v="vim"
@@ -66,18 +92,6 @@ alias light="python2 ~/pro/dotfiles-installed/bin/gnome-terminal-theme.py solari
 alias dark="python2 ~/pro/dotfiles-installed/bin/gnome-terminal-theme.py solarized-ish-dark"
 
 # Functions --------------------------------------------------------------------
-
-# Go to dir and list the contents.
-function d() {
-    cd "$1" && l
-}
-
-# Create and go to a directory (possibly nested).
-function dc() {
-    dir="$@"
-    mkdir -p "$dir"
-    cd "$dir"
-}
 
 function die() {
     kill $1 || (sleep 3; kill -15 $1) || (sleep 3; kill -2 $1) || (sleep 3; kill -1 $1) || (sleep 5; kill -9 $1)
