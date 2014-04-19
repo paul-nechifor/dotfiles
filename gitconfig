@@ -3,6 +3,21 @@
     email = paul@nechifor.net
 [color]
     ui = auto
+[color "diff"]
+    plain = normal
+    meta = bold
+    frag = cyan
+    old = red
+    new = green
+    commit = yellow
+    whitespace = normal red
+[color "status"]
+    header = normal
+    added = red
+    updated = green
+    changed = red
+    untracked = red
+    nobranch = red
 [alias]
     co = checkout
     c = commit
