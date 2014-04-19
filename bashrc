@@ -95,6 +95,10 @@ function dirdiff() {
 
 alias g="git"
 alias gg="gitg"
+alias gd="g diff"
+alias gdc="g diff --cached"
+alias gl="g l"
+alias gs="g s"
 
 function gac() {
     message="$@"
