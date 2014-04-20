@@ -82,6 +82,9 @@ alias brow="nautilus --no-desktop . &"
 alias dt="du -ba| sort -n | tail -50"
 alias xp="echo -n 'NAME, CLASS = '; xprop | grep 'WM_CLASS' | cut -c20-"
 
+# Reinstall the dotfiles from the repo.
+alias pull-dotfiles-updates="wget -O - 'https://github.com/paul-nechifor/dotfiles/raw/master/scripts/infect.sh' | sudo bash"
+
 # Recursively reset all files in the current dir to 644 for normal and 755 for
 # dirs.
 alias resetmod="find . -type f -exec chmod 644 {} + ; find . -type d -exec chmod 755 {} +"
