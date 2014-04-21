@@ -42,6 +42,10 @@ set scrolloff=3 " Keep 3 lines at the top or bottom of the screen
 set number " Line numbers.
 set ruler " Show line and column in the status bar.
 
+" Show relative file path in the statusline
+set statusline+=%f
+set laststatus=2
+
 " Colors.
 syntax on
 colorscheme default
@@ -57,8 +61,6 @@ set viminfo='10,\"100,:20,%,n~/.viminfo
 
 " Mappings -------------------------------------------------------------------------------------------------------------
 
-" F1 - file browser
-nmap <F1> :Ex<CR>
 " F2 - toggle show special characters"
 imap <F2> <ESC>:set list!<CR>a
 map <F2> :set list!<CR>
@@ -68,16 +70,30 @@ map <F3> :call ToggleCompleteMatching()<CR>
 " F4 - toggle C-like mode
 imap <F4> <ESC>:call CLikeMode()<CR>a
 map <F4> :call CLikeMode()<CR>
-" F5 - call make
-imap <F5> <ESC>:!make<CR>a
-map <F5> :!make<CR>
 
+" Navigation windows
+nnoremap <C-J> <C-W><C-J>
+nnoremap <C-K> <C-W><C-K>
+nnoremap <C-L> <C-W><C-L>
+nnoremap <C-H> <C-W><C-H>
 
 " Autos ----------------------------------------------------------------------------------------------------------------
 
 autocmd Syntax c,java,cpp,cs call CLikeMode()
 "autocmd Syntax c,java,cpp setlocal foldmethod=syntax
 
+" Restore cursor on reopening.
+function! ResCur()
+  if line("'\"") <= line("$")
+    normal! g`"
+    return 1
+  endif
+endfunction
+
+augroup resCur
+  autocmd!
+  autocmd BufWinEnter * call ResCur()
+augroup END
 
 " Functions ------------------------------------------------------------------------------------------------------------
 function CLikeMode()
