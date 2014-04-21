@@ -1,5 +1,7 @@
 #!/bin/bash
 
+lang_pack="ro"
+
 package_list=(
     # Terminal apps
     cmus
@@ -18,6 +20,12 @@ package_list=(
     netbeans
     python-pip
     kompare
+
+    # Langauge pack
+    language-pack-$lang_pack
+    language-pack-gnome-$lang_pack
+    language-pack-$lang_pack-base
+    language-pack-gnome-$lang_pack-base
 
     # Utilities
     curl
