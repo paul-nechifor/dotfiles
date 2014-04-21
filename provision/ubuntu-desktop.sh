@@ -85,8 +85,44 @@ unnecessary_files=(
     examples.desktop
 )
 
-packages="${package_list[@]}"
-sudo apt-get install $packages
+check_if_root() {
+    if [ "`id -u`" != "0" ]; then
+        echo "You are not root."
+        exit 1
+    fi
+}
 
-# Delete annyoing dir structure.
-rm -fr "${unnecessary_files[@]}"
+add_ppas() {
+    true
+}
+
+update_repos() {
+    apt-get update
+}
+
+remove_packages() {
+    true
+}
+
+add_packages() {
+    packages="${package_list[@]}"
+    sudo apt-get install $packages
+}
+
+configure_dirs() {
+    cd
+    # Delete annyoing home dir structure.
+    rm -fr "${unnecessary_files[@]}"
+    cd -
+}
+
+main() {
+    check_if_root
+    add_ppas
+    update_repos
+    remove_packages
+    add_packages
+    configure_dirs
+}
+
+main
