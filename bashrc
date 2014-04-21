@@ -1,5 +1,8 @@
 # Bash settings ----------------------------------------------------------------
 
+# Set vi mode.
+set -o vi
+
 # Bash search
 bind '"\e[A":history-search-backward'
 bind '"\e[B":history-search-forward'
