@@ -1,0 +1,12 @@
+#!/bin/bash
+
+hash="%C(bold blue)%h%C(reset)"
+relative_time="%C(bold green)%ar%C(reset)"
+subject="%C(white)%s%C(reset)"
+author="%an%C(reset)"
+refs="%C(bold yellow)%d%C(reset)"
+format="$hash##$relative_time##$subject $author $refs"
+
+git log --graph --pretty="tformat:$format" $@ |
+column -t -s "##" |
+less -FXRS

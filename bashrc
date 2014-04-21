@@ -111,10 +111,11 @@ function dirdiff() {
 # Git aliases and functions ----------------------------------------------------
 
 alias g="git"
+alias ga="g add --all"
 alias gg="gitg"
 alias gd="g diff"
 alias gdc="g diff --cached"
-alias gl="g l"
+alias gl="bash /opt/pn-dotfiles/bin/git-pretty-log"
 alias gs="g s"
 
 function gac() {

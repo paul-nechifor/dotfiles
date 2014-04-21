@@ -24,5 +24,3 @@
     co = checkout
     c = commit
     s = "!echo -n 'branch: '; git rev-parse --abbrev-ref HEAD; git status --short"
-    l = log --graph --abbrev-commit --decorate --date=relative --format=format:'%C(bold blue)%h%C(reset) - %C(bold green)(%ar)%C(reset) %C(white)%s%C(reset) %C(dim white)- %an%C(reset)%C(bold yellow)%d%C(reset)' --all
-
