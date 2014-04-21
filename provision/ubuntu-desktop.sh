@@ -73,5 +73,20 @@ package_list=(
     totem-mozilla
 )
 
+unnecessary_files=(
+    Descărcări
+    Desktop
+    Documente
+    Muzică
+    Poze
+    Public
+    Șabloane
+    Video
+    examples.desktop
+)
+
 packages="${package_list[@]}"
 sudo apt-get install $packages
+
+# Delete annyoing dir structure.
+rm -fr "${unnecessary_files[@]}"
