@@ -106,7 +106,9 @@ remove_packages() {
 
 add_packages() {
     packages="${package_list[@]}"
-    sudo apt-get install $packages
+    apt-get install $packages
+
+    apt-get upgrade
 }
 
 configure_dirs() {
