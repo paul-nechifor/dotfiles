@@ -80,6 +80,9 @@ nnoremap <C-H> <C-W><C-H>
 " Toggle previous file with `,,`.
 nnoremap ,, <c-^>
 
+" Use tab to complete. If only whitespace, use actual tab.
+:inoremap <Tab> <C-R>=TabOrComplete()<CR>
+
 " Pathogen
 execute pathogen#infect()
 
@@ -176,3 +179,11 @@ function QuoteDelim(char)
          return a:char.a:char."\<Esc>i"
      endif
 endf
+
+function! TabOrComplete()
+    if col('.') > 1 && strpart(getline('.'), col('.')-2, 3) =~ '^\w'
+        return "\<C-N>"
+    else
+        return "\<Tab>"
+    endif
+endfunction
