@@ -44,9 +44,13 @@ export TERM='xterm-256color'
 
 alias ls="ls --color=auto"
 
-# List dirs humanly, show dirs first and hide the total.
 function l() {
-    ls --color=always --group-directories-first -h -l "$@" | tail --lines=+2
+    # h = human readable
+    # l = list
+    # G = no groups
+    # tail -> remove 'total XXXk' line
+    ls --color=always --group-directories-first -hlG --si "$@" |
+    tail --lines=+2
 }
 
 alias la="l -A"
