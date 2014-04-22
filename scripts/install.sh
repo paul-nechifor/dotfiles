@@ -49,6 +49,8 @@ link_root_files() {
 
     rm -f /usr/share/X11/xkb/symbols/ro
     ln -s "$install_dir/xkb_layout" /usr/share/X11/xkb/symbols/ro
+
+    provision_vim
 }
 
 link_user_files() {
@@ -71,6 +73,10 @@ link_common_files() {
 
     rm -f ~/.vimrc
     ln -s "$install_dir/vimrc" ~/.vimrc
+}
+
+provision_vim() {
+    bash "$install_dir/provision/vim.sh"
 }
 
 main "$@"

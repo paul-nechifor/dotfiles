@@ -80,6 +80,13 @@ nnoremap <C-H> <C-W><C-H>
 " Toggle previous file with `,,`.
 nnoremap ,, <c-^>
 
+" Pathogen
+execute pathogen#infect()
+
+" Nerd tree
+" Toggle it with Ctrl+N.
+map <C-n> :NERDTreeToggle<CR>
+
 " Autos ----------------------------------------------------------------------------------------------------------------
 
 autocmd Syntax c,java,cpp,cs call CLikeMode()
