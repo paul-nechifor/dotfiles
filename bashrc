@@ -82,7 +82,7 @@ alias grep="grep --color=auto"
 alias egrep="egrep --color=auto"
 alias v="vim"
 alias am="alsamixer"
-alias brow="nautilus --no-desktop . &"
+alias b="thunar . &"
 
 # Complex aliases --------------------------------------------------------------
 
