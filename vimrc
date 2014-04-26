@@ -46,6 +46,9 @@ set ruler " Show line and column in the status bar.
 set statusline+=%f
 set laststatus=2
 
+" Use 1 space when joining sentences.
+set nojoinspaces
+
 " Colors.
 syntax on
 colorscheme default
