@@ -33,9 +33,9 @@ set incsearch " Don't wait for me to hit enter to search.
 set smartindent
 set expandtab " Replace <tab> with spaces.
 set smarttab " Backspace spaces as if they were tabs.
-set tabstop=4
-set softtabstop=4
-set shiftwidth=4
+set tabstop=2
+set softtabstop=2
+set shiftwidth=2
 
 " Text options:
 set scrolloff=3 " Keep 3 lines at the top or bottom of the screen
@@ -94,6 +94,8 @@ map <C-n> :NERDTreeToggle<CR>
 
 autocmd Syntax c,java,cpp,cs call CLikeMode()
 "autocmd Syntax c,java,cpp setlocal foldmethod=syntax
+
+autocmd FileType python set ts=4 sw=4 sts=4
 
 " Restore cursor on reopening.
 function! ResCur()
