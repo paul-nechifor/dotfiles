@@ -77,9 +77,6 @@ nnoremap <C-K> <C-W><C-K>
 nnoremap <C-L> <C-W><C-L>
 nnoremap <C-H> <C-W><C-H>
 
-" Toggle previous file with `,,`.
-nnoremap ,, <c-^>
-
 " Use tab to complete. If only whitespace, use actual tab.
 :inoremap <Tab> <C-R>=TabOrComplete()<CR>
 
@@ -89,6 +86,14 @@ execute pathogen#infect()
 " Nerd tree
 " Toggle it with Ctrl+N.
 map <C-n> :NERDTreeToggle<CR>
+
+" Comma mappings --------------------------------------------------------------------------------------------
+
+" Toggle previous file with `,,`.
+nnoremap ,, <c-^>
+
+" Execute current file.
+map ,e :call ExecuteFile(expand("%"))<cr>
 
 " Autos ----------------------------------------------------------------------------------------------------------------
 
@@ -188,4 +193,19 @@ function! TabOrComplete()
   else
     return "\<Tab>"
   endif
-endfunction
+endf
+
+" Execute file if know how.
+function! ExecuteFile(filename)
+  :w
+  :silent !clear
+  if match(a:filename, '\.coffee$') != -1
+    exec ":!coffee " . a:filename
+  elseif match(a:filename, '\.js$') != -1
+    exec ":!node " . a:filename
+  elseif match(a:filename, '\.sh$') != -1
+    exec ":!bash " . a:filename
+  else
+    exec ":!echo \"Don't know how to execute: \"" . a:filename
+  end
+endf
