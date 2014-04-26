@@ -112,80 +112,80 @@ augroup END
 
 " Functions ------------------------------------------------------------------------------------------------------------
 function CLikeMode()
-    if !exists("b:clikeState") || b:clikeState == "off"
-        let b:clikeState = "on"
-        set autoindent
-        set cindent
-        if !exists("b:matchState") || b:matchState == "off"
-            call ToggleCompleteMatching()
-        endif
-    else
-        let b:clikeState = "off"
-        set noautoindent
-        set nocindent
-        if exists("b:matchState") && b:matchState == "on"
-            call ToggleCompleteMatching()
-        endif
+  if !exists("b:clikeState") || b:clikeState == "off"
+    let b:clikeState = "on"
+    set autoindent
+    set cindent
+    if !exists("b:matchState") || b:matchState == "off"
+      call ToggleCompleteMatching()
     endif
+  else
+    let b:clikeState = "off"
+    set noautoindent
+    set nocindent
+    if exists("b:matchState") && b:matchState == "on"
+      call ToggleCompleteMatching()
+    endif
+  endif
 endf
 
 function ToggleCompleteMatching()
-    if !exists("b:matchState") || b:matchState == "off"
-        let b:matchState = "on"
-        inoremap ( ()<Esc>i
-        inoremap [ []<Esc>i
-        inoremap { {<CR>}<Esc>O
-        "autocmd Syntax html,vim inoremap < <lt>><Esc>i| inoremap > <c-r>=ClosePair('>')<CR>
-        inoremap ) <c-r>=ClosePair(')')<CR>
-        inoremap ] <c-r>=ClosePair(']')<CR>
-        "inoremap } <c-r>=CloseBracket()<CR>
-        inoremap " <c-r>=QuoteDelim('"')<CR>
-    else
-        let b:matchState = "off"
-        iunmap (
-        iunmap [
-        iunmap {
-        iunmap )
-        iunmap ]
-        iunmap "
-    endif
+  if !exists("b:matchState") || b:matchState == "off"
+    let b:matchState = "on"
+    inoremap ( ()<Esc>i
+    inoremap [ []<Esc>i
+    inoremap { {<CR>}<Esc>O
+    "autocmd Syntax html,vim inoremap < <lt>><Esc>i| inoremap > <c-r>=ClosePair('>')<CR>
+    inoremap ) <c-r>=ClosePair(')')<CR>
+    inoremap ] <c-r>=ClosePair(']')<CR>
+    "inoremap } <c-r>=CloseBracket()<CR>
+    inoremap " <c-r>=QuoteDelim('"')<CR>
+  else
+    let b:matchState = "off"
+    iunmap (
+    iunmap [
+    iunmap {
+    iunmap )
+    iunmap ]
+    iunmap "
+  endif
 endf
 
 function ClosePair(char)
-    if getline('.')[col('.') - 1] == a:char
-        return "\<Right>"
-    else
-        return a:char
-    endif
+  if getline('.')[col('.') - 1] == a:char
+    return "\<Right>"
+  else
+    return a:char
+  endif
 endf
 
 function CloseBracket()
-    if match(getline(line('.') + 1), '\s*}') < 0
-        return "\<CR>}"
-    else
-        return "\<Esc>j0f}o"
-    endif
+  if match(getline(line('.') + 1), '\s*}') < 0
+    return "\<CR>}"
+  else
+    return "\<Esc>j0f}o"
+  endif
 endf
 
 function QuoteDelim(char)
-     let line = getline('.')
-     let col = col('.')
-     if line[col - 2] == "\\"
-         "Inserting a quoted quotation mark into the string
-         return a:char
-     elseif line[col - 1] == a:char
-         "Escaping out of the string
-         return "\<Right>"
-     else
-         "Starting a string
-         return a:char.a:char."\<Esc>i"
-     endif
+   let line = getline('.')
+   let col = col('.')
+   if line[col - 2] == "\\"
+     "Inserting a quoted quotation mark into the string
+     return a:char
+   elseif line[col - 1] == a:char
+     "Escaping out of the string
+     return "\<Right>"
+   else
+     "Starting a string
+     return a:char.a:char."\<Esc>i"
+   endif
 endf
 
 function! TabOrComplete()
-    if col('.') > 1 && strpart(getline('.'), col('.')-2, 3) =~ '^\w'
-        return "\<C-N>"
-    else
-        return "\<Tab>"
-    endif
+  if col('.') > 1 && strpart(getline('.'), col('.')-2, 3) =~ '^\w'
+    return "\<C-N>"
+  else
+    return "\<Tab>"
+  endif
 endfunction

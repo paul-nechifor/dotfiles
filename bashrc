@@ -18,9 +18,9 @@ export HISTTIMEFORMAT="%F %T"
 
 # Bash prompt ------------------------------------------------------------------
 if [ `id -u` -eq 0 ]; then
-    PS1='`if [ $? -ne 0 ]; then echo \e[31mಠ_ಠ; echo \e[33m; else echo \e[33m; fi`\[\e[1;31m\]● \[\e[0m\] '
+  PS1='`if [ $? -ne 0 ]; then echo \e[31mಠ_ಠ; echo \e[33m; else echo \e[33m; fi`\[\e[1;31m\]● \[\e[0m\] '
 else
-    PS1='`if [ $? -ne 0 ]; then echo \e[31mಠ_ಠ; echo \e[33m; else echo \e[33m; fi`\[\e[1;32m\]● \[\e[0m\] '
+  PS1='`if [ $? -ne 0 ]; then echo \e[31mಠ_ಠ; echo \e[33m; else echo \e[33m; fi`\[\e[1;32m\]● \[\e[0m\] '
 fi
 
 # Exports ----------------------------------------------------------------------
@@ -45,30 +45,30 @@ export TERM='xterm-256color'
 alias ls="ls --color=auto"
 
 function l() {
-    # h = human readable
-    # l = list
-    # G = no groups
-    # tail -> remove 'total XXXk' line
-    ls --color=always --group-directories-first -hlG --si "$@" |
-    tail --lines=+2
+  # h = human readable
+  # l = list
+  # G = no groups
+  # tail -> remove 'total XXXk' line
+  ls --color=always --group-directories-first -hlG --si "$@" |
+  tail --lines=+2
 }
 
 alias la="l -A"
 
 # Go to dir and list the contents.
 function d() {
-    if [ $# -eq 0 ]; then
-        cd && l
-    else
-        cd "$@" && l
-    fi
+  if [ $# -eq 0 ]; then
+    cd && l
+  else
+    cd "$@" && l
+  fi
 }
 
 # Create and go to a directory (possibly nested).
 function dc() {
-    dir="$@"
-    mkdir -p "$dir"
-    cd "$dir"
+  dir="$@"
+  mkdir -p "$dir"
+  cd "$dir"
 }
 
 alias ..="d .."
@@ -104,15 +104,15 @@ alias dark="python2 /opt/pn-dotfiles/bin/gnome-terminal-theme.py solarized-ish-d
 # Functions --------------------------------------------------------------------
 
 function die() {
-    kill $1 || (sleep 3; kill -15 $1) || (sleep 3; kill -2 $1) || (sleep 3; kill -1 $1) || (sleep 5; kill -9 $1)
+  kill $1 || (sleep 3; kill -15 $1) || (sleep 3; kill -2 $1) || (sleep 3; kill -1 $1) || (sleep 5; kill -9 $1)
 }
 
 function dirdiff() {
-    # -Ewb ignore the bulk of whitespace changes
-    # -N detect new files
-    # -u unified
-    # -r recurse
-    diff -ENwbur "$1" "$2"  | kompare -o -
+  # -Ewb ignore the bulk of whitespace changes
+  # -N detect new files
+  # -u unified
+  # -r recurse
+  diff -ENwbur "$1" "$2"  | kompare -o -
 }
 
 # Git aliases and functions ----------------------------------------------------
@@ -126,13 +126,13 @@ alias gl="bash /opt/pn-dotfiles/bin/git-pretty-log"
 alias gs="g s"
 
 function gac() {
-    message="$@"
-    git add --all
-    git commit -m "$message"
+  message="$@"
+  git add --all
+  git commit -m "$message"
 }
 
 # Load local bashrc ------------------------------------------------------------
 
 if [ -f ~/.bashrc-local ]; then
-    source ~/.bashrc-local
+  source ~/.bashrc-local
 fi
