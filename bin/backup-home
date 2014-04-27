@@ -1,0 +1,59 @@
+#!/bin/bash
+
+set -e
+
+timestamp="`date +%Y-%m-%d-%H-%M-%S`"
+copy_name="home-backup-$timestamp"
+options=(
+  --archive
+  --compress # Compress data sent.
+  --relative
+  --exclude-from=- # Read exclude rules from input.
+)
+home_files=(
+  .backup-exclude-rules
+  .bash*
+  .config
+  .purple
+  pro
+)
+backups_dir="/home/backups"
+destination="$backups_dir/$copy_name"
+archive_name="$copy_name.tar.gz"
+
+main() {
+  make_copy
+  archive_copy
+  remove_old_copy
+}
+
+make_copy() {
+  mkdir -p "$destination"
+  cd /home/p
+  write_exclude_list | rsync ${options[@]} ${home_files[@]} "$destination"
+}
+
+archive_copy() {
+  cd "$backups_dir"
+  tar -czf "$archive_name" "$copy_name"
+}
+
+remove_old_copy() {
+  rm -fr "$destination"
+}
+
+write_exclude_list() {
+  # Write global rules (and trim whitespace).
+  sed -e 's/^ *//' <<END
+    *~
+    *.swp
+    *.swo
+END
+
+  # Write local rules if they exist.
+  if [ -f ~/.backup-exclude-rules ]; then
+    cat ~/.backup-exclude-rules
+  fi
+}
+
+main
