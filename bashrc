@@ -82,7 +82,8 @@ alias grep="grep --color=auto"
 alias egrep="egrep --color=auto"
 alias v="vim"
 alias am="alsamixer"
-alias b="thunar . &"
+alias b="thunar . & >/dev/null 2>/dev/null"
+alias t="gnome-terminal & >/dev/null 2>/dev/null"
 
 # Complex aliases --------------------------------------------------------------
 
