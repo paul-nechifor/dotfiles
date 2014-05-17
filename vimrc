@@ -42,8 +42,12 @@ set scrolloff=3 " Keep 3 lines at the top or bottom of the screen
 set number " Line numbers.
 set ruler " Show line and column in the status bar.
 
-" Show relative file path in the statusline
-set statusline+=%f
+" Status line:
+set statusline=%f " relative file path
+set statusline+=%= " left-right separator
+set statusline+=\ %l:%c " cursor line:column
+set statusline+=\ %P " percent through file
+
 set laststatus=2
 
 " Use 1 space when joining sentences.
