@@ -1,10 +1,6 @@
 " 80 char limit.
 set textwidth=80
 
-" Show lines over 80 chars as errors.
-highlight OverLength ctermbg=red ctermfg=red guibg=#592929 
-match OverLength /\%81v.*/
-
 " Keep search pattern at the center of the screen.
 nnoremap <silent> n nzz
 nnoremap <silent> N Nzz
@@ -129,6 +125,9 @@ autocmd BufWinEnter * match ExtraWhitespace /\s\+$/
 autocmd InsertEnter * match ExtraWhitespace /\s\+\%#\@<!$/
 autocmd InsertLeave * match ExtraWhitespace /\s\+$/
 autocmd BufWinLeave * call clearmatches()
+
+" Show lines over 80 chars as errors.
+autocmd BufWinEnter * match ErrorMsg '\%81v.'
 
 " Functions ------------------------------------------------------------------------------------------------------------
 function CLikeMode()
