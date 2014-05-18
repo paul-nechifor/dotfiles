@@ -116,6 +116,11 @@ function dirdiff() {
   diff -ENwbur "$1" "$2"  | kompare -o -
 }
 
+function mvninit() {
+  id=$1
+  mvn archetype:create -DgroupId=net.nechifor.$id -DartifactId=$id
+}
+
 # Git aliases and functions ----------------------------------------------------
 
 alias g="git"
