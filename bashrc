@@ -125,9 +125,12 @@ function mvninit() {
 
 alias g="git"
 alias ga="g add --all"
-alias gg="gitg"
+alias gc="g c"
+alias gca="g c --amend"
 alias gd="g diff"
 alias gdc="g diff --cached"
+alias gad="ga && gdc"
+alias gg="gitg"
 alias gl="bash /opt/pn-dotfiles/bin/git-pretty-log"
 alias gs="g s"
 
