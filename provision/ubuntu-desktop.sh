@@ -1,6 +1,7 @@
 #!/bin/bash
 
 lang_pack="ro"
+username="p"
 
 package_list=(
   # Terminal apps
@@ -124,6 +125,10 @@ configure_dirs() {
   # Delete annyoing home dir structure.
   rm -fr "${unnecessary_files[@]}"
   cd -
+
+  # Create backups dir.
+  mkdir /home/backups
+  chmod $username:$username /home/backups
 }
 
 main() {
