@@ -40,6 +40,8 @@ export JAVA_HOME="/usr/lib/jvm/java-7-openjdk-amd64"
 
 export TERM='xterm-256color'
 
+export PATH="$PATH:/opt/pn-dotfiles/bin"
+
 # File system management -------------------------------------------------------
 
 alias ls="ls --color=auto"
