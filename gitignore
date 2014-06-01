@@ -3,6 +3,7 @@
 *.pyc
 *~
 .idea
+.vagrant
 *.iml
 node_modules
 /private
