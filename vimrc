@@ -217,6 +217,8 @@ function! ExecuteFile(filename)
     exec ":!coffee " . a:filename
   elseif match(a:filename, '\.js$') != -1
     exec ":!node " . a:filename
+  elseif match(a:filename, '\.py$') != -1
+    exec ":!python " . a:filename
   elseif match(a:filename, '\.sh$') != -1
     exec ":!bash " . a:filename
   elseif match(a:filename, '\.go$') != -1
