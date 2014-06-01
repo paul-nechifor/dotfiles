@@ -62,6 +62,9 @@ link_user_files() {
   rm -f ~/.gitignore
   ln -s "$install_dir/gitignore" ~/.gitignore
 
+  rm -f ~/.tmux.conf
+  ln -s "$install_dir/tmux.conf" ~/.tmux.conf
+
   rm -f ~/.i3/config
   mkdir ~/.i3 2>/dev/null
   ln -s "$install_dir/i3-config" ~/.i3/config
