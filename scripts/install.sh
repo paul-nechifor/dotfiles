@@ -68,6 +68,10 @@ link_user_files() {
   rm -f ~/.i3/config
   mkdir ~/.i3 2>/dev/null
   ln -s "$install_dir/i3-config" ~/.i3/config
+
+  rm -f ~/.config/i3status/config
+  mkdir -p ~/.config/i3status 2>/dev/null
+  ln -s "$install_dir/i3status-config" ~/.config/i3status/config
 }
 
 link_common_files() {
