@@ -7,3 +7,4 @@
 *.iml
 node_modules
 /private
+npm-debug.log
