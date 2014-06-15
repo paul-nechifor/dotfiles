@@ -33,13 +33,8 @@ export LESS_TERMCAP_so=$(printf "\e[1;47;30m")
 export LESS_TERMCAP_ue=$(printf "\e[0m")
 export LESS_TERMCAP_us=$(printf "\e[0;36m")
 
-# Java 6
-#export JAVA_HOME="/usr/lib/jvm/java-6-openjdk"
-# Java 7
 export JAVA_HOME="/usr/lib/jvm/java-7-openjdk-amd64"
-
 export TERM='xterm-256color'
-
 export PATH="$PATH:/opt/pn-dotfiles/bin"
 
 # File system management -------------------------------------------------------
@@ -74,18 +69,21 @@ function dc() {
 }
 
 alias ..="d .."
+alias ...="d ../.."
+alias ....="d ../../.."
 
 alias df="df -ah --si"
 alias du="du -h"
 
 # Lazy aliases -----------------------------------------------------------------
 
-alias grep="grep --color=auto"
-alias egrep="egrep --color=auto"
-alias v="vim"
 alias am="alsamixer"
 alias b="thunar . & >/dev/null 2>/dev/null"
+alias egrep="egrep --color=auto"
+alias grep="grep --color=auto"
+alias p="pwd"
 alias t="gnome-terminal & >/dev/null 2>/dev/null"
+alias v="vim"
 
 # Complex aliases --------------------------------------------------------------
 
