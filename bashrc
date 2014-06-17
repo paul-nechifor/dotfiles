@@ -121,6 +121,15 @@ function mvninit() {
   mvn archetype:create -DgroupId=net.nechifor.$id -DartifactId=$id
 }
 
+function listen() {
+  file="$1"
+  commands=${@:2}
+  for (( ; ; )) {
+    inotifywait -e close_write "$file" >/dev/null 2>/dev/null
+    $commands
+  }
+}
+
 # Git aliases and functions ----------------------------------------------------
 
 alias g="git"

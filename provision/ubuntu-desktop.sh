@@ -40,6 +40,7 @@ package_list=(
   unrar
   xbacklight
   xdotool
+  inotify-tools
 
   # Desktop
   gnome-shell
