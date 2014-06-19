@@ -1,3 +1,9 @@
 # Dotfiles
 
-My personal Linux dot files.
+![cover](screenshot.png)
+
+My personal Linux dotfiles.
+
+## License
+
+MIT
