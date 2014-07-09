@@ -90,6 +90,9 @@ execute pathogen#infect()
 " Toggle it with Ctrl+N.
 map <C-n> :NERDTreeToggle<CR>
 
+" What to ignore in CtrlP.
+let g:ctrlp_custom_ignore = 'node_modules\|DS_Store\|git\|build'
+
 " Comma mappings --------------------------------------------------------------------------------------------
 
 " Toggle previous file with `,,`.
