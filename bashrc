@@ -130,6 +130,11 @@ function listen() {
   }
 }
 
+function texwc() {
+  file="$1"
+  texcount -total "$file" | grep 'Words in text' | sed 's/[^0-9]*//g'
+}
+
 # Git aliases and functions ----------------------------------------------------
 
 alias g="git"
