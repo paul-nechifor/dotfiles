@@ -132,6 +132,11 @@ configure_dirs() {
   chown $username:$username /home/backups
 }
 
+set_options() {
+  # Don't show desktop with Nautilus.
+  gsettings set org.gnome.desktop.background show-desktop-icons false
+}
+
 main() {
   check_if_root
   add_ppas
@@ -139,6 +144,7 @@ main() {
   remove_packages
   add_packages
   configure_dirs
+  set_options
 }
 
 main
