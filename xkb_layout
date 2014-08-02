@@ -33,4 +33,5 @@ xkb_symbols "basic" {
   key <AB10> {[ slash, question, 0x100203D ]};
 
   include "level3(ralt_switch)"
+  include "capslock(escape)"
 };

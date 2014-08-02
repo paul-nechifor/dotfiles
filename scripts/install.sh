@@ -49,6 +49,8 @@ link_root_files() {
 
   rm -f /usr/share/X11/xkb/symbols/ro
   ln -s "$install_dir/xkb_layout" /usr/share/X11/xkb/symbols/ro
+  dpkg-reconfigure xkb-data
+  setxkbmap ro
 
   provision_vim
 }
