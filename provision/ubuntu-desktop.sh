@@ -85,6 +85,12 @@ package_list=(
   totem-mozilla
 )
 
+npm_packages=(
+  bower
+  coffee-script
+  gulp
+)
+
 unnecessary_files=(
   Descărcări
   Desktop
@@ -139,12 +145,22 @@ set_options() {
   gsettings set org.gnome.desktop.background show-desktop-icons false
 }
 
+install_node() {
+  apt-get install -y python-software-properties
+  add-apt-repository -y ppa:chris-lea/node.js
+  apt-get update
+  apt-get install -y nodejs
+
+  npm install -g ${npm_packages[@]}
+}
+
 main() {
   check_if_root
   add_ppas
   update_repos
   remove_packages
   add_packages
+  install_node
   configure_dirs
   set_options
 }
