@@ -9,6 +9,8 @@ package_list=(
   git
   git-cola
   git-svn
+  gitg
+  tmux
   vim
   vim-gtk
 
