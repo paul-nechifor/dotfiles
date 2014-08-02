@@ -129,7 +129,7 @@ configure_dirs() {
 
   # Create backups dir.
   mkdir /home/backups
-  chmod $username:$username /home/backups
+  chown $username:$username /home/backups
 }
 
 main() {
