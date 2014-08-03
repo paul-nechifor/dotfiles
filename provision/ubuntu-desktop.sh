@@ -30,6 +30,9 @@ package_list=(
   language-pack-$lang_pack-base
   language-pack-gnome-$lang_pack-base
 
+  # Fonts
+  'ttf-*'
+
   # Utilities
   curl
   festival
@@ -154,6 +157,10 @@ install_node() {
   npm install -g ${npm_packages[@]}
 }
 
+post_process() {
+  fc-cache -f -v
+}
+
 main() {
   check_if_root
   add_ppas
@@ -163,6 +170,7 @@ main() {
   install_node
   configure_dirs
   set_options
+  post_process
 }
 
 main
