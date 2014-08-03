@@ -3,7 +3,13 @@
 lang_pack="ro"
 username="p"
 
-package_list=(
+remove_list=(
+  unity-lens-shopping
+  unity-scope-musicstores
+  unity-scope-video-remote
+)
+
+install_list=(
   # Terminal apps
   cmus
   git
@@ -17,12 +23,13 @@ package_list=(
   # Programming
   build-essential
   cloc
+  kompare
   linux-headers-`uname -r`
   linux-headers-generic
   nasm
   netbeans
+  nodejs
   python-pip
-  kompare
 
   # Langauge pack
   language-pack-$lang_pack
@@ -113,23 +120,22 @@ check_if_root() {
   fi
 }
 
-add_ppas() {
-  true
-}
+add_ppas_and_update() {
+  apt-get update
 
-update_repos() {
+  apt-get install -y python-software-properties
+  add-apt-repository -y ppa:chris-lea/node.js
+
   apt-get update
 }
 
 remove_packages() {
-  true
+  apt-get remove -y ${remove_list[@]}
 }
 
-add_packages() {
-  packages="${package_list[@]}"
-  apt-get install $packages
-
+install_packages() {
   apt-get upgrade
+  apt-get install ${install_list[@]}
 }
 
 configure_dirs() {
@@ -139,7 +145,7 @@ configure_dirs() {
   cd -
 
   # Create backups dir.
-  mkdir /home/backups
+  mkdir /home/backups 2>/dev/null
   chown $username:$username /home/backups
 }
 
@@ -148,12 +154,7 @@ set_options() {
   gsettings set org.gnome.desktop.background show-desktop-icons false
 }
 
-install_node() {
-  apt-get install -y python-software-properties
-  add-apt-repository -y ppa:chris-lea/node.js
-  apt-get update
-  apt-get install -y nodejs
-
+install_npm_packages() {
   npm install -g ${npm_packages[@]}
 }
 
@@ -163,11 +164,12 @@ post_process() {
 
 main() {
   check_if_root
-  add_ppas
-  update_repos
+
+  add_ppas_and_update
   remove_packages
-  add_packages
-  install_node
+  install_packages
+  install_npm_packages
+
   configure_dirs
   set_options
   post_process
