@@ -38,13 +38,14 @@ set scrolloff=3 " Keep 3 lines at the top or bottom of the screen
 set number " Line numbers.
 set ruler " Show line and column in the status bar.
 
+" Always show tab line.
+set showtabline=2
+
 " Status line:
 set statusline=%f " relative file path
 set statusline+=%= " left-right separator
 set statusline+=\ %l:%c " cursor line:column
 set statusline+=\ %P " percent through file
-
-set laststatus=2
 
 " Use 1 space when joining sentences.
 set nojoinspaces
@@ -52,7 +53,6 @@ set nojoinspaces
 " Colors.
 syntax on
 colorscheme default
-
 
 " Tell vim to remember certain things when we exit
 "  '10  :  marks will be remembered for up to 10 previously edited files
@@ -83,12 +83,34 @@ nnoremap <C-H> <C-W><C-H>
 " Use tab to complete. If only whitespace, use actual tab.
 :inoremap <Tab> <C-R>=TabOrComplete()<CR>
 
-" Pathogen
-execute pathogen#infect()
+" Go to tab by number.
+noremap ,1 1gt
+noremap ,2 2gt
+noremap ,3 3gt
+noremap ,4 4gt
+noremap ,5 5gt
+noremap ,6 6gt
+noremap ,7 7gt
+noremap ,8 8gt
+noremap ,9 9gt
+noremap ,0 :tablast<CR>
+
+" Go to next or previous tab
+"inoremap <C-[> <ESC>:tabp<CR>
+"noremap <C-[> :tabp<CR>
+"inoremap <C-]> <ESC>:tabn<CR>
+"noremap <C-]> :tabn<CR>
 
 " Nerd tree
 " Toggle it with Ctrl+N.
 map <C-n> :NERDTreeToggle<CR>
+nnoremap <C-J> <C-W><C-J>
+nnoremap <C-K> <C-W><C-K>
+nnoremap <C-L> <C-W><C-L>
+nnoremap <C-H> <C-W><C-H>
+
+" Pathogen
+execute pathogen#infect()
 
 " What to ignore in CtrlP.
 let g:ctrlp_custom_ignore = 'node_modules\|DS_Store\|git\|build'
