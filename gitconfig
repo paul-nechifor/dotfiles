@@ -24,3 +24,5 @@
   co = checkout
   c = commit
   s = "!echo -n 'branch: '; git rev-parse --abbrev-ref HEAD; git status --short"
+[push]
+	default = simple
