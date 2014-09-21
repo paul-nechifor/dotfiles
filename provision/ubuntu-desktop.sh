@@ -23,9 +23,11 @@ install_list=(
   # Programming
   build-essential
   cloc
+  golang
   kompare
   linux-headers-`uname -r`
   linux-headers-generic
+  openjdk-7-jdk
   nasm
   netbeans
   nodejs
