@@ -135,6 +135,18 @@ function texwc() {
   texcount -total "$file" | grep 'Words in text' | sed 's/[^0-9]*//g'
 }
 
+function sslenc() {
+  file="$1"
+  openssl enc -aes-256-cbc -salt -in $file -out $file.enc \
+      -pass file:/home/p/pro/docs/keys/symkey256.bin
+}
+
+function ssldec() {
+  file="`basename $1 .enc`"
+  openssl enc -d -aes-256-cbc -salt -in $file.enc -out $file \
+      -pass file:/home/p/pro/docs/keys/symkey256.bin
+}
+
 # Git aliases and functions ----------------------------------------------------
 
 alias g="git"
