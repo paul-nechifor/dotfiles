@@ -27,10 +27,11 @@ install_list=(
   kompare
   linux-headers-`uname -r`
   linux-headers-generic
-  openjdk-7-jdk
+  maven
   nasm
   netbeans
   nodejs
+  openjdk-7-jdk
   python-pip
 
   # Langauge pack
