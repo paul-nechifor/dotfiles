@@ -97,11 +97,6 @@ alias pull-dotfiles-updates="wget -O - 'https://github.com/paul-nechifor/dotfile
 # dirs.
 alias resetmod="find . -type f -exec chmod 644 {} + ; find . -type d -exec chmod 755 {} +"
 
-# Script aliases ---------------------------------------------------------------
-
-alias light="python2 /opt/pn-dotfiles/bin/gnome-terminal-theme.py solarized-ish-light"
-alias dark="python2 /opt/pn-dotfiles/bin/gnome-terminal-theme.py solarized-ish-dark"
-
 # Functions --------------------------------------------------------------------
 
 function die() {

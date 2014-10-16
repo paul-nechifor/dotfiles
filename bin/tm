@@ -1,0 +1,100 @@
+#!/usr/bin/env python2
+
+import re
+import subprocess
+import sys
+
+ROOT = '/apps/gnome-terminal/profiles/Default/'
+THEMES = {
+    'solarized-ish-dark': [
+        '002B36',
+        '657B83',
+
+        '063642',
+        'D30102',
+        '859900',
+        'B58900',
+        '268BD2',
+        'D33682',
+        '2AA198',
+        'EEE8D5',
+
+        '002B36',
+        'CB4B16',
+        '859900',
+        'B58900',
+        '268BD2',
+        'D33682',
+        '2AA198',
+        'FDF6E3',
+    ],
+    'solarized-ish-light': [
+        'FDF6E3',
+        '536466',
+
+        'EEE8D5',
+        'D30102',
+        '859900',
+        'B58900',
+        '268BD2',
+        'D33682',
+        '2AA198',
+        '073642',
+
+        'FDF6E3',
+        'CB4B16',
+        '859900',
+        'B58900',
+        '268BD2',
+        'D33682',
+        '2AA198',
+        '002B36',
+    ]
+}
+THEMES['light'] = THEMES['solarized-ish-light']
+THEMES['dark'] = THEMES['solarized-ish-dark']
+
+def gconf_get(path):
+    args = ['gconftool-2', '--get', path]
+    process = subprocess.Popen(args, stdout=subprocess.PIPE)
+    out, err = process.communicate()
+    return out.strip()
+
+def gconf_set(path, type, value):
+    subprocess.call(['gconftool-2', '--set', path, '--type', type, value])
+
+def join_colors(theme, a, b):
+    return '#' + ':#'.join(theme[a:b])
+
+def set_theme(theme):
+    gconf_set(ROOT + 'use_theme_background', 'bool', 'false')
+    gconf_set(ROOT + 'use_theme_colors', 'bool', 'false')
+    gconf_set(ROOT + 'background_color', 'string', join_colors(theme, 0, 1))
+    gconf_set(ROOT + 'foreground_color', 'string', join_colors(theme, 1, 2))
+    gconf_set(ROOT + 'palette', 'string', join_colors(theme, 2, 18))
+
+def set_font_size(size=16, relative=None):
+    font = gconf_get(ROOT + 'font')
+    if relative:
+        size = int(re.match(r'.*?(\d+)$', font).group(1)) + relative
+    if size < 10:
+        size = 10
+    if size > 32:
+        size = 32
+    font = re.sub(r'\d+$', str(size), font)
+    gconf_set(ROOT + 'font', 'string', font)
+
+def main():
+    arg = sys.argv[1]
+    if re.match(r'^\d+$', arg):
+        set_font_size(int(arg))
+    elif re.match(r'^(-+|\++)$', arg):
+        size = len(arg) * -1 if arg[0] == '-' else 1
+        set_font_size(relative=size)
+    elif re.match(r'^[-+]\d+$', arg):
+        set_font_size(relative=int(arg))
+    else:
+        set_theme(arg)
+
+if __name__ == '__main__':
+    main()
