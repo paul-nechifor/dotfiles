@@ -63,8 +63,6 @@ colorscheme default
 "  n... :  where to save the viminfo files
 set viminfo='10,\"100,:20,%,n~/.viminfo
 
-" Mappings -------------------------------------------------------------------------------------------------------------
-
 " F2 - toggle show special characters"
 imap <F2> <ESC>:set list!<CR>a
 map <F2> :set list!<CR>
@@ -96,27 +94,18 @@ noremap ,8 8gt
 noremap ,9 9gt
 noremap ,0 :tablast<CR>
 
-" Go to next or previous tab
-"inoremap <C-[> <ESC>:tabp<CR>
-"noremap <C-[> :tabp<CR>
-"inoremap <C-]> <ESC>:tabn<CR>
-"noremap <C-]> :tabn<CR>
-
-" Nerd tree
-" Toggle it with Ctrl+N.
+" Nerd tree. Toggle it with Ctrl+N.
 map <C-n> :NERDTreeToggle<CR>
 nnoremap <C-J> <C-W><C-J>
 nnoremap <C-K> <C-W><C-K>
 nnoremap <C-L> <C-W><C-L>
 nnoremap <C-H> <C-W><C-H>
 
-" Pathogen
+" Pathogen.
 execute pathogen#infect()
 
 " What to ignore in CtrlP.
 let g:ctrlp_custom_ignore = 'node_modules\|DS_Store\|git\|build'
-
-" Comma mappings --------------------------------------------------------------------------------------------
 
 " Toggle previous file with `,,`.
 nnoremap ,, <c-^>
@@ -124,10 +113,7 @@ nnoremap ,, <c-^>
 " Execute current file.
 map ,e :call ExecuteFile(expand("%"))<cr>
 
-" Autos ----------------------------------------------------------------------------------------------------------------
-
 autocmd Syntax c,java,cpp,cs call CLikeMode()
-"autocmd Syntax c,java,cpp setlocal foldmethod=syntax
 
 autocmd FileType python set ts=4 sw=4 sts=4
 
@@ -155,7 +141,7 @@ autocmd BufWinLeave * call clearmatches()
 " Show lines over 80 chars as errors.
 autocmd BufWinEnter * match ErrorMsg '\%81v.'
 
-" Functions ------------------------------------------------------------------------------------------------------------
+" Functions --------------------------------------------------------------------
 function CLikeMode()
   if !exists("b:clikeState") || b:clikeState == "off"
     let b:clikeState = "on"
@@ -180,10 +166,8 @@ function ToggleCompleteMatching()
     inoremap ( ()<Esc>i
     inoremap [ []<Esc>i
     inoremap { {<CR>}<Esc>O
-    "autocmd Syntax html,vim inoremap < <lt>><Esc>i| inoremap > <c-r>=ClosePair('>')<CR>
     inoremap ) <c-r>=ClosePair(')')<CR>
     inoremap ] <c-r>=ClosePair(']')<CR>
-    "inoremap } <c-r>=CloseBracket()<CR>
     inoremap " <c-r>=QuoteDelim('"')<CR>
   else
     let b:matchState = "off"
@@ -235,7 +219,7 @@ function! TabOrComplete()
   endif
 endf
 
-" Execute file if know how.
+" Execute file if know how. Note that the file is saved before executing.
 function! ExecuteFile(filename)
   :w
   :silent !clear
