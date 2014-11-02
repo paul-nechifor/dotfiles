@@ -24,6 +24,7 @@ set gfn=Monospace\ 8
 " Search options:
 set hlsearch " Highlight results.
 set incsearch " Don't wait for me to hit enter to search.
+set ignorecase
 
 " Indentation options:
 set smartindent
