@@ -94,7 +94,7 @@ def main():
     elif re.match(r'^[-+]\d+$', arg):
         set_font_size(relative=int(arg))
     else:
-        set_theme(arg)
+        set_theme(THEMES[arg])
 
 if __name__ == '__main__':
     main()
