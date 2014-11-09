@@ -6,6 +6,28 @@ import sys
 
 ROOT = '/apps/gnome-terminal/profiles/Default/'
 THEMES = {
+    'black': [
+        '000000',
+        'FFFFFF',
+
+        '063642',
+        'D30102',
+        '859900',
+        'B58900',
+        '268BD2',
+        'D33682',
+        '2AA198',
+        'EEE8D5',
+
+        '002B36',
+        'CB4B16',
+        '859900',
+        'B58900',
+        '268BD2',
+        'D33682',
+        '2AA198',
+        'FDF6E3',
+    ],
     'solarized-ish-dark': [
         '002B36',
         '657B83',
@@ -49,7 +71,7 @@ THEMES = {
         'D33682',
         '2AA198',
         '002B36',
-    ]
+    ],
 }
 THEMES['light'] = THEMES['solarized-ish-light']
 THEMES['dark'] = THEMES['solarized-ish-dark']
