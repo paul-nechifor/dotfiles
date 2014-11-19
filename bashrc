@@ -36,6 +36,7 @@ export LESS_TERMCAP_us=$(printf "\e[0;36m")
 export JAVA_HOME="/usr/lib/jvm/java-7-openjdk-amd64"
 export TERM='xterm-256color'
 export PATH="$PATH:/opt/pn-dotfiles/bin"
+export EDITOR="vim"
 
 # File system management -------------------------------------------------------
 
