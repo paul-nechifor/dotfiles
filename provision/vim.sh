@@ -26,7 +26,10 @@ install_from_git() {
 install() {
   install_from_git ctrlp 'https://github.com/kien/ctrlp.vim'
   install_from_git nerdtree 'https://github.com/scrooloose/nerdtree.git'
-  install_from_git vim-coffee-script 'https://github.com/kchmck/vim-coffee-script.git'
+  install_from_git coffee-script 'https://github.com/kchmck/vim-coffee-script.git'
+  install_from_git gitgutter 'https://github.com/airblade/vim-gitgutter.git'
+  install_from_git stylus 'https://github.com/wavded/vim-stylus.git'
+  install_from_git jade 'https://github.com/digitaltoad/vim-jade.git'
 }
 
 main() {

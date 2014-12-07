@@ -127,6 +127,13 @@ autocmd InsertEnter * match ExtraWhitespace /\s\+\%#\@<!$/
 autocmd InsertLeave * match ExtraWhitespace /\s\+$/
 autocmd BufWinLeave * call clearmatches()
 
+" Git Gutter highlights.
+highlight GitGutterAdd ctermbg=Black ctermfg=Green
+highlight GitGutterChange ctermbg=Black ctermfg=Yellow
+highlight GitGutterDelete ctermbg=Black ctermfg=Red
+highlight GitGutterChangeDelete ctermbg=Black ctermfg=Magenta
+highlight SignColumn ctermbg=Black ctermfg=Black
+
 " Show lines over 80 chars as errors.
 autocmd BufWinEnter * match ErrorMsg '\%81v.'
 
