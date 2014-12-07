@@ -19,7 +19,6 @@ set undolevels=666
 set formatoptions-=t
 " Anybody who uses anything else should be shot I'm afraid to say.
 set encoding=utf-8
-set gfn=Monospace\ 8
 
 " Search options:
 set hlsearch " Highlight results.
@@ -36,7 +35,7 @@ set shiftwidth=2
 
 " Text options:
 set scrolloff=3 " Keep 3 lines at the top or bottom of the screen
-set number " Line numbers.
+"set number " Line numbers.
 set ruler " Show line and column in the status bar.
 
 " Always show tab line.
@@ -62,16 +61,6 @@ colorscheme default
 "  %    :  saves and restores the buffer list
 "  n... :  where to save the viminfo files
 set viminfo='10,\"100,:20,%,n~/.viminfo
-
-" F2 - toggle show special characters"
-imap <F2> <ESC>:set list!<CR>a
-map <F2> :set list!<CR>
-" F3 - toggle complete matching characters
-imap <F3> <ESC>:call ToggleCompleteMatching()<CR>a
-map <F3> :call ToggleCompleteMatching()<CR>
-" F4 - toggle C-like mode
-imap <F4> <ESC>:call CLikeMode()<CR>a
-map <F4> :call CLikeMode()<CR>
 
 " Navigation windows
 nnoremap <C-J> <C-W><C-J>
