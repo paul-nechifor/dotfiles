@@ -133,14 +133,30 @@ autocmd InsertLeave * match ExtraWhitespace /\s\+$/
 autocmd BufWinLeave * call clearmatches()
 
 " Git Gutter highlights.
-highlight GitGutterAdd ctermbg=Black ctermfg=Green
-highlight GitGutterChange ctermbg=Black ctermfg=Yellow
-highlight GitGutterDelete ctermbg=Black ctermfg=Red
-highlight GitGutterChangeDelete ctermbg=Black ctermfg=Magenta
-highlight SignColumn ctermbg=Black ctermfg=Black
+highlight GitGutterAdd ctermbg=235 ctermfg=Green
+highlight GitGutterChange ctermbg=235 ctermfg=Yellow
+highlight GitGutterDelete ctermbg=235 ctermfg=Red
+highlight GitGutterChangeDelete ctermbg=235 ctermfg=Yellow
+highlight SignColumn ctermbg=235 ctermfg=White
+
+" Line numbers columns.
+highlight LineNr ctermbg=233 ctermfg=240 guibg=#2c2d27
+
+" Tab colors.
+highlight TabLineFill ctermbg=235 ctermfg=235
+highlight TabLine ctermbg=238 ctermfg=White cterm=NONE
+highlight TabLineSel ctermbg=Black ctermfg=White
 
 " Show lines over 80 chars as errors.
-autocmd BufWinEnter * match ErrorMsg '\%81v.'
+au BufWinEnter * let w:m1=matchadd('ErrorMsg', '\%81v.', -1)
+
+" Toggle show numbers.
+nmap <C-M> :set invnumber<CR>
+
+" Toggle GitGutter.
+nmap <C-G> :GitGutterToggle<CR>
+" Turn off GitGutter by default.
+let g:gitgutter_enabled = 0
 
 " Functions --------------------------------------------------------------------
 function CLikeMode()
