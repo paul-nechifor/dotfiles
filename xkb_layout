@@ -4,33 +4,33 @@ xkb_symbols "basic" {
 
   name[Group1]="Romanian (Programmers + Other)";
 
-  key <AE01> { [ 1,                 exclam] };
-  key <AE02> { [ 2,                     at] };
-  key <AE03> { [ 3,             numbersign] };
-  key <AE04> { [ 4,                 dollar] };
-  key <AE05> { [ 5,                percent] };
-  key <AE06> { [ 6,            asciicircum] };
-  key <AE07> { [ 7,              ampersand] };
-  key <AE08> { [ 8,               asterisk,  0x10000D7, 0x10000F7] };
-  key <AE09> { [ 9,              parenleft] };
-  key <AE10> { [ 0,             parenright] };
-  key <AE11> { [ minus,         underscore,  emdash, endash] };
-  key <AE12> { [ equal,               plus,  0x1002212, plusminus ] };
-  key <AB01> { [ z,                      Z,  0x10030C4] };
-  key <AD01> { [ q,                      Q,  acircumflex, Acircumflex ] };
-  key <AD02> { [ w,                      W] };
-  key <AD03> { [ e,                      E,  EuroSign  	          ] };
-  key <AD05> { [ t,                      T,  0x100021b,       0x100021a ] };
-  key <AD08> { [ i,                      I,  icircumflex,   Icircumflex ] };
-  key <AD10> { [ p,                      P,  section 			  ] };
-  key <AD11> { [ bracketleft,    braceleft,  doublelowquotemark] };
-  key <AD12> { [ bracketright,  braceright,  leftdoublequotemark, rightdoublequotemark] };
-  key <AC01> { [ a,                      A,  abreve,             Abreve ] };
-  key <AC02> { [ s,                      S,  0x1000219,       0x1000218 ] };
-  key <LSGT> { [ backslash,            bar                              ] };
-  key <AB08> { [ comma, 	        less,  guillemotleft	          ] };
-  key <AB09> { [ period, 	     greater,  guillemotright 	          ] };
-  key <AB10> {[ slash, question, 0x100203D ]};
+  key <AE01> {[1, exclam]};
+  key <AE02> {[2, at]};
+  key <AE03> {[3, numbersign]};
+  key <AE04> {[4, dollar]};
+  key <AE05> {[5, percent]};
+  key <AE06> {[6, asciicircum]};
+  key <AE07> {[7, ampersand]};
+  key <AE08> {[8, asterisk, 0x10000D7, 0x10000F7]};
+  key <AE09> {[9, parenleft]};
+  key <AE10> {[0, parenright]};
+  key <AE11> {[minus, underscore, emdash, endash]};
+  key <AE12> {[equal, plus, 0x1002212, plusminus]};
+  key <AB01> {[z, Z, 0x10030C4]};
+  key <AD01> {[q, Q, acircumflex, Acircumflex]};
+  key <AD02> {[w, W]};
+  key <AD03> {[e, E, EuroSign]};
+  key <AD05> {[t, T, 0x100021b, 0x100021a]};
+  key <AD08> {[i, I, icircumflex, Icircumflex]};
+  key <AD10> {[p, P, section]};
+  key <AD11> {[bracketleft, braceleft, doublelowquotemark]};
+  key <AD12> {[bracketright, braceright, leftdoublequotemark, rightdoublequotemark]};
+  key <AC01> {[a, A, abreve, Abreve]};
+  key <AC02> {[s, S, 0x1000219, 0x1000218]};
+  key <LSGT> {[backslash, bar]};
+  key <AB08> {[comma, less, guillemotleft]};
+  key <AB09> {[period, greater, guillemotright]};
+  key <AB10> {[slash, question, 0x100203D]};
 
   include "level3(ralt_switch)"
   include "capslock(escape)"
