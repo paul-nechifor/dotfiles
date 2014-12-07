@@ -54,6 +54,11 @@ set nojoinspaces
 syntax on
 colorscheme default
 
+" Override Vim's autodetection.
+if $COLORTERM == 'gnome-terminal'
+  set t_Co=256
+endif
+
 " Tell vim to remember certain things when we exit
 "  '10  :  marks will be remembered for up to 10 previously edited files
 "  "100 :  will save up to 100 lines for each register
@@ -165,6 +170,7 @@ function ToggleCompleteMatching()
     inoremap ) <c-r>=ClosePair(')')<CR>
     inoremap ] <c-r>=ClosePair(']')<CR>
     inoremap " <c-r>=QuoteDelim('"')<CR>
+    inoremap ' <c-r>=QuoteDelim("'")<CR>
   else
     let b:matchState = "off"
     iunmap (
@@ -173,6 +179,7 @@ function ToggleCompleteMatching()
     iunmap )
     iunmap ]
     iunmap "
+    iunmap '
   endif
 endf
 
@@ -233,3 +240,7 @@ function! ExecuteFile(filename)
     exec ":!echo \"Don't know how to execute: \"" . a:filename
   end
 endf
+
+" Function calls.
+
+call ToggleCompleteMatching()
