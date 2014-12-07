@@ -22,11 +22,12 @@ xkb_symbols "basic" {
   key <AD03> {[e, E, EuroSign]};
   key <AD05> {[t, T, 0x100021b, 0x100021a]};
   key <AD08> {[i, I, icircumflex, Icircumflex]};
-  key <AD10> {[p, P, section]};
-  key <AD11> {[bracketleft, braceleft, doublelowquotemark]};
-  key <AD12> {[bracketright, braceright, leftdoublequotemark, rightdoublequotemark]};
+  key <AD10> {[p, P, sterling, section]};
+  key <AD11> {[bracketleft, braceleft, leftdoublequotemark, doublelowquotemark]};
+  key <AD12> {[bracketright, braceright, rightdoublequotemark, doublelowquotemark]};
   key <AC01> {[a, A, abreve, Abreve]};
   key <AC02> {[s, S, 0x1000219, 0x1000218]};
+  key <AC11> {[apostrophe, quotedbl, rightsinglequotemark, leftsinglequotemark]};
   key <LSGT> {[backslash, bar]};
   key <AB08> {[comma, less, guillemotleft]};
   key <AB09> {[period, greater, guillemotright]};
