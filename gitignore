@@ -6,5 +6,6 @@
 .vagrant
 *.iml
 node_modules
+bower_components
 /private
 npm-debug.log

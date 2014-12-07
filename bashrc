@@ -10,6 +10,9 @@ bind '"\e[B":history-search-forward'
 # Append to `~/.bash_history`.
 shopt -s histappend
 
+# Enable using '**' like in 'ack word **/*.py'.
+shopt -s globstar
+
 # Bash history controls.
 export HISTSIZE=1000000
 export HISTCONTROL=ignoreboth
@@ -50,6 +53,10 @@ function l() {
   ls --color=always --group-directories-first -hlG --si "$@" |
   tail --lines=+2
 }
+
+alias tree="tree -Cvh --du --dirsfirst"
+
+alias ack="ack-grep"
 
 alias la="l -A"
 
