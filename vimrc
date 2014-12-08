@@ -140,7 +140,12 @@ highlight GitGutterChangeDelete ctermbg=235 ctermfg=Yellow
 highlight SignColumn ctermbg=235 ctermfg=White
 
 " Line numbers columns.
-highlight LineNr ctermbg=233 ctermfg=240 guibg=#2c2d27
+highlight LineNr ctermbg=233 ctermfg=240
+
+" Splitting colors.
+highlight VertSplit ctermbg=240 ctermfg=Black
+highlight StatusLine ctermbg=Black ctermfg=242
+highlight StatusLineNC ctermbg=231 ctermfg=235
 
 " Tab colors.
 highlight TabLineFill ctermbg=235 ctermfg=235
