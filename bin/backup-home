@@ -4,22 +4,15 @@ set -e
 
 timestamp="`date +%Y-%m-%d-%H-%M-%S`"
 copy_name="home-backup-$timestamp"
-options=(
-  --archive
-  --compress # Compress data sent.
-  --relative
-  --exclude-from=- # Read exclude rules from input.
-)
 home_files=(
   .backup-exclude-rules
   .bash*
   .config
-  .purple
   pro
 )
 backups_dir="/home/backups"
 destination="$backups_dir/$copy_name"
-archive_name="$copy_name.tar.gz"
+archive_name="$copy_name.tar.xz"
 
 main() {
   make_copy
@@ -28,6 +21,12 @@ main() {
 }
 
 make_copy() {
+  options=(
+    --archive
+    --compress # Compress data sent.
+    --relative
+    --exclude-from=- # Read exclude rules from input.
+  )
   mkdir -p "$destination"
   cd /home/p
   write_exclude_list | rsync ${options[@]} ${home_files[@]} "$destination"
@@ -35,7 +34,9 @@ make_copy() {
 
 archive_copy() {
   cd "$backups_dir"
-  tar -czf "$archive_name" "$copy_name"
+  export XZ_OPT="--lzma2=preset=2,dict=1GiB --memlimit-compress=13GiB"
+  tar -cJf "$archive_name" "$copy_name"
+  unset XZ_OPT
 }
 
 remove_old_copy() {
