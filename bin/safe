@@ -1,0 +1,16 @@
+#!/bin/bash
+
+main() {
+  if [ "$1" == "up" ]; then
+    sudo cryptsetup luksOpen /home/p/data/part/safe.fs safe
+    sudo mount /dev/mapper/safe /safe
+  else
+    case $PWD/ in
+      /safe/) cd;;
+    esac
+    sudo umount /safe
+    sudo cryptsetup luksClose safe
+  fi
+}
+
+main "$@"
