@@ -1,0 +1,17 @@
+#!/bin/bash
+
+main() {
+  name=$1
+  if [ "$2" == "up" ]; then
+    sudo cryptsetup luksOpen /home/p/data/part/${name}.fs ${name}
+    sudo mount /dev/mapper/${name} /${name}
+  else
+    case $PWD/ in
+      /${name}/) cd;;
+    esac
+    sudo umount /${name}
+    sudo cryptsetup luksClose ${name}
+  fi
+}
+
+main "$@"
