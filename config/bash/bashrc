@@ -93,9 +93,6 @@ alias p="pwd"
 alias t="gnome-terminal & >/dev/null 2>/dev/null"
 alias v="vim"
 
-alias safe="mount-fs safe"
-alias eth="mount-fs eth"
-
 # Complex aliases --------------------------------------------------------------
 
 alias dt="du -ba| sort -n | tail -50"
