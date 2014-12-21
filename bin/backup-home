@@ -9,6 +9,7 @@ home_files=(
   .bash*
   .config
   pro
+  data/part/safe.fs
 )
 backups_dir="/home/backups"
 destination="$backups_dir/$copy_name"
@@ -34,7 +35,7 @@ make_copy() {
 
 archive_copy() {
   cd "$backups_dir"
-  export XZ_OPT="--lzma2=preset=2,dict=1GiB --memlimit-compress=13GiB"
+  export XZ_OPT="--lzma2=preset=0,dict=1GiB --memlimit-compress=13GiB"
   tar -cJf "$archive_name" "$copy_name"
   unset XZ_OPT
 }
