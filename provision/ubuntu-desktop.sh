@@ -57,6 +57,12 @@ install_list=(
   xdotool
   inotify-tools
 
+  # VPN
+  bridge-utils
+  network-manager-openvpn
+  network-manager-openvpn-gnome
+  openvpn
+
   # Desktop
   gnome-shell
   gnome-tweak-tool
