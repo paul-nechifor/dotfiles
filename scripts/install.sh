@@ -2,6 +2,7 @@
 
 username="p"
 install_dir="/opt/pn-dotfiles"
+config_dir="/opt/pn-dotfiles/config"
 install_source="`pwd`"
 install_script="$install_source/$0"
 
@@ -48,7 +49,7 @@ link_root_files() {
   link_common_files
 
   rm -f /usr/share/X11/xkb/symbols/ro
-  ln -s "$install_dir/xkb_layout" /usr/share/X11/xkb/symbols/ro
+  ln -s "$config_dir/xkb/layout" /usr/share/X11/xkb/symbols/ro
   dpkg-reconfigure xkb-data
   setxkbmap ro
 
@@ -59,29 +60,29 @@ link_user_files() {
   link_common_files
 
   rm -f ~/.gitconfig
-  ln -s "$install_dir/gitconfig" ~/.gitconfig
+  ln -s "$config_dir/git/config" ~/.gitconfig
 
   rm -f ~/.gitignore
-  ln -s "$install_dir/gitignore" ~/.gitignore
+  ln -s "$config_dir/git/ignore" ~/.gitignore
 
   rm -f ~/.tmux.conf
-  ln -s "$install_dir/tmux.conf" ~/.tmux.conf
+  ln -s "$config_dir/tmux/tmux.conf" ~/.tmux.conf
 
   rm -f ~/.i3/config
   mkdir ~/.i3 2>/dev/null
-  ln -s "$install_dir/i3-config" ~/.i3/config
+  ln -s "$config_dir/i3/config" ~/.i3/config
 
   rm -f ~/.config/i3status/config
   mkdir -p ~/.config/i3status 2>/dev/null
-  ln -s "$install_dir/i3status-config" ~/.config/i3status/config
+  ln -s "$config_dir/i3/status" ~/.config/i3status/config
 }
 
 link_common_files() {
   rm -f ~/.bashrc
-  ln -s "$install_dir/bashrc" ~/.bashrc
+  ln -s "$config_dir/bash/bashrc" ~/.bashrc
 
   rm -f ~/.vimrc
-  ln -s "$install_dir/vimrc" ~/.vimrc
+  ln -s "$config_dir/vim/vimrc" ~/.vimrc
 }
 
 provision_vim() {
