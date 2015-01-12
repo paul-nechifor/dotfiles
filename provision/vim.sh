@@ -8,6 +8,7 @@ clean_previous() {
 
 create_structure() {
   mkdir ~/.vim
+  mkdir ~/.vimswap || true
   cd ~/.vim
   mkdir autoload bundle doc plugin syntax
 }

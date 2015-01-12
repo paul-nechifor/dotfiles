@@ -1,3 +1,32 @@
+" Toggle paste insert mode.
+set pastetoggle=<F2>
+
+" More reachable end and start line.
+noremap H ^
+noremap L $
+
+" Don't use the manual.
+noremap K k
+
+" Auto reload .vimrc on write.
+autocmd! bufwritepost .vimrc source %
+
+" Enable mouse usage in all modes.
+set mouse=a
+
+" Make Backspace and Delete work as expected.
+set bs=2
+
+let mapleader = ','
+
+" Quicksave command
+noremap <C-Q> :update<CR>
+vnoremap <C-Q> <C-C>:update<CR>
+inoremap <C-Q> <C-O>:update<CR>
+
+" Change swap dir ('//' for absolute paths).
+set directory=~/.vimswap//
+
 " 80 char limit.
 set textwidth=80
 
@@ -64,10 +93,10 @@ vnoremap < <gv
 vnoremap > >gv
 
 " Use C+J & C+K to scroll command history.
-cnoremap <C-j> <t_kd>
-cnoremap <C-k> <t_ku>
-cnoremap <C-a> <Home>
-cnoremap <C-e> <End>
+cnoremap <C-J> <t_kd>
+cnoremap <C-K> <t_ku>
+cnoremap <C-A> <Home>
+cnoremap <C-E> <End>
 
 " Map Q to repeat last recorded command.
 map Q @@
@@ -90,23 +119,21 @@ nnoremap <C-H> <C-W><C-H>
 :inoremap <Tab> <C-R>=TabOrComplete()<CR>
 
 " Go to tab by number.
-noremap ,1 1gt
-noremap ,2 2gt
-noremap ,3 3gt
-noremap ,4 4gt
-noremap ,5 5gt
-noremap ,6 6gt
-noremap ,7 7gt
-noremap ,8 8gt
-noremap ,9 9gt
-noremap ,0 :tablast<CR>
+noremap <Leader>1 1gt
+noremap <Leader>2 2gt
+noremap <Leader>3 3gt
+noremap <Leader>4 4gt
+noremap <Leader>5 5gt
+noremap <Leader>6 6gt
+noremap <Leader>7 7gt
+noremap <Leader>8 8gt
+noremap <Leader>9 9gt
+noremap <Leader>0 :tablast<CR>
+map <Leader>a <ESC>:tabprevious<CR>
+map <Leader>s <ESC>:tabnext<CR>
 
 " Nerd tree. Toggle it with Ctrl+N.
 map <C-n> :NERDTreeToggle<CR>
-nnoremap <C-J> <C-W><C-J>
-nnoremap <C-K> <C-W><C-K>
-nnoremap <C-L> <C-W><C-L>
-nnoremap <C-H> <C-W><C-H>
 
 " Pathogen.
 execute pathogen#infect()
@@ -200,7 +227,6 @@ function! ToggleCompleteMatching()
     let b:matchState = "on"
     inoremap ( ()<Esc>i
     inoremap [ []<Esc>i
-    inoremap { {<CR>}<Esc>O
     inoremap ) <c-r>=ClosePair(')')<CR>
     inoremap ] <c-r>=ClosePair(']')<CR>
     inoremap " <c-r>=QuoteDelim('"')<CR>
@@ -209,7 +235,6 @@ function! ToggleCompleteMatching()
     let b:matchState = "off"
     iunmap (
     iunmap [
-    iunmap {
     iunmap )
     iunmap ]
     iunmap "
