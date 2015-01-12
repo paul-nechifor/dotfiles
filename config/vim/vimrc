@@ -59,6 +59,19 @@ if $COLORTERM == 'gnome-terminal'
   set t_Co=256
 endif
 
+" Reselect visual block after indent/outdent.
+vnoremap < <gv
+vnoremap > >gv
+
+" Use C+J & C+K to scroll command history.
+cnoremap <C-j> <t_kd>
+cnoremap <C-k> <t_ku>
+cnoremap <C-a> <Home>
+cnoremap <C-e> <End>
+
+" Map Q to repeat last recorded command.
+map Q @@
+
 " Tell vim to remember certain things when we exit
 "  '10  :  marks will be remembered for up to 10 previously edited files
 "  "100 :  will save up to 100 lines for each register
@@ -164,7 +177,7 @@ nmap <C-G> :GitGutterToggle<CR>
 let g:gitgutter_enabled = 0
 
 " Functions --------------------------------------------------------------------
-function CLikeMode()
+function! CLikeMode()
   if !exists("b:clikeState") || b:clikeState == "off"
     let b:clikeState = "on"
     set autoindent
@@ -182,7 +195,7 @@ function CLikeMode()
   endif
 endf
 
-function ToggleCompleteMatching()
+function! ToggleCompleteMatching()
   if !exists("b:matchState") || b:matchState == "off"
     let b:matchState = "on"
     inoremap ( ()<Esc>i
@@ -204,7 +217,7 @@ function ToggleCompleteMatching()
   endif
 endf
 
-function ClosePair(char)
+function! ClosePair(char)
   if getline('.')[col('.') - 1] == a:char
     return "\<Right>"
   else
@@ -212,7 +225,7 @@ function ClosePair(char)
   endif
 endf
 
-function CloseBracket()
+function! CloseBracket()
   if match(getline(line('.') + 1), '\s*}') < 0
     return "\<CR>}"
   else
@@ -220,7 +233,7 @@ function CloseBracket()
   endif
 endf
 
-function QuoteDelim(char)
+function! QuoteDelim(char)
    let line = getline('.')
    let col = col('.')
    if line[col - 2] == "\\"
