@@ -2,11 +2,12 @@
 
 hash="%C(bold blue)%h%C(reset)"
 relative_time="%C(bold green)%ar%C(reset)"
-subject="%C(white)%s%C(reset)"
-author="%an%C(reset)"
+subject="%C(bold white)%s%C(reset)"
+author="%C(bold black)%an%C(reset)"
 refs="%C(bold yellow)%d%C(reset)"
 format="$hash##$relative_time##$subject $author $refs"
 
 git log --graph --pretty="tformat:$format" $@ |
+sed 's/ ago//' |
 column -t -s "##" |
 less -FXRS

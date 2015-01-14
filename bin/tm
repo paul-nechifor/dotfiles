@@ -10,8 +10,8 @@ THEMES = {
         '000000',
         'FFFFFF',
 
-        '063642',
-        'D30102',
+        '000000',
+        'D31112',
         '859900',
         'B58900',
         '268BD2',
@@ -19,7 +19,7 @@ THEMES = {
         '2AA198',
         'EEE8D5',
 
-        '002B36',
+        '204B56',
         'CB4B16',
         '859900',
         'B58900',
@@ -27,6 +27,28 @@ THEMES = {
         'D33682',
         '2AA198',
         'FDF6E3',
+    ],
+    'white': [
+        'FFFFFF',
+        '000000',
+
+        'FFFFFF',
+        'D31112',
+        '859900',
+        'B58900',
+        '268BD2',
+        'D33682',
+        '2AA198',
+        '000000',
+
+        '204B56',
+        'CB4B16',
+        '859900',
+        'B58900',
+        '268BD2',
+        'D33682',
+        '2AA198',
+        '111111',
     ],
     'solarized-ish-dark': [
         '002B36',
@@ -106,6 +128,14 @@ def set_font_size(size=16, relative=None):
     font = re.sub(r'\d+$', str(size), font)
     gconf_set(ROOT + 'font', 'string', font)
 
+def show_table():
+    for i in range(2):
+        for j in range(30, 38):
+            for k in range(40, 48):
+                sys.stdout.write(
+                        '\33[%d;%d;%dm%d;%d;%d\33[m ' % (i, j, k, i, j, k))
+            sys.stdout.write("\n")
+
 def main():
     arg = sys.argv[1]
     if re.match(r'^\d+$', arg):
@@ -115,6 +145,8 @@ def main():
         set_font_size(relative=size)
     elif re.match(r'^[-+]\d+$', arg):
         set_font_size(relative=int(arg))
+    elif re.match(r'^table$', arg):
+        show_table()
     else:
         set_theme(THEMES[arg])
 
