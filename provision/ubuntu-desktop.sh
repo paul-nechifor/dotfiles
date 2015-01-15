@@ -149,13 +149,16 @@ install_packages() {
 
 configure_dirs() {
   cd
+
   # Delete annyoing home dir structure.
   rm -fr "${unnecessary_files[@]}"
   cd -
 
+  # Create main dirs.
+  mkdir data eth pro || true
+
   # Create backups dir.
-  mkdir /home/backups 2>/dev/null
-  chown $username:$username /home/backups
+  mkdir -p data/backup || true
 }
 
 set_options() {

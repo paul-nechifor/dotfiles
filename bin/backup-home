@@ -11,7 +11,7 @@ home_files=(
   pro
   data/part/safe.fs
 )
-backups_dir="/home/backups"
+backups_dir="~/data/backup"
 destination="$backups_dir/$copy_name"
 archive_name="$copy_name.tar.xz"
 
