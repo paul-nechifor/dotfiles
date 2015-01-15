@@ -16,6 +16,7 @@ install_list=(
   git-cola
   git-svn
   gitg
+  subversion
   tmux
   vim
   vim-gtk
