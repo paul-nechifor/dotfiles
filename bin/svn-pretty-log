@@ -1,0 +1,53 @@
+#!/usr/bin/env python2
+
+import re
+import sys
+import subprocess
+
+
+def log(stdin):
+    commits = re.split(r'-{40,}', stdin)[1:-1]
+    info = [get_info(x) for x in commits]
+    print_info(info)
+
+
+def get_info(commit):
+    lines = commit.strip().split('\n')
+    revision, user, date, mods = tuple([x.strip() for x in lines[0].split('|')])
+    revision = revision[1:]
+    date = date[:16]
+    message = re.sub(r'\s+', ' ', '\n'.join(lines[1:])).strip()
+    return {
+        'revision': revision,
+        'user': user,
+        'date': date,
+        'message': message,
+    }
+
+
+def print_info(info):
+    def max_len(key):
+        return max(map(len, [x[key] for x in info]))
+    max_revision = max_len('revision')
+    max_user = max_len('user')
+    max_date = max_len('date')
+    columns = int(subprocess.check_output('tput cols', shell=True))
+    reset = '\033[0m\033[0;0m'
+    format = ''.join([
+        '\033[34m\033[1m%s  ', reset,
+        '\033[30m\033[1m%s  ', reset,
+        '\033[32m\033[1m%s  ', reset,
+        '\033[37m%s  ', reset,
+    ])
+    for i in info:
+        line = format % (
+            i['revision'].rjust(max_revision),
+            i['date'].rjust(max_date),
+            i['user'].rjust(max_user),
+            i['message']
+        )
+        print line[:columns]
+
+
+if __name__ == '__main__':
+    log(sys.stdin.read())

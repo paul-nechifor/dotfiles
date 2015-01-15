@@ -176,6 +176,8 @@ function s() {
   case $1 in
     diff)
       svn $@ | vim +'set bt=nowrite' - ;;
+    log)
+      svn $@ | svn-pretty-log ;;
     st)
       svn info | grep 'Repository Root' | awk '{print "repo:", $NF}'
       svn $@ 2>&1 | color-svn-status ;;
@@ -186,8 +188,9 @@ function s() {
   esac
 }
 
-alias sd="s diff"
 alias sa="s add"
+alias sd="s diff"
+alias sl="s log"
 alias st="s st"
 
 function color-svn-status() {
