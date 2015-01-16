@@ -1,4 +1,4 @@
-#!/usr/bin/env python2
+#!/usr/bin/env python
 
 import re
 import subprocess
@@ -63,7 +63,7 @@ THEMES = {
         '2AA198',
         'EEE8D5',
 
-        '002B36',
+        '000000',
         'CB4B16',
         '859900',
         'B58900',

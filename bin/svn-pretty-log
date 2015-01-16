@@ -1,8 +1,8 @@
-#!/usr/bin/env python2
+#!/usr/bin/env python
 
+import os
 import re
 import sys
-import subprocess
 
 
 def log(stdin):
@@ -21,8 +21,12 @@ def get_info(commit):
         'revision': revision,
         'user': user,
         'date': date,
-        'message': message,
+        'message': message * 100,
     }
+
+
+def get_n_columns():
+    return int(os.popen('tput cols').read())
 
 
 def print_info(info):
@@ -31,7 +35,7 @@ def print_info(info):
     max_revision = max_len('revision')
     max_user = max_len('user')
     max_date = max_len('date')
-    columns = int(subprocess.check_output('tput cols', shell=True))
+    columns = get_n_columns()
     reset = '\033[0m\033[0;0m'
     format = ''.join([
         '\033[34m\033[1m%s  ', reset,
