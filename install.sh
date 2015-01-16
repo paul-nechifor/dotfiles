@@ -79,6 +79,10 @@ link_user_files() {
   rm -f ~/.config/i3status/config
   mkdir -p ~/.config/i3status 2>/dev/null
   ln -s "$config_dir/i3/status" ~/.config/i3status/config
+
+  rm -f ~/.cmus/autosave
+  mkdir ~/.cmus 2>/dev/null
+  ln -s "$config_dir/cmus/autosave" ~/.cmus/autosave
 }
 
 link_common_files() {
