@@ -4,6 +4,11 @@ import os
 import re
 import sys
 
+# TODO
+# color the tag differently
+# read svnmerge logs
+# use a limit argument
+
 
 def log(stdin):
     commits = re.split(r'-{40,}', stdin)[1:-1]
