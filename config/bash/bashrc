@@ -37,28 +37,27 @@ export LESS_TERMCAP_ue=$(printf "\e[0m")
 export LESS_TERMCAP_us=$(printf "\e[0;36m")
 
 export JAVA_HOME="/usr/lib/jvm/java-7-openjdk-amd64"
-export TERM='xterm-256color'
-export PATH="$PATH:/opt/pn-dotfiles/bin"
+export TERM="xterm-256color"
+export PATH="$PATH:~/.pn-dotfiles/bin"
 export EDITOR="vim"
 
 # File system management -------------------------------------------------------
-
-alias ls="ls --color=auto"
-
-function l() {
-  # h = human readable
-  # l = list
-  # G = no groups
-  # tail -> remove 'total XXXk' line
-  ls --color=always --group-directories-first -hlG --si "$@" |
-  tail --lines=+2
-}
-
-alias tree="tree -Cvh --du --dirsfirst"
-
-alias ack="ack-grep"
-
-alias la="l -A"
+if [[ "$OSTYPE" == "linux-gnu" ]]; then
+  alias ls="ls --color=auto"
+  function l() {
+    # h = human readable
+    # l = list
+    # G = no groups
+    # tail -> remove 'total XXXk' line
+    ls --color=always --group-directories-first -hlG --si "$@" |
+    tail --lines=+2
+  }
+  alias la="l -A"
+  alias tree="tree -Cvh --du --dirsfirst"
+elif [[ "$OSTYPE" == "freebsd"* ]]; then
+  alias l="ls -lG"
+  alias la="ls -laG"
+fi
 
 # Go to dir and list the contents.
 function d() {
@@ -84,15 +83,22 @@ alias .....="d ../../../.."
 alias df="df -ah --si"
 alias du="du -h"
 
+if [[ ! `which ack` ]]; then
+  alias ack="ack-grep"
+fi
+
 # Lazy aliases -----------------------------------------------------------------
 
 alias am="alsamixer"
 alias b="thunar . & >/dev/null 2>/dev/null"
-alias egrep="egrep --color=auto"
-alias grep="grep --color=auto"
 alias p="pwd"
 alias t="gnome-terminal & >/dev/null 2>/dev/null"
 alias v="vim"
+
+if [[ "$OSTYPE" == "linux-gnu" ]]; then
+  alias egrep="egrep --color=auto"
+  alias grep="grep --color=auto"
+fi
 
 # Complex aliases --------------------------------------------------------------
 
@@ -161,7 +167,7 @@ alias gd="g diff"
 alias gdc="g diff --cached"
 alias gad="ga && gdc"
 alias gg="gitg"
-alias gl="bash /opt/pn-dotfiles/bin/git-pretty-log"
+alias gl="git-pretty-log"
 alias gs="g s"
 
 function gac() {

@@ -1,10 +1,14 @@
 #!/bin/bash
 
-username="p"
-install_dir="/opt/pn-dotfiles"
-config_dir="/opt/pn-dotfiles/config"
-install_source="`pwd`"
-install_script="$install_source/$0"
+if [[ $(id -u pnechifor 2>/dev/null) ]]; then
+  username=pnechifor
+else
+  username=p
+fi
+install_dir="$HOME/.pn-dotfiles"
+config_dir="$install_dir/config"
+install_source="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
+install_script="$install_source/$( basename "${BASH_SOURCE[0]}" )"
 
 function main() {
   if [ "$#" -eq 0 ]; then
