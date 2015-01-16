@@ -39,7 +39,8 @@ def print_info(info):
         '\033[32m\033[1m%s  ', reset,
         '\033[37m%s  ', reset,
     ])
-    for i in info:
+    columns += 3 * 10 + 3 * 9 + 5 # Color characters.
+    for i in reversed(info):
         line = format % (
             i['revision'].rjust(max_revision),
             i['date'].rjust(max_date),
