@@ -20,6 +20,7 @@ install_list=(
   tmux
   vim
   vim-gtk
+  xsel
 
   # Programming
   build-essential
