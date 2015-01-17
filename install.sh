@@ -1,5 +1,7 @@
 #!/bin/bash
 
+set -e
+
 install_source="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 install_script="$install_source/$( basename "${BASH_SOURCE[0]}" )"
 
@@ -36,8 +38,6 @@ determine_environment() {
 }
 
 check_for_requirements() {
-  echo 'Checking for requirements...'
-
   local to_install=""
 
   if [[ ! "`unzip -v`" ]]; then
@@ -187,6 +187,8 @@ provision_vim() {
 }
 
 infect() {
+  check_for_requirements
+
   echo 'Downloading dotfiles archive...'
   wget -q 'https://github.com/paul-nechifor/dotfiles/archive/master.zip'
   unzip -q master.zip
@@ -197,9 +199,6 @@ infect() {
 
   echo 'Cleaning up...'
   rm -fr dotfiles-master
-
-  echo 'Sourcing runcom...'
-  . ~/.bashrc
 
   echo -e "\033[33m☢ \033[0m Infection complete. \033[33m☢ \033[0m"
 }
