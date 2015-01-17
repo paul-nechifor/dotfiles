@@ -40,11 +40,11 @@ determine_environment() {
 check_for_requirements() {
   local to_install=""
 
-  if [[ ! "`unzip -v`" ]]; then
+  if [[ ! "`unzip -v >/dev/null 2>&1`" ]]; then
     to_install+=" unzip"
   fi
 
-  if [[ ! "`git --version`" ]]; then
+  if [[ ! "`git --version >/dev/null 2>&1`" ]]; then
     to_install+=" git"
   fi
 
@@ -55,7 +55,7 @@ check_for_requirements() {
   echo 'Trying to install requirements...'
 
   if [[ $is_ubuntu ]]; then
-    sudo -S apt-get -y install $to_install
+    sudo -S apt-get -y install -qq $to_install
   elif [[ $is_centos ]]; then
     sudo -S yum -y install $to_install
   else
