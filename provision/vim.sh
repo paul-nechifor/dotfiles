@@ -12,7 +12,7 @@ create_structure() {
 
 get_pathogen() {
   cd ~/.vim/autoload
-  wget 'https://raw.github.com/tpope/vim-pathogen/master/autoload/pathogen.vim'
+  wget -q 'https://raw.github.com/tpope/vim-pathogen/master/autoload/pathogen.vim'
 }
 
 install_from_git() {
