@@ -28,6 +28,7 @@ set mouse=a
 set bs=2
 
 let mapleader = ','
+let g:move_key_modifier = 'C'
 
 " Quicksave command
 noremap <C-Q> :update<CR>
@@ -207,6 +208,8 @@ highlight StatusLineNC ctermbg=231 ctermfg=235
 highlight TabLineFill ctermbg=235 ctermfg=235
 highlight TabLine ctermbg=238 ctermfg=White cterm=NONE
 highlight TabLineSel ctermbg=Black ctermfg=White
+
+highlight Visual ctermbg=235
 
 " Show lines over 80 chars as errors.
 au BufWinEnter * let w:m1=matchadd('ErrorMsg', '\%81v.', -1)
