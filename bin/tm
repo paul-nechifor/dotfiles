@@ -98,6 +98,8 @@ THEMES = {
 THEMES['light'] = THEMES['solarized-ish-light']
 THEMES['dark'] = THEMES['solarized-ish-dark']
 
+reset_seq = '\033[0m'
+
 def gconf_get(path):
     args = ['gconftool-2', '--get', path]
     process = subprocess.Popen(args, stdout=subprocess.PIPE)
@@ -136,6 +138,35 @@ def show_table():
                         '\33[%d;%d;%dm%d;%d;%d\33[m ' % (i, j, k, i, j, k))
             sys.stdout.write("\n")
 
+def hrun(start, width, pad=0):
+    return [None] * pad + list(range(start, start + width)) + [None] * pad
+
+def vrun(start, width, height, padding=0):
+    return [hrun(s, width, padding)
+            for s in range(start, start + width * height, width)]
+
+def color_bar(seq, color, trail):
+    if color is None:
+        return '%s    %s' % (reset_seq, trail)
+    return '%s %03d%s' % (seq(color), color, trail)
+
+# Adapted from from https://gist.github.com/mgedmin/2762225 .
+def show_all_colors():
+    layout = [
+        vrun(0, 8, 2),                # 16 standard xterm colors
+        vrun(16, 6, 6 * 6, 1),        # 6x6x6 color cube
+        vrun(16 + 6 * 6 * 6, 8, 3),   # 24 grey levels
+    ]
+    bg_seq = lambda color: '\033[48;5;%dm' % color
+    fg_seq = lambda color: '\033[38;5;%dm' % color
+
+    for block in layout:
+        print("")
+        for row in block:
+            fg_bar = ''.join(color_bar(fg_seq, color, '') for color in row)
+            bg_bar = ''.join(color_bar(bg_seq, color, ' ') for color in row)
+            print('%s%s    %s%s' % (fg_bar, reset_seq, bg_bar, reset_seq))
+
 def main():
     arg = sys.argv[1]
     if re.match(r'^\d+$', arg):
@@ -147,6 +178,8 @@ def main():
         set_font_size(relative=int(arg))
     elif re.match(r'^table$', arg):
         show_table()
+    elif re.match(r'^all$', arg):
+        show_all_colors()
     else:
         set_theme(THEMES[arg])
 
