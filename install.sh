@@ -40,11 +40,11 @@ determine_environment() {
 check_for_requirements() {
   local to_install=""
 
-  if [[ ! "`unzip -v >/dev/null 2>&1`" ]]; then
+  if [[ ! "`unzip -v 2>/dev/null`" ]]; then
     to_install+=" unzip"
   fi
 
-  if [[ ! "`git --version >/dev/null 2>&1`" ]]; then
+  if [[ ! "`git --version 2>/dev/null`" ]]; then
     to_install+=" git"
   fi
 
