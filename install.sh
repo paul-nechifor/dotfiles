@@ -13,12 +13,10 @@ determine_environment() {
 
   if [[ $is_vagrant ]]; then
     username=vagrant
+  elif [[ $(id -u pnechifor 2>/dev/null) ]]; then
+    username=pnechifor
   else
-    if [[ $(id -u pnechifor 2>/dev/null) ]]; then
-      username=pnechifor
-    else
-      username=p
-    fi
+    username=p
   fi
 
   if [ "`id -u`" == "0" ]; then
@@ -37,12 +35,43 @@ determine_environment() {
   export own_computer=$(if [[ $is_ubuntu && ! $is_vagrant ]]; then echo true; fi)
 }
 
+check_for_requirements() {
+  echo 'Checking for requirements...'
+
+  local to_install=""
+
+  if [[ ! "`unzip -v`" ]]; then
+    to_install+=" unzip"
+  fi
+
+  if [[ ! "`git --version`" ]]; then
+    to_install+=" git"
+  fi
+
+  if [[ ! "$to_install" ]]; then
+    return
+  fi
+
+  echo 'Trying to install requirements...'
+
+  if [[ $is_ubuntu ]]; then
+    sudo -S apt-get -y install $to_install
+  elif [[ $is_centos ]]; then
+    sudo -S yum -y install $to_install
+  else
+    echo "Could not find or install requirements: $to_install"
+    exit 1
+  fi
+}
+
 root_start() {
   if [ "`id -u`" != "0" ]; then
     echo 'Switching to root...'
     sudo -S su -c "export ran_before=$ran_before; bash '$install_script' root_start"
     return
   fi
+
+  check_for_requirements
 
   create_user
   su $username -c "bash '$install_script' install_dotfiles"
@@ -51,6 +80,7 @@ root_start() {
 }
 
 user_start() {
+  check_for_requirements
   install_dotfiles
   link_user_files
 }
