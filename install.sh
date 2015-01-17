@@ -44,10 +44,6 @@ check_for_requirements() {
     to_install+=" unzip"
   fi
 
-  if [[ ! "`git --version 2>/dev/null`" ]]; then
-    to_install+=" git"
-  fi
-
   if [[ ! "$to_install" ]]; then
     return
   fi
@@ -65,7 +61,7 @@ check_for_requirements() {
 }
 
 root_start() {
-  local exports="export ran_before=$ran_before http_proxy='$http_proxy' https_proxy='$https_proxy'"
+  local exports="export ran_before=$ran_before http_proxy='$http_proxy' https_proxy='$https_proxy' ignore_security_because_why_not=$ignore_security_because_why_not"
   if [ "`id -u`" != "0" ]; then
     echo 'Switching to root...'
     sudo -SE su -c "$exports; bash '$install_script' root_start"
@@ -159,27 +155,40 @@ create_vim_structure() {
   mkdir autoload bundle doc plugin syntax
 }
 
+wgetq() {
+  if [[ $ignore_security_because_why_not ]]; then
+    args=--no-check-certificate
+  fi
+  wget $args -q "$1"
+}
+
 get_pathogen() {
   cd ~/.vim/autoload
   echo '  Downloading pathogen...'
-  wget -q 'https://raw.github.com/tpope/vim-pathogen/master/autoload/pathogen.vim'
+  wgetq https://raw.github.com/tpope/vim-pathogen/master/autoload/pathogen.vim
 }
 
-install_from_git() {
+wget_master() {
+  wgetq https://github.com/$1/archive/master.zip
+  unzip -q master.zip
+  rm master.zip
+}
+
+install_from_github() {
   cd ~/.vim/bundle
   echo "  Downloading module $1..."
-  git clone -q --depth=1 "$2" $1
-  rm -fr $1/.git
+  wget_master $2
+  mv *-master $1
 }
 
 install_vim_modules() {
-  install_from_git coffee-script 'https://github.com/kchmck/vim-coffee-script.git'
-  install_from_git ctrlp 'https://github.com/kien/ctrlp.vim'
-  install_from_git gitgutter 'https://github.com/airblade/vim-gitgutter.git'
-  install_from_git jade 'https://github.com/digitaltoad/vim-jade.git'
-  install_from_git move 'https://github.com/matze/vim-move'
-  install_from_git nerdtree 'https://github.com/scrooloose/nerdtree.git'
-  install_from_git stylus 'https://github.com/wavded/vim-stylus.git'
+  install_from_github coffee-script kchmck/vim-coffee-script
+  install_from_github ctrlp kien/ctrlp.vim
+  install_from_github gitgutter airblade/vim-gitgutter
+  install_from_github jade digitaltoad/vim-jade
+  install_from_github move matze/vim-move
+  install_from_github nerdtree scrooloose/nerdtree
+  install_from_github stylus wavded/vim-stylus
 }
 
 provision_vim() {
@@ -193,9 +202,7 @@ infect() {
   check_for_requirements
 
   echo 'Downloading dotfiles archive...'
-  wget -q 'https://github.com/paul-nechifor/dotfiles/archive/master.zip'
-  unzip -q master.zip
-  rm master.zip
+  wget_master paul-nechifor/dotfiles
 
   echo 'Starting installation...'
   bash dotfiles-master/install.sh
