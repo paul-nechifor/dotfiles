@@ -20,7 +20,7 @@ bind '"\e[B":history-search-forward'
 shopt -s histappend
 
 # Enable using '**' like in 'ack word **/*.py'.
-shopt -s globstar
+shopt -s globstar 2>/dev/null
 
 # Bash history controls.
 export HISTSIZE=1000000
@@ -29,17 +29,39 @@ export HISTFILESIZE=1000000000
 export HISTTIMEFORMAT="%F %T"
 
 # Bash prompt ------------------------------------------------------------------
-if [[ $own_computer ]]; then
-  if [ `id -u` -eq 0 ]; then
-    PS1='`if [ $? -ne 0 ]; then echo \e[31mಠ_ಠ; echo \e[33m; else echo \e[33m; fi`\[\e[1;31m\]● \[\e[0m\] '
+
+PS1='`if [ $? -ne 0 ]; then echo \e[31mಠ_ಠ; echo \e[0m; else echo \e[0m; fi`'
+if [[ ! $own_computer ]]; then
+  if [[ ! ( "`whoami`" =~ (p|pnechifor|vagrant|root) ) ]]; then
+    if [[ `id -u` -eq 0 ]]; then
+      PS1+='\[\e[0;35m\]\u@\[\e[0m\]'
+    else
+      PS1+='\[\e[0;34m\]\u@\[\e[0m\]'
+    fi
+  fi
+  if [[ `id -u` -eq 0 ]]; then
+    PS1+='\[\e[1;35m\]\h\[\e[0m\] '
   else
-    PS1='`if [ $? -ne 0 ]; then echo \e[31mಠ_ಠ; echo \e[33m; else echo \e[33m; fi`\[\e[1;32m\]● \[\e[0m\] '
+    PS1+='\[\e[1;34m\]\h\[\e[0m\] '
+  fi
+  if [[ `id -u` -eq 0 ]]; then
+    PS1+='\[\e[0;35m\]\W\[\e[0m\] '
+  else
+    PS1+='\[\e[0;34m\]\W\[\e[0m\] '
+  fi
+  PS1+='\n'
+fi
+if [[ $own_computer ]]; then
+  if [[ `id -u` -eq 0 ]]; then
+    PS1+='\[\e[1;31m\]● \[\e[0m\] '
+  else
+    PS1+='\[\e[1;32m\]● \[\e[0m\] '
   fi
 else
-  if [ `id -u` -eq 0 ]; then
-    PS1='`if [ $? -ne 0 ]; then echo \e[31mಠ_ಠ; echo \e[36m; else echo \e[36m; fi`\u@\h \w\n\[\e[1;35m\]● \[\e[0m\] '
+  if [[ `id -u` -eq 0 ]]; then
+    PS1+='\[\e[1;35m\]● \[\e[0m\] '
   else
-    PS1='`if [ $? -ne 0 ]; then echo \e[31mಠ_ಠ; echo \e[36m; else echo \e[36m; fi`\u@\h \w\n\[\e[1;34m\]● \[\e[0m\] '
+    PS1+='\[\e[1;34m\]● \[\e[0m\] '
   fi
 fi
 
