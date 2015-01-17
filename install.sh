@@ -137,7 +137,9 @@ link_user_files() {
 
   provision_vim
 
-  setxkbmap ro
+  if [[ $DISPLAY ]]; then
+    setxkbmap ro
+  fi
 }
 
 link_common_files() {

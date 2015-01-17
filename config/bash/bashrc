@@ -106,11 +106,14 @@ fi
 
 # Lazy aliases -----------------------------------------------------------------
 
-alias am="alsamixer"
-alias b="thunar . & >/dev/null 2>/dev/null"
 alias p="pwd"
-alias t="gnome-terminal & >/dev/null 2>/dev/null"
 alias v="vim"
+
+if [[ $own_computer ]]; then
+  alias am="alsamixer"
+  alias b="thunar . & >/dev/null 2>/dev/null"
+  alias t="gnome-terminal & >/dev/null 2>/dev/null"
+fi
 
 if [[ $is_linux ]]; then
   alias egrep="egrep --color=auto"
@@ -135,10 +138,6 @@ alias resetmod="find . -type f -exec chmod 644 {} + ; find . -type d -exec chmod
 
 # Functions --------------------------------------------------------------------
 
-function die() {
-  kill $1 || (sleep 3; kill -15 $1) || (sleep 3; kill -2 $1) || (sleep 3; kill -1 $1) || (sleep 5; kill -9 $1)
-}
-
 function dirdiff() {
   # -Ewb ignore the bulk of whitespace changes
   # -N detect new files
@@ -152,31 +151,24 @@ function mvninit() {
   mvn archetype:create -DgroupId=net.nechifor.$id -DartifactId=$id
 }
 
-function listen() {
-  file="$1"
-  commands=${@:2}
-  for (( ; ; )) {
-    inotifywait -e close_write "$file" >/dev/null 2>/dev/null
-    $commands
-  }
-}
-
 function texwc() {
   file="$1"
   texcount -total "$file" | grep 'Words in text' | sed 's/[^0-9]*//g'
 }
 
-function sslenc() {
-  file="$1"
-  openssl enc -aes-256-cbc -salt -in $file -out $file.enc \
-      -pass file:/home/p/pro/docs/keys/symkey256.bin
-}
+if [[ $own_computer ]]; then
+  function sslenc() {
+    file="$1"
+    openssl enc -aes-256-cbc -salt -in $file -out $file.enc \
+        -pass file:/home/p/pro/docs/keys/symkey256.bin
+  }
 
-function ssldec() {
-  file="`basename $1 .enc`"
-  openssl enc -d -aes-256-cbc -salt -in $file.enc -out $file \
-      -pass file:/home/p/pro/docs/keys/symkey256.bin
-}
+  function ssldec() {
+    file="`basename $1 .enc`"
+    openssl enc -d -aes-256-cbc -salt -in $file.enc -out $file \
+        -pass file:/home/p/pro/docs/keys/symkey256.bin
+  }
+fi
 
 # Git aliases and functions ----------------------------------------------------
 
