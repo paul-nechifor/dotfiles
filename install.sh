@@ -1,22 +1,29 @@
 #!/bin/bash
 
-if [[ $(id -u pnechifor 2>/dev/null) ]]; then
-  username=pnechifor
-else
-  username=p
-fi
 install_dir="$HOME/.pn-dotfiles"
 config_dir="$install_dir/config"
 install_source="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 install_script="$install_source/$( basename "${BASH_SOURCE[0]}" )"
 
-function main() {
-  if [ "$#" -eq 0 ]; then
-    root_start
-  else
-    # Run which ever parameter is given.
-    $1
+determine_environment() {
+  if [[ ! $ran_before ]]; then
+    echo 'Determining environment...'
+    export ran_before=true
   fi
+
+  if [[ $(id -u pnechifor 2>/dev/null) ]]; then
+    username=pnechifor
+  else
+    username=p
+  fi
+
+  export is_linux=`if [[ "$OSTYPE" == "linux-gnu" ]]; then echo true; fi`
+  export is_freebsd=`if [[ "$OSTYPE" == "freebsd"* ]]; then echo true; fi`
+  if [[ $is_linux ]]; then
+    export is_ubuntu=`if [[ $(grep Ubuntu /etc/issue) ]]; then echo true; fi`
+    export is_centos=`if [[ $(grep CentOS /etc/issue) ]]; then echo true; fi`
+  fi
+  export own_computer=$is_ubuntu
 }
 
 root_start() {
@@ -26,13 +33,13 @@ root_start() {
   fi
 
   create_user
-  install_dotfiles
+  su $username -c "bash '$install_script' install_dotfiles"
   link_root_files
-
-  su $username -c "bash '$install_script' user_start"
+  su $username -c "bash '$install_script' link_user_files"
 }
 
 user_start() {
+  install_dotfiles
   link_user_files
 }
 
@@ -41,6 +48,7 @@ create_user() {
   if [ "$?" -eq 0 ]; then
     return
   fi
+  echo "Creating user ${username}..."
   adduser $username --home /home/$username
 }
 
@@ -98,6 +106,20 @@ link_common_files() {
 
 provision_vim() {
   bash "$install_dir/provision/vim.sh"
+}
+
+main() {
+  determine_environment
+
+  if [ "$#" -eq 0 ]; then
+    if [[ $own_computer ]]; then
+      root_start
+    else
+      user_start
+    fi
+  else
+    $1
+  fi
 }
 
 main "$@"

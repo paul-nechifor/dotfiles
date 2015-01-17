@@ -17,4 +17,4 @@ rm -fr dotfiles-master
 echo 'Sourcing runcom...'
 . ~/.bashrc
 
-echo 'Infection complete.'
+echo -e "\033[33m☢  Infection complete ☢ \033[0m\033[0;0m""]]]"
