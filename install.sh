@@ -11,7 +11,7 @@ determine_environment() {
     export ran_before=true
   fi
 
-  export is_vagrant=$(if [[ "$(id -u vagrant)" ]]; then echo true; fi)
+  export is_vagrant=$(if [[ "$(id -u vagrant >/dev/null 2>&1)" ]]; then echo true; fi)
 
   if [[ $is_vagrant ]]; then
     username=vagrant
@@ -55,9 +55,9 @@ check_for_requirements() {
   echo 'Trying to install requirements...'
 
   if [[ $is_ubuntu ]]; then
-    sudo -S apt-get -y install -qq $to_install
+    sudo -SE apt-get -y install -qq $to_install
   elif [[ $is_centos ]]; then
-    sudo -S yum -y install $to_install
+    sudo -SE yum -y install $to_install
   else
     echo "Could not find or install requirements: $to_install"
     exit 1
@@ -65,18 +65,19 @@ check_for_requirements() {
 }
 
 root_start() {
+  local exports="export ran_before=$ran_before http_proxy='$http_proxy' https_proxy='$https_proxy'"
   if [ "`id -u`" != "0" ]; then
     echo 'Switching to root...'
-    sudo -S su -c "export ran_before=$ran_before; bash '$install_script' root_start"
+    sudo -SE su -c "$exports; bash '$install_script' root_start"
     return
   fi
 
   check_for_requirements
 
   create_user
-  su $username -c "bash '$install_script' install_dotfiles"
+  su $username -c "$exports; bash '$install_script' install_dotfiles"
   link_root_files
-  su $username -c "bash '$install_script' link_user_files"
+  su $username -c "$exports; bash '$install_script' link_user_files"
 }
 
 user_start() {
@@ -123,15 +124,15 @@ link_user_files() {
   ln -s "$config_dir/tmux/tmux.conf" ~/.tmux.conf
 
   rm -f ~/.i3/config
-  mkdir ~/.i3 2>/dev/null
+  mkdir ~/.i3 2>/dev/null || true
   ln -s "$config_dir/i3/config" ~/.i3/config
 
   rm -f ~/.config/i3status/config
-  mkdir -p ~/.config/i3status 2>/dev/null
+  mkdir -p ~/.config/i3status 2>/dev/null || true
   ln -s "$config_dir/i3/status" ~/.config/i3status/config
 
   rm -f ~/.cmus/autosave
-  mkdir ~/.cmus 2>/dev/null
+  mkdir ~/.cmus 2>/dev/null || true
   ln -s "$config_dir/cmus/autosave" ~/.cmus/autosave
 
   provision_vim

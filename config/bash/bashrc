@@ -37,9 +37,9 @@ if [[ $own_computer ]]; then
   fi
 else
   if [ `id -u` -eq 0 ]; then
-    PS1='`if [ $? -ne 0 ]; then echo \e[31mಠ_ಠ; echo \e[33m; else echo \e[33m; fi`\h \w\n\[\e[1;31m\]● \[\e[0m\] '
+    PS1='`if [ $? -ne 0 ]; then echo \e[31mಠ_ಠ; echo \e[36m; else echo \e[36m; fi`\u@\h \w\n\[\e[1;35m\]● \[\e[0m\] '
   else
-    PS1='`if [ $? -ne 0 ]; then echo \e[31mಠ_ಠ; echo \e[33m; else echo \e[33m; fi`\h \w\n\[\e[1;32m\]● \[\e[0m\] '
+    PS1='`if [ $? -ne 0 ]; then echo \e[31mಠ_ಠ; echo \e[36m; else echo \e[36m; fi`\u@\h \w\n\[\e[1;34m\]● \[\e[0m\] '
   fi
 fi
 
@@ -116,6 +116,8 @@ if [[ $is_linux ]]; then
   alias egrep="egrep --color=auto"
   alias grep="grep --color=auto"
 fi
+
+alias super='sudo -sE'
 
 # Complex aliases --------------------------------------------------------------
 
