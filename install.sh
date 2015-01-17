@@ -1,7 +1,5 @@
 #!/bin/bash
 
-install_dir="$HOME/.pn-dotfiles"
-config_dir="$install_dir/config"
 install_source="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 install_script="$install_source/$( basename "${BASH_SOURCE[0]}" )"
 
@@ -16,6 +14,13 @@ determine_environment() {
   else
     username=p
   fi
+
+  if [ "`id -u`" == "0" ]; then
+    export install_dir="$(su $username -c 'echo $HOME')/.pn-dotfiles"
+  else
+    export install_dir="$HOME/.pn-dotfiles"
+  fi
+  export config_dir="$install_dir/config"
 
   export is_linux=`if [[ "$OSTYPE" == "linux-gnu" ]]; then echo true; fi`
   export is_freebsd=`if [[ "$OSTYPE" == "freebsd"* ]]; then echo true; fi`
@@ -125,7 +130,7 @@ infect() {
   echo 'Sourcing runcom...'
   . ~/.bashrc
 
-  echo -e "\033[33m☢  Infection complete ☢ \033[0m\033[0;0m"
+  echo -e "\033[33m☢ \033[0m Infection complete \033[33m☢ \033[0m"
 }
 
 main() {

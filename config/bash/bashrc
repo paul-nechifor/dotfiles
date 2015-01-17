@@ -108,7 +108,7 @@ alias xp="echo -n 'NAME, CLASS = '; xprop | grep 'WM_CLASS' | cut -c20-"
 alias less="less -r"
 
 # Reinstall the dotfiles from the repo.
-alias pull-dotfiles-updates="wget -q -O- 'https://github.com/paul-nechifor/dotfiles/raw/master/install.sh' | bash -s - infect"
+alias infect="wget -q -O- 'https://github.com/paul-nechifor/dotfiles/raw/master/install.sh' | bash -s - infect"
 
 # Recursively reset all files in the current dir to 644 for normal and 755 for
 # dirs.
