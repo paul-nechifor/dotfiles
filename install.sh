@@ -28,8 +28,9 @@ determine_environment() {
 
 root_start() {
   if [ "`id -u`" != "0" ]; then
-    echo "You are not root."
-    exit 1
+    echo 'Switching to root...'
+    sudo bash '$install_script' install_dotfiles
+    return
   fi
 
   create_user
@@ -106,6 +107,24 @@ link_common_files() {
 
 provision_vim() {
   bash "$install_dir/provision/vim.sh"
+}
+
+infect() {
+  echo 'Downloading dotfiles archive...'
+  wget -q 'https://github.com/paul-nechifor/dotfiles/archive/master.zip'
+  unzip -q master.zip
+  rm master.zip
+
+  echo 'Starting installation...'
+  bash dotfiles-master/install.sh
+
+  echo 'Cleaning up...'
+  rm -fr dotfiles-master
+
+  echo 'Sourcing runcom...'
+  . ~/.bashrc
+
+  echo -e "\033[33m☢  Infection complete ☢ \033[0m\033[0;0m"
 }
 
 main() {
