@@ -9,10 +9,16 @@ determine_environment() {
     export ran_before=true
   fi
 
-  if [[ $(id -u pnechifor 2>/dev/null) ]]; then
-    username=pnechifor
+  export is_vagrant=$(if [[ "$(id -u vagrant)" ]]; then echo true; fi)
+
+  if [[ $is_vagrant ]]; then
+    username=vagrant
   else
-    username=p
+    if [[ $(id -u pnechifor 2>/dev/null) ]]; then
+      username=pnechifor
+    else
+      username=p
+    fi
   fi
 
   if [ "`id -u`" == "0" ]; then
@@ -28,7 +34,7 @@ determine_environment() {
     export is_ubuntu=`if [[ $(grep Ubuntu /etc/issue) ]]; then echo true; fi`
     export is_centos=`if [[ $(grep CentOS /etc/issue) ]]; then echo true; fi`
   fi
-  export own_computer=$is_ubuntu
+  export own_computer=$(if [[ $is_ubuntu && ! $is_vagrant ]]; then echo true; fi)
 }
 
 root_start() {
