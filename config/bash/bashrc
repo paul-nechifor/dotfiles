@@ -1,4 +1,4 @@
-export is_vagrant=$(if [[ "$(id -u vagrant)" ]]; then echo true; fi)
+export is_vagrant=$(if [[ "$(id -u vagrant 2>/dev/null)" ]]; then echo true; fi)
 export is_linux=`if [[ "$OSTYPE" == "linux-gnu" ]]; then echo true; fi`
 export is_freebsd=`if [[ "$OSTYPE" == "freebsd"* ]]; then echo true; fi`
 if [[ $is_linux ]]; then

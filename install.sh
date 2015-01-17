@@ -11,7 +11,7 @@ determine_environment() {
     export ran_before=true
   fi
 
-  export is_vagrant=$(if [[ "$(id -u vagrant >/dev/null 2>&1)" ]]; then echo true; fi)
+  export is_vagrant=$(if [[ "$(id -u vagrant 2>/dev/null)" ]]; then echo true; fi)
 
   if [[ $is_vagrant ]]; then
     username=vagrant
