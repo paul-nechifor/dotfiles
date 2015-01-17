@@ -3,6 +3,7 @@
 set -e
 
 create_structure() {
+  echo '  Recreating Vim folder structure...'
   mkdir ~/.vimswap ~/.vimundo 2>/dev/null || true
   rm -fr ~/.vim
   mkdir ~/.vim
@@ -12,12 +13,14 @@ create_structure() {
 
 get_pathogen() {
   cd ~/.vim/autoload
+  echo '  Downloading pathogen...'
   wget -q 'https://raw.github.com/tpope/vim-pathogen/master/autoload/pathogen.vim'
 }
 
 install_from_git() {
   cd ~/.vim/bundle
-  git clone --depth=1 "$2" $1
+  echo "  Downloading module $1..."
+  git clone -q --depth=1 "$2" $1
   rm -fr $1/.git
 }
 
@@ -33,6 +36,7 @@ install() {
 main() {
   init_dir="`pwd`"
 
+  echo 'Provisioning Vim...'
   create_structure
   get_pathogen
   install

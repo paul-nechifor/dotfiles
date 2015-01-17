@@ -45,11 +45,13 @@ create_user() {
 }
 
 install_dotfiles() {
+  echo 'Installing dotfiles...'
   mkdir -p "$install_dir" 2>/dev/null
   rsync -a --del "$install_source/" "$install_dir/"
 }
 
 link_root_files() {
+  echo 'Linking root files...'
   link_common_files
 
   rm -f /usr/share/X11/xkb/symbols/ro
@@ -59,6 +61,7 @@ link_root_files() {
 }
 
 link_user_files() {
+  echo 'Linking user files...'
   link_common_files
 
   rm -f ~/.gitconfig
