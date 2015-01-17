@@ -29,7 +29,7 @@ determine_environment() {
 root_start() {
   if [ "`id -u`" != "0" ]; then
     echo 'Switching to root...'
-    sudo bash '$install_script' install_dotfiles
+    sudo -S su -c "export ran_before=$ran_before; bash '$install_script' root_start"
     return
   fi
 
