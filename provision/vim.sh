@@ -2,13 +2,10 @@
 
 set -e
 
-clean_previous() {
-  rm -fr ~/.vim
-}
-
 create_structure() {
+  mkdir ~/.vimswap ~/.vimundo 2>/dev/null || true
+  rm -fr ~/.vim
   mkdir ~/.vim
-  mkdir ~/.vimswap 2>/dev/null || true
   cd ~/.vim
   mkdir autoload bundle doc plugin syntax
 }
@@ -36,7 +33,6 @@ install() {
 main() {
   init_dir="`pwd`"
 
-  clean_previous
   create_structure
   get_pathogen
   install

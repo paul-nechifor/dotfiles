@@ -56,8 +56,6 @@ link_root_files() {
   ln -s "$config_dir/xkb/layout" /usr/share/X11/xkb/symbols/ro
   dpkg-reconfigure xkb-data
   setxkbmap ro
-
-  provision_vim
 }
 
 link_user_files() {
@@ -83,6 +81,8 @@ link_user_files() {
   rm -f ~/.cmus/autosave
   mkdir ~/.cmus 2>/dev/null
   ln -s "$config_dir/cmus/autosave" ~/.cmus/autosave
+
+  provision_vim
 }
 
 link_common_files() {

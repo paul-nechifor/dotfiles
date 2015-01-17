@@ -8,6 +8,16 @@ noremap L $
 " Don't use the manual.
 noremap K k
 
+" Make Y behave like other capitals.
+map Y y$
+
+" Improve up/down movement on wrapped lines.
+nnoremap j gj
+nnoremap k gk
+
+" For saving files that require root permission.
+cmap w!! %!sudo tee > /dev/null %
+
 " Auto reload .vimrc on write.
 autocmd! bufwritepost .vimrc source %
 
@@ -101,13 +111,19 @@ cnoremap <C-E> <End>
 " Map Q to repeat last recorded command.
 map Q @@
 
-" Tell vim to remember certain things when we exit
+" Tell vim to remember certain things on exit.
 "  '10  :  marks will be remembered for up to 10 previously edited files
 "  "100 :  will save up to 100 lines for each register
-"  :20  :  up to 20 lines of command-line history will be remembered
+"  :50  :  up to 50 lines of command-line history will be remembered
 "  %    :  saves and restores the buffer list
 "  n... :  where to save the viminfo files
-set viminfo='10,\"100,:20,%,n~/.viminfo
+set viminfo='10,\"100,:50,%,n~/.viminfo
+
+" Make undo work after restarting Vim.
+if exists('+undofile')
+  set undodir=~/.vimundo//
+  set undofile
+endif
 
 " Navigation windows
 nnoremap <C-J> <C-W><C-J>
