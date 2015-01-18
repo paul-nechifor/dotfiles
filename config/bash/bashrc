@@ -30,6 +30,8 @@ export HISTTIMEFORMAT="%F %T"
 
 # Bash prompt ------------------------------------------------------------------
 
+# TODO See if everything is escaped properly because this might be the reason
+# why bash ignores horizontal-scroll-mode.
 PS1='`if [ $? -ne 0 ]; then echo \e[31mಠ_ಠ; echo \e[0m; else echo \e[0m; fi`'
 if [[ ! $own_computer ]]; then
   if [[ ! ( "`whoami`" =~ (p|pnechifor|vagrant|root) ) ]]; then

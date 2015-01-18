@@ -183,9 +183,12 @@ install_from_github() {
 
 install_vim_modules() {
   install_from_github coffee-script kchmck/vim-coffee-script
+  install_from_github commentary tpope/vim-commentary
   install_from_github ctrlp kien/ctrlp.vim
   install_from_github gitgutter airblade/vim-gitgutter
   install_from_github jade digitaltoad/vim-jade
+  install_from_github javascript pangloss/vim-javascript
+  install_from_github markdown tpope/vim-markdown
   install_from_github matchem ervandew/matchem
   install_from_github move matze/vim-move
   install_from_github nerdtree scrooloose/nerdtree
