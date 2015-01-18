@@ -127,9 +127,6 @@ nnoremap <C-K> <C-W><C-K>
 nnoremap <C-L> <C-W><C-L>
 nnoremap <C-H> <C-W><C-H>
 
-" Use tab to complete. If only whitespace, use actual tab.
-inoremap <Tab> <C-R>=TabOrComplete()<CR>
-
 " Go to tab by number.
 noremap <Leader>1 1gt
 noremap <Leader>2 2gt
@@ -210,8 +207,10 @@ hi TabLine ctermbg=238 ctermfg=White cterm=NONE
 hi TabLineSel ctermbg=Black ctermfg=White
 
 hi Visual ctermbg=236
-
 hi Search ctermbg=Magenta ctermfg=White
+hi Pmenu ctermbg=234 ctermfg=White
+hi PmenuSel ctermbg=238 ctermfg=White
+
 hi Comment ctermfg=242
 
 " Show lines over 80 chars as errors.
@@ -224,16 +223,6 @@ nmap <C-M> :set invnumber<CR>
 nmap <C-G> :GitGutterToggle<CR>
 " Turn off GitGutter by default.
 let g:gitgutter_enabled = 0
-
-" Functions --------------------------------------------------------------------
-
-function! TabOrComplete()
-  if col('.') > 1 && strpart(getline('.'), col('.')-2, 3) =~ '^\w'
-    return "\<C-N>"
-  else
-    return "\<Tab>"
-  endif
-endf
 
 " Execute file if know how. Note that the file is saved before executing.
 function! ExecuteFile(filename)
