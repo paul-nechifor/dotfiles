@@ -30,9 +30,7 @@ export HISTTIMEFORMAT="%F %T"
 
 # Bash prompt ------------------------------------------------------------------
 
-# TODO See if everything is escaped properly because this might be the reason
-# why bash ignores horizontal-scroll-mode.
-PS1='`if [ $? -ne 0 ]; then echo \e[31mಠ_ಠ; echo \e[0m; else echo \e[0m; fi`'
+PS1=
 if [[ ! $own_computer ]]; then
   if [[ ! ( "`whoami`" =~ (p|pnechifor|vagrant|root) ) ]]; then
     if [[ `id -u` -eq 0 ]]; then
@@ -245,12 +243,12 @@ function color-svn-status() {
     elif [[ $line =~ ^\ ?C ]]; then color="\033[41m\033[37m\033[1m";
     elif [[ $line =~ ^A ]]; then color="\033[32m\033[1m";
     elif [[ $line =~ ^D ]]; then color="\033[31m\033[1m";
-    elif [[ $line =~ ^X ]]; then color="\033[30m\033[1m";"]]"
+    elif [[ $line =~ ^X ]]; then color="\033[30m\033[1m";
     elif [[ $line =~ ^! ]]; then color="\033[43m\033[37m\033[1m";
     elif [[ $line =~ ^I ]]; then color="\033[33m";
     elif [[ $line =~ ^R ]]; then color="\033[35m";
     elif [[ $line =~ ^svn:\ E ]]; then color="\033[31m\033[1m";
-    elif [[ $line =~ ^Performing ]]; then color="\033[30m\033[1m";"]]"
+    elif [[ $line =~ ^Performing ]]; then color="\033[30m\033[1m";
     else color=""
     fi
     echo -e "$color${line/\\/\\\\}\033[0m\033[0;0m"
