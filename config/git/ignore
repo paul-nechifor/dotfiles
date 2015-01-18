@@ -1,11 +1,12 @@
-*.swp
-*.swo
+*.iml
 *.pyc
+*.swo
+*.swp
 *~
 .idea
+.ropeproject
 .vagrant
-*.iml
-node_modules
-bower_components
 /private
+bower_components
+node_modules
 npm-debug.log

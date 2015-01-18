@@ -1,3 +1,9 @@
+" Pathogen.
+filetype off
+call pathogen#infect()
+call pathogen#helptags()
+filetype plugin indent on
+
 " Toggle paste insert mode.
 set pastetoggle=<F2>
 
@@ -30,6 +36,10 @@ set bs=2
 let mapleader = ','
 let g:move_key_modifier = 'C'
 let g:move_auto_indent = 0
+xmap <C-j> <Plug>(textmanip-move-down)
+xmap <C-k> <Plug>(textmanip-move-up)
+
+let g:pymode_folding = 0
 
 " Quicksave command
 noremap <C-Q> :update<CR>
@@ -143,9 +153,8 @@ map <Leader>s <ESC>:tabnext<CR>
 
 " Nerd tree. Toggle it with Ctrl+N.
 map <C-n> :NERDTreeToggle<CR>
+let NERDTreeIgnore=['\.o$', '\~$', '.pyc$']
 
-" Pathogen.
-execute pathogen#infect()
 
 " What to ignore in CtrlP.
 let g:ctrlp_custom_ignore = 'node_modules\|DS_Store\|git\|build\|migrations\|environ'
@@ -210,6 +219,7 @@ hi Visual ctermbg=236
 hi Search ctermbg=Magenta ctermfg=White
 hi Pmenu ctermbg=234 ctermfg=White
 hi PmenuSel ctermbg=238 ctermfg=White
+hi Folded ctermbg=240 ctermfg=White
 
 hi Comment ctermfg=242
 
