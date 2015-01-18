@@ -29,6 +29,7 @@ set bs=2
 
 let mapleader = ','
 let g:move_key_modifier = 'C'
+let g:move_auto_indent = 0
 
 " Quicksave command
 noremap <C-Q> :update<CR>
@@ -127,7 +128,7 @@ nnoremap <C-L> <C-W><C-L>
 nnoremap <C-H> <C-W><C-H>
 
 " Use tab to complete. If only whitespace, use actual tab.
-:inoremap <Tab> <C-R>=TabOrComplete()<CR>
+inoremap <Tab> <C-R>=TabOrComplete()<CR>
 
 " Go to tab by number.
 noremap <Leader>1 1gt
@@ -150,17 +151,17 @@ map <C-n> :NERDTreeToggle<CR>
 execute pathogen#infect()
 
 " What to ignore in CtrlP.
-let g:ctrlp_custom_ignore = 'node_modules\|DS_Store\|git\|build'
+let g:ctrlp_custom_ignore = 'node_modules\|DS_Store\|git\|build\|migrations\|environ'
 
 " Toggle previous file with `,,`.
-nnoremap ,, <c-^>
+nnoremap <Leader><Leader> <c-^>
 
 " Execute current file.
-map ,e :call ExecuteFile(expand("%"))<cr>
+map <Leader>e :call ExecuteFile(expand("%"))<cr>
 
-autocmd Syntax c,java,cpp,cs call CLikeMode()
+autocmd Syntax c,java,cpp,cs set autoindent cindent
 
-autocmd FileType python set ts=4 sw=4 sts=4
+autocmd FileType python,javascript,c set ts=4 sw=4 sts=4
 
 " Restore cursor on reopening.
 function! ResCur()
@@ -225,74 +226,6 @@ nmap <C-G> :GitGutterToggle<CR>
 let g:gitgutter_enabled = 0
 
 " Functions --------------------------------------------------------------------
-function! CLikeMode()
-  if !exists("b:clikeState") || b:clikeState == "off"
-    let b:clikeState = "on"
-    set autoindent
-    set cindent
-    if !exists("b:matchState") || b:matchState == "off"
-      call ToggleCompleteMatching()
-    endif
-  else
-    let b:clikeState = "off"
-    set noautoindent
-    set nocindent
-    if exists("b:matchState") && b:matchState == "on"
-      call ToggleCompleteMatching()
-    endif
-  endif
-endf
-
-function! ToggleCompleteMatching()
-  if !exists("b:matchState") || b:matchState == "off"
-    let b:matchState = "on"
-    inoremap ( ()<Esc>i
-    inoremap [ []<Esc>i
-    inoremap ) <c-r>=ClosePair(')')<CR>
-    inoremap ] <c-r>=ClosePair(']')<CR>
-    inoremap " <c-r>=QuoteDelim('"')<CR>
-    inoremap ' <c-r>=QuoteDelim("'")<CR>
-  else
-    let b:matchState = "off"
-    iunmap (
-    iunmap [
-    iunmap )
-    iunmap ]
-    iunmap "
-    iunmap '
-  endif
-endf
-
-function! ClosePair(char)
-  if getline('.')[col('.') - 1] == a:char
-    return "\<Right>"
-  else
-    return a:char
-  endif
-endf
-
-function! CloseBracket()
-  if match(getline(line('.') + 1), '\s*}') < 0
-    return "\<CR>}"
-  else
-    return "\<Esc>j0f}o"
-  endif
-endf
-
-function! QuoteDelim(char)
-   let line = getline('.')
-   let col = col('.')
-   if line[col - 2] == "\\"
-     "Inserting a quoted quotation mark into the string
-     return a:char
-   elseif line[col - 1] == a:char
-     "Escaping out of the string
-     return "\<Right>"
-   else
-     "Starting a string
-     return a:char.a:char."\<Esc>i"
-   endif
-endf
 
 function! TabOrComplete()
   if col('.') > 1 && strpart(getline('.'), col('.')-2, 3) =~ '^\w'
@@ -320,7 +253,3 @@ function! ExecuteFile(filename)
     exec ":!echo \"Don't know how to execute: \"" . a:filename
   end
 endf
-
-" Function calls.
-
-call ToggleCompleteMatching()
