@@ -95,10 +95,15 @@ if [[ $is_linux ]]; then
   }
   alias la="l -A"
   alias tree="tree -Cvh --du --dirsfirst"
+  alias df="df -ah --si"
+  alias du="du -h"
 elif [[ $is_freebsd ]]; then
-  alias l="ls -lG"
-  alias la="ls -laG"
+  alias l="ls -lhG"
+  alias la="ls -lhaG"
+  alias tree="tree -Cvh --dirsfirst"
+  alias df="df -ah"
 fi
+alias du="du -h"
 
 # Go to dir and list the contents.
 function d() {
@@ -120,9 +125,6 @@ alias ..="d .."
 alias ...="d ../.."
 alias ....="d ../../.."
 alias .....="d ../../../.."
-
-alias df="df -ah --si"
-alias du="du -h"
 
 if [[ ! `which ack` ]]; then
   alias ack="ack-grep"
