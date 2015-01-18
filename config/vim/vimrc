@@ -90,10 +90,6 @@ set statusline+=\ %P " percent through file
 " Use 1 space when joining sentences.
 set nojoinspaces
 
-" Colors.
-syntax on
-colorscheme default
-
 " Override Vim's autodetection.
 set t_Co=256
 
@@ -180,34 +176,42 @@ augroup resCur
 augroup END
 
 " Highlight trailing spaces in annoying red.
-highlight ExtraWhitespace ctermbg=1 guibg=red
+hi ExtraWhitespace ctermbg=1 guibg=red
 match ExtraWhitespace /\s\+$/
 autocmd BufWinEnter * match ExtraWhitespace /\s\+$/
 autocmd InsertEnter * match ExtraWhitespace /\s\+\%#\@<!$/
 autocmd InsertLeave * match ExtraWhitespace /\s\+$/
 autocmd BufWinLeave * call clearmatches()
 
+" Colors.
+syntax on
+colorscheme default
+set background=light
+
 " Git Gutter highlights.
-highlight GitGutterAdd ctermbg=235 ctermfg=Green
-highlight GitGutterChange ctermbg=235 ctermfg=Yellow
-highlight GitGutterDelete ctermbg=235 ctermfg=Red
-highlight GitGutterChangeDelete ctermbg=235 ctermfg=Yellow
-highlight SignColumn ctermbg=235 ctermfg=White
+hi GitGutterAdd ctermbg=235 ctermfg=Green
+hi GitGutterChange ctermbg=235 ctermfg=Yellow
+hi GitGutterDelete ctermbg=235 ctermfg=Red
+hi GitGutterChangeDelete ctermbg=235 ctermfg=Yellow
+hi SignColumn ctermbg=235 ctermfg=White
 
 " Line numbers columns.
-highlight LineNr ctermbg=233 ctermfg=240
+hi LineNr ctermbg=233 ctermfg=240
 
 " Splitting colors.
-highlight VertSplit ctermbg=240 ctermfg=Black
-highlight StatusLine ctermbg=Black ctermfg=242
-highlight StatusLineNC ctermbg=231 ctermfg=235
+hi VertSplit ctermbg=240 ctermfg=Black
+hi StatusLine ctermbg=Black ctermfg=242
+hi StatusLineNC ctermbg=231 ctermfg=235
 
 " Tab colors.
-highlight TabLineFill ctermbg=235 ctermfg=235
-highlight TabLine ctermbg=238 ctermfg=White cterm=NONE
-highlight TabLineSel ctermbg=Black ctermfg=White
+hi TabLineFill ctermbg=235 ctermfg=235
+hi TabLine ctermbg=238 ctermfg=White cterm=NONE
+hi TabLineSel ctermbg=Black ctermfg=White
 
-highlight Visual ctermbg=235
+hi Visual ctermbg=236
+
+hi Search ctermbg=Magenta ctermfg=White
+hi Comment ctermfg=242
 
 " Show lines over 80 chars as errors.
 au BufWinEnter * let w:m1=matchadd('ErrorMsg', '\%81v.', -1)
