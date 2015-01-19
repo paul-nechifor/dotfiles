@@ -157,7 +157,7 @@ let NERDTreeIgnore=['\.o$', '\~$', '.pyc$']
 
 
 " What to ignore in CtrlP.
-let g:ctrlp_custom_ignore = 'node_modules\|DS_Store\|git\|build\|migrations\|environ'
+let g:ctrlp_custom_ignore = 'node_modules\|DS_Store\|git\|build\|migrations\|environ\|pyc\|svn\|logs'
 
 " Toggle previous file with `,,`.
 nnoremap <Leader><Leader> <c-^>

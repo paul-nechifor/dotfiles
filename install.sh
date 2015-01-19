@@ -136,6 +136,10 @@ link_user_files() {
   if [[ $DISPLAY ]]; then
     setxkbmap ro
   fi
+
+  if [[ $is_freebsd ]]; then
+    bash $install_dir/provision/freebsd.sh
+  fi
 }
 
 link_common_files() {
