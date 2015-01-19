@@ -52,7 +52,7 @@ install_tmux() {
 
 install_vim() {
   cd "$provision"
-  wget https://github.com/b4winckler/vim/archive/master.zip
+  wget --no-check-certificate https://github.com/b4winckler/vim/archive/master.zip
   unzip master.zip
   cd vim-master
   ./configure --with-features=huge --enable-multibyte --enable-pythoninterp --prefix=$install
