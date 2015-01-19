@@ -80,8 +80,8 @@ export EDITOR="vim"
 export TERM="xterm-256color"
 export PATH="$PATH:~/.pn-dotfiles/bin"
 
-if [[ -d ~/.local-installs ]]; then
-  PATH="~/.local-installs:$PATH"
+if [[ -d ~/.local-installs/bin ]]; then
+  PATH="~/.local-installs/bin:$PATH"
 fi
 
 # File system management -------------------------------------------------------
