@@ -140,6 +140,12 @@ link_user_files() {
   if [[ $is_freebsd ]]; then
     bash $install_dir/provision/freebsd.sh
   fi
+
+  if [[ ! -e ~/.local-signal ]]; then
+    mkfifo ~/.local-signal
+  fi
+
+  mkdir ~/.local-build-commands 2>/dev/null || true
 }
 
 link_common_files() {

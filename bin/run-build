@@ -1,0 +1,8 @@
+#!/usr/bin/env bash
+
+for f in `ls ~/.local-build-commands`; do
+  echo $f
+  if [[ "$1" =~ ^${f}.* ]]; then
+    bash ~/.local-build-commands/$f
+  fi
+done

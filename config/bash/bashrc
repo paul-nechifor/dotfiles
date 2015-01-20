@@ -259,6 +259,35 @@ function color-svn-status() {
   done
 }
 
+function do-local() {
+  (
+    echo '>>>>>'
+    cat
+    echo '<<<<<'
+  ) >> ~/.local-signal
+}
+
+function remote-listen() {
+  ssh "$1" tail -f .local-signal | execute-listen
+}
+
+function execute-listen() {
+  local cmd=
+  while read -r line; do
+    if [[ $line == '>>>>>' ]]; then
+      cmd=
+    elif [[ $line == '<<<<<' ]]; then
+      echo =====================================
+      echo "$cmd"
+      echo -------------------------------------
+      echo
+      echo "$cmd" | bash
+    else
+      cmd+=$line
+    fi
+  done
+}
+
 # Load local bashrc ------------------------------------------------------------
 
 if [ -f ~/.bashrc-local ]; then
