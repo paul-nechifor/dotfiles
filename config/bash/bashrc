@@ -87,7 +87,7 @@ fi
 # File system management -------------------------------------------------------
 if [[ $is_linux ]]; then
   alias ls="ls --color=auto"
-  function l() {
+  l() {
     # h = human readable
     # l = list
     # G = no groups
@@ -108,7 +108,7 @@ fi
 alias du="du -h"
 
 # Go to dir and list the contents.
-function d() {
+d() {
   if [ $# -eq 0 ]; then
     cd && l
   else
@@ -117,7 +117,7 @@ function d() {
 }
 
 # Create and go to a directory (possibly nested).
-function dc() {
+dc() {
   dir="$@"
   mkdir -p "$dir"
   cd "$dir"
@@ -166,7 +166,7 @@ alias resetmod="find . -type f -exec chmod 644 {} + ; find . -type d -exec chmod
 
 # Functions --------------------------------------------------------------------
 
-function dirdiff() {
+dirdiff() {
   # -Ewb ignore the bulk of whitespace changes
   # -N detect new files
   # -u unified
@@ -174,24 +174,24 @@ function dirdiff() {
   diff -ENwbur "$1" "$2"  | kompare -o -
 }
 
-function mvninit() {
+mvninit() {
   id=$1
   mvn archetype:create -DgroupId=net.nechifor.$id -DartifactId=$id
 }
 
-function texwc() {
+texwc() {
   file="$1"
   texcount -total "$file" | grep 'Words in text' | sed 's/[^0-9]*//g'
 }
 
 if [[ $own_computer ]]; then
-  function sslenc() {
+  sslenc() {
     file="$1"
     openssl enc -aes-256-cbc -salt -in $file -out $file.enc \
         -pass file:/home/p/pro/docs/keys/symkey256.bin
   }
 
-  function ssldec() {
+  ssldec() {
     file="`basename $1 .enc`"
     openssl enc -d -aes-256-cbc -salt -in $file.enc -out $file \
         -pass file:/home/p/pro/docs/keys/symkey256.bin
@@ -211,7 +211,7 @@ alias gg="gitg"
 alias gl="git-pretty-log"
 alias gs="g s"
 
-function gac() {
+gac() {
   message="$@"
   git add --all
   git commit -m "$message"
@@ -219,7 +219,7 @@ function gac() {
 
 # SVN aliases and functions ----------------------------------------------------
 
-function s() {
+s() {
   case $1 in
     diff)
       svn "$@" | vim +'set bt=nowrite' - ;;
@@ -240,7 +240,7 @@ alias sd="s diff"
 alias sl="s log"
 alias st="s st"
 
-function color-svn-status() {
+color-svn-status() {
   local color
   while read -r line; do
     if [[ $line =~ ^\ ?M ]]; then color="\033[34m";
@@ -259,7 +259,7 @@ function color-svn-status() {
   done
 }
 
-function do-local() {
+do-local() {
   (
     echo '>>>>>'
     cat
@@ -267,11 +267,11 @@ function do-local() {
   ) >> ~/.local-signal
 }
 
-function remote-listen() {
+remote-listen() {
   ssh "$1" tail -f .local-signal | execute-listen
 }
 
-function execute-listen() {
+execute-listen() {
   local cmd=
   while read -r line; do
     if [[ $line == '>>>>>' ]]; then
