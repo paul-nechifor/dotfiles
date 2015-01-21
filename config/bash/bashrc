@@ -123,6 +123,7 @@ dc() {
   cd "$dir"
 }
 
+alias d-="d -"
 alias ..="d .."
 alias ...="d ../.."
 alias ....="d ../../.."
@@ -239,6 +240,7 @@ alias sa="s add"
 alias sd="s diff"
 alias sl="s log"
 alias st="s st"
+alias sup="sup"
 
 color-svn-status() {
   local color
