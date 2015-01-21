@@ -7,7 +7,7 @@ filetype plugin indent on
 " Toggle paste insert mode.
 set pastetoggle=<F2>
 
-nnoremap <silent> <F5> :!~/.pn-dotfiles/bin/run-build %<CR>
+nnoremap <silent> <F5> :!~/.pn-dotfiles/bin/run-build %:p<CR>
 
 " More reachable end and start line.
 noremap H ^

@@ -1,8 +1,11 @@
-#!/usr/bin/env bash
+#!/usr/bin/env python
 
-for f in `ls ~/.local-build-commands`; do
-  echo $f
-  if [[ "$1" =~ ^${f}.* ]]; then
-    bash ~/.local-build-commands/$f
-  fi
-done
+import os
+import sys
+
+project_file = sys.argv[1].replace('/', '-')
+commands_dir = os.getenv('HOME') + '/.local-build-commands'
+
+for file in os.listdir(commands_dir):
+  if project_file.startswith(file):
+    os.system('bash ' + commands_dir + '/' + file)
