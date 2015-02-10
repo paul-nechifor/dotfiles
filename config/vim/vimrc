@@ -171,6 +171,8 @@ autocmd Syntax c,java,cpp,cs set autoindent cindent
 
 autocmd FileType python,javascript,c set ts=4 sw=4 sts=4
 
+au BufRead,BufNewFile Vagrantfile set filetype=ruby
+
 " Restore cursor on reopening.
 function! ResCur()
   if line("'\"") <= line("$")
