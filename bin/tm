@@ -213,9 +213,9 @@ def show_all_colors():
         vrun(16 + 6 * 6 * 6, 8, 3),   # 24 grey levels
     ]
 
-    def bg_seq(color): '\033[48;5;%dm' % color
+    def bg_seq(color): return '\033[48;5;%dm' % color
 
-    def fg_seq(color): '\033[38;5;%dm' % color
+    def fg_seq(color): return '\033[38;5;%dm' % color
 
     for block in layout:
         print("")
