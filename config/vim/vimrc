@@ -42,9 +42,14 @@ xmap <C-j> <Plug>(textmanip-move-down)
 xmap <C-k> <Plug>(textmanip-move-up)
 
 " Disable some PyMode things.
-let g:pymode_folding = 0
 let g:pymode_doc = 0
+let g:pymode_folding = 0
+let g:pymode_options = 0
+let g:pymode_rope_completion = 0
 let g:pymode_run = 0
+let g:pymode_trim_whitespaces = 0
+
+let g:pymode_rope_goto_definition_cmd = 'e'
 
 " Quicksave command
 noremap <C-Q> :update<CR>
