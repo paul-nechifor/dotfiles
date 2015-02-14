@@ -4,143 +4,53 @@ import re
 import subprocess
 import sys
 
+
+class ColorSet(object):
+    def __init__(self, colors):
+        list = re.findall(r'[0-9a-fA-F]{6}', colors)
+        self.background = '#' + list[0]
+        self.foreground = '#' + list[1]
+        self.palette = '#' + ':#'.join(list[2:])
+
+
 ROOT = '/apps/gnome-terminal/profiles/Default/'
 THEMES = {
-    'black': [
-        '000000',
-        'FFFFFF',
+    # These are based on Solarized but have black/white fg/bg.
+    'black': ColorSet("""
+        000000 FFFFFF
+        000000 D31112 859900 B58900 268BD2 D33682 2AA198 EEE8D5
+        204B56 FB2B16 859900 B58900 268BD2 D33682 2AA198 FDF6E3
+    """),
+    'white': ColorSet("""
+        FFFFFF 000000
+        FFFFFF D31112 859900 B58900 268BD2 D33682 2AA198 000000
+        204B56 CB4B16 859900 B58900 268BD2 D33682 2AA198 111111
+    """),
 
-        '000000',
-        'D31112',
-        '859900',
-        'B58900',
-        '268BD2',
-        'D33682',
-        '2AA198',
-        'EEE8D5',
+    # These are based on Solarized but have higher contrast.
+    'solar': ColorSet("""
+        002B36 657B83
+        063642 D30102 859900 B58900 268BD2 D33682 2AA198 EEE8D5
+        000000 CB4B16 859900 B58900 268BD2 D33682 2AA198 FDF6E3
+    """),
+    'solarlight': ColorSet("""
+        FDF6E3 536466
+        EEE8D5 D30102 859900 B58900 268BD2 D33682 2AA198 073642
+        FDF6E3 CB4B16 859900 B58900 268BD2 D33682 2AA198 002B36
+    """),
 
-        '204B56',
-        'FB2B16',
-        '859900',
-        'B58900',
-        '268BD2',
-        'D33682',
-        '2AA198',
-        'FDF6E3',
-    ],
-    'white': [
-        'FFFFFF',
-        '000000',
-
-        'FFFFFF',
-        'D31112',
-        '859900',
-        'B58900',
-        '268BD2',
-        'D33682',
-        '2AA198',
-        '000000',
-
-        '204B56',
-        'CB4B16',
-        '859900',
-        'B58900',
-        '268BD2',
-        'D33682',
-        '2AA198',
-        '111111',
-    ],
-    'solarized-ish-dark': [
-        '002B36',
-        '657B83',
-
-        '063642',
-        'D30102',
-        '859900',
-        'B58900',
-        '268BD2',
-        'D33682',
-        '2AA198',
-        'EEE8D5',
-
-        '000000',
-        'CB4B16',
-        '859900',
-        'B58900',
-        '268BD2',
-        'D33682',
-        '2AA198',
-        'FDF6E3',
-    ],
-    'solarized-ish-light': [
-        'FDF6E3',
-        '536466',
-
-        'EEE8D5',
-        'D30102',
-        '859900',
-        'B58900',
-        '268BD2',
-        'D33682',
-        '2AA198',
-        '073642',
-
-        'FDF6E3',
-        'CB4B16',
-        '859900',
-        'B58900',
-        '268BD2',
-        'D33682',
-        '2AA198',
-        '002B36',
-    ],
-    'gruvboxb': [
-        '1d2021',
-        'ebdbb2',
-
-        '282828',
-        'cc241d',
-        '98971a',
-        'd79921',
-        '458588',
-        'b16286',
-        '689d6a',
-        'a89984',
-
-        '928374',
-        'fb4934',
-        'b8bb26',
-        'fabd2f',
-        '83a598',
-        'd3869b',
-        '8ec07c',
-        'ebdbb2',
-    ],
-    'gruvboxw': [
-        'ebdbb2',
-        '1d2021',
-
-        '282828',
-        'cc241d',
-        '98971a',
-        'd79921',
-        '458588',
-        'b16286',
-        '689d6a',
-        'a89984',
-
-        '928374',
-        'fb4934',
-        'b8bb26',
-        'fabd2f',
-        '83a598',
-        'd3869b',
-        '8ec07c',
-        'ebdbb2',
-    ],
+    # These are based on Gruvbox.
+    'gruv': ColorSet("""
+        1d2021 ebdbb2
+        282828 cc241d 98971a d79921 458588 b16286 689d6a a89984
+        928374 fb4934 b8bb26 fabd2f 83a598 d3869b 8ec07c ebdbb2
+    """),
+    'gruvlight': ColorSet("""
+        ebdbb2 1d2021
+        282828 cc241d 98971a d79921 458588 b16286 689d6a a89984
+        928374 fb4934 b8bb26 fabd2f 83a598 d3869b 8ec07c ebdbb2
+    """),
 }
-THEMES['light'] = THEMES['solarized-ish-light']
-THEMES['dark'] = THEMES['solarized-ish-dark']
 
 reset_seq = '\033[0m'
 
@@ -156,16 +66,12 @@ def gconf_set(path, type, value):
     subprocess.call(['gconftool-2', '--set', path, '--type', type, value])
 
 
-def join_colors(theme, a, b):
-    return '#' + ':#'.join(theme[a:b])
-
-
 def set_theme(theme):
     gconf_set(ROOT + 'use_theme_background', 'bool', 'false')
     gconf_set(ROOT + 'use_theme_colors', 'bool', 'false')
-    gconf_set(ROOT + 'background_color', 'string', join_colors(theme, 0, 1))
-    gconf_set(ROOT + 'foreground_color', 'string', join_colors(theme, 1, 2))
-    gconf_set(ROOT + 'palette', 'string', join_colors(theme, 2, 18))
+    gconf_set(ROOT + 'background_color', 'string', theme.background)
+    gconf_set(ROOT + 'foreground_color', 'string', theme.foreground)
+    gconf_set(ROOT + 'palette', 'string', theme.palette)
 
 
 def set_font_size(size=16, relative=None):
@@ -239,6 +145,10 @@ def main():
     elif re.match(r'^all$', arg):
         show_all_colors()
     else:
+        if arg not in THEMES:
+            themes = [''] + list(sorted(THEMES.keys()))
+            print 'All the themes are:', '\n  - '.join(themes)
+            exit(1)
         set_theme(THEMES[arg])
 
 
