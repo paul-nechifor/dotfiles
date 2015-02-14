@@ -27,7 +27,7 @@ nnoremap k gk
 cmap w!! %!sudo tee > /dev/null %
 
 " Auto reload .vimrc on write.
-autocmd! bufwritepost .vimrc source %
+au! bufwritepost .vimrc source %
 
 " Enable mouse usage in all modes.
 set mouse=a
@@ -177,9 +177,11 @@ nnoremap <Leader><Leader> <c-^>
 " Execute current file.
 map <Leader>e :call ExecuteFile(expand("%"))<cr>
 
-autocmd Syntax c,java,cpp,cs set autoindent cindent
+au Syntax c,java,cpp,cs set autoindent cindent
 
-autocmd FileType python,javascript,c set ts=4 sw=4 sts=4
+au FileType python,javascript,c set ts=4 sw=4 sts=4
+au FileType python setlocal textwidth=79
+au FileType diff setlocal textwidth=81
 
 au BufRead,BufNewFile Vagrantfile set filetype=ruby
 
@@ -192,17 +194,17 @@ function! ResCur()
 endfunction
 
 augroup resCur
-  autocmd!
-  autocmd BufWinEnter * call ResCur()
+  au!
+  au BufWinEnter * call ResCur()
 augroup END
 
 " Highlight trailing spaces in annoying red.
 hi ExtraWhitespace ctermbg=1 guibg=red
 match ExtraWhitespace /\s\+$/
-autocmd BufWinEnter * match ExtraWhitespace /\s\+$/
-autocmd InsertEnter * match ExtraWhitespace /\s\+\%#\@<!$/
-autocmd InsertLeave * match ExtraWhitespace /\s\+$/
-autocmd BufWinLeave * call clearmatches()
+au BufWinEnter * match ExtraWhitespace /\s\+$/
+au InsertEnter * match ExtraWhitespace /\s\+\%#\@<!$/
+au InsertLeave * match ExtraWhitespace /\s\+$/
+au BufWinLeave * call clearmatches()
 
 " Colors.
 syntax on
