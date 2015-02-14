@@ -131,6 +131,9 @@ link_user_files() {
   mkdir ~/.cmus 2>/dev/null || true
   ln -s "$config_dir/cmus/autosave" ~/.cmus/autosave
 
+  rm -f ~/.ackrc
+  ln -s "$config_dir/ack/rc" ~/.ackrc
+
   provision_vim
 
   if [[ $DISPLAY ]]; then

@@ -1,0 +1,6 @@
+--ignore-dir=migrations/
+--ignore-dir=.idea/
+
+--type-set=scss=.scss
+--type-set=jade=.jade
+--type-set=json=.json
