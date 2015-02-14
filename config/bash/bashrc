@@ -12,9 +12,15 @@ export own_computer=$(if [[ $is_ubuntu && ! $is_vagrant ]]; then echo true; fi)
 # Set vi mode.
 set -o vi
 
-# Bash search
-bind '"\e[A":history-search-backward'
+# Clear even in insert mode.
+bind -x '"\C-x":"clear"'
+bind -x '"\e[A":"echo Stop using that."'
+
+# bind '"\e[B":insert-last-argument' Map this to something.
+bind '"\C-o":history-search-backward'
 bind '"\e[B":history-search-forward'
+
+bind 'set match-hidden-files off'
 
 # Append to `~/.bash_history`.
 shopt -s histappend
