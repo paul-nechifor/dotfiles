@@ -119,6 +119,13 @@ cnoremap <C-K> <t_ku>
 cnoremap <C-A> <Home>
 cnoremap <C-E> <End>
 
+" Only for diff mode/vimdiff.
+if &diff
+  " Use 'filler' to keep lines in sync. Set the `context` to a large number so
+  " no folds are shown and hide the `foldcolumn`.
+  set diffopt=filler,context:1000000,foldcolumn:0
+endif
+
 " Map Q to repeat last recorded command.
 map Q @@
 
@@ -216,6 +223,11 @@ hi LineNr ctermbg=233 ctermfg=240
 hi VertSplit ctermbg=240 ctermfg=Black
 hi StatusLine ctermbg=Black ctermfg=242
 hi StatusLineNC ctermbg=231 ctermfg=235
+
+hi DiffAdd ctermbg=22
+hi DiffChange ctermbg=17
+hi DiffDelete ctermbg=52
+hi DiffText ctermbg=18
 
 " Tab colors.
 hi TabLineFill ctermbg=235 ctermfg=235
