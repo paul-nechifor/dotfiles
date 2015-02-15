@@ -1,3 +1,6 @@
+" Disable vi compatibility.
+set nocompatible
+
 " Pathogen.
 filetype off
 call pathogen#infect()
@@ -71,8 +74,6 @@ inoremap <F1> <nop>
 nnoremap <F1> <nop>
 vnoremap <F1> <nop>
 
-" Disable vi compatibility.
-set nocompatible
 " Confirm to save file instead of failing a command.
 set confirm
 set undolevels=666
@@ -110,6 +111,9 @@ set statusline+=\ %P " percent through file
 
 " Use 1 space when joining sentences.
 set nojoinspaces
+
+" Exit visual mode without a timeout.
+set timeoutlen=1000 ttimeoutlen=0
 
 " Override Vim's autodetection.
 set t_Co=256
