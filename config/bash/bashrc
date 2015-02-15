@@ -93,7 +93,7 @@ fi
 # File system management -------------------------------------------------------
 if [[ $is_linux ]]; then
   alias ls="ls --color=auto"
-  l() {
+  function l() {
     # h = human readable
     # l = list
     # G = no groups
@@ -102,7 +102,11 @@ if [[ $is_linux ]]; then
     tail --lines=+2
   }
   alias la="l -A"
-  alias tree="tree -Cvh --du --dirsfirst"
+  if [[ $is_centos ]]; then
+    alias tree="tree -Cvh --dirsfirst"
+  else
+    alias tree="tree -Cvh --du --dirsfirst"
+  fi
   alias df="df -ah --si"
   alias du="du -h"
 elif [[ $is_freebsd ]]; then
