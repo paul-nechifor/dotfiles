@@ -1,0 +1,4 @@
+#!/usr/bin/env bash
+
+echo -n ' ' +"'tabe ${@: -1} | vert diffsplit ${@: -2:1} | wincmd l'" \
+    >> "$HOME/svn-vimdiff-arguments"
