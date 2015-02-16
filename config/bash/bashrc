@@ -38,7 +38,7 @@ export HISTTIMEFORMAT="%F %T"
 
 PS1=
 if [[ ! $own_computer ]]; then
-  if [[ ! ( "`whoami`" =~ (p|pnechifor|vagrant|root) ) ]]; then
+  if [[ ! ( "`whoami`" =~ (^p$|^pnechifor$|^vagrant$|^root$) ) ]]; then
     if [[ `id -u` -eq 0 ]]; then
       PS1+='\[\e[0;35m\]\u@\[\e[0m\]'
     else
@@ -159,8 +159,6 @@ if [[ $is_linux ]]; then
   alias grep="grep --color=auto"
 fi
 
-alias super='sudo -sE'
-
 # Complex aliases --------------------------------------------------------------
 
 alias dt="du -ba| sort -n | tail -50"
@@ -176,6 +174,14 @@ alias infect="wget -q -O- https://github.com/paul-nechifor/dotfiles/raw/master/i
 alias resetmod="find . -type f -exec chmod 644 {} + ; find . -type d -exec chmod 755 {} +"
 
 # Functions --------------------------------------------------------------------
+
+super() {
+  if [[ $# -eq 0 ]]; then
+    sudo -sE
+  else
+    sudo -sEu $1
+  fi
+}
 
 dirdiff() {
   # -Ewb ignore the bulk of whitespace changes
@@ -233,11 +239,11 @@ gac() {
 s() {
   case $1 in
     diff)
-      svn "$@" | vim +'set bt=nowrite' - ;;
+      svn "$@" | vim +'set bt=nowrite' +'set syntax=diff' - ;;
     log)
       svn "$@" --limit 40 | svn-pretty-log ;;
     st)
-      svn info | grep 'URL' | awk '{print "url:", $NF}'
+      svn info | grep '^URL' | awk '{print "url:", $NF}'
       svn "$@" 2>&1 | color-svn-status ;;
     add|checkout|co|cp|del|export|remove|rm)
       svn "$@" 2>&1 | color-svn-status ;;
