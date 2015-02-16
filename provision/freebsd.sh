@@ -25,7 +25,9 @@ install_vim() {
   wget --no-check-certificate https://github.com/b4winckler/vim/archive/master.zip
   unzip master.zip
   cd vim-master
-  ./configure --with-features=huge --enable-multibyte --enable-pythoninterp --prefix=$install
+  export LDFLAGS="-static"
+  ./configure --with-features=huge --without-x --disable-gui \
+      --enable-multibyte --enable-pythoninterp --prefix=$install
   make install
   cd ..
   rm -fr vim-master
