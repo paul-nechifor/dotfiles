@@ -236,15 +236,15 @@ hi VertSplit ctermbg=240 ctermfg=Black
 hi StatusLine ctermbg=Black ctermfg=242
 hi StatusLineNC ctermbg=231 ctermfg=235
 
-hi DiffAdd ctermbg=22
-hi DiffChange ctermbg=17
-hi DiffDelete ctermbg=52
-hi DiffText ctermbg=18
+hi DiffAdd ctermbg=237
+hi DiffChange ctermbg=237
+hi DiffDelete ctermbg=237 ctermfg=236
+hi DiffText ctermbg=16
 
 " Tab colors.
-hi TabLineFill ctermbg=235 ctermfg=235
-hi TabLine ctermbg=238 ctermfg=White cterm=NONE
-hi TabLineSel ctermbg=Black ctermfg=White
+hi TabLineFill ctermfg=Black
+hi TabLine ctermbg=Black ctermfg=White cterm=NONE
+hi TabLineSel ctermbg=Black ctermfg=Green
 
 hi Visual ctermbg=236
 hi Search ctermbg=Magenta ctermfg=White
