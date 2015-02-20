@@ -126,6 +126,7 @@ bindsym $mod+d exec dmenu_run
 bindsym $mod+w exec webstorm
 bindsym $mod+$mod2+f exec firefox
 bindsym $mod+$mod2+i exec /opt/idea/bin/idea.sh
+bindsym $mod+$mod2+m exec killall -9 chrome
 bindsym $mod+$mod2+n exec /bin/sh "/usr/local/netbeans-7.2.1/bin/netbeans"
 bindsym $mod+$mod2+t exec transmission-gtk
 bindsym $mod+$mod2+v exec VirtualBox
