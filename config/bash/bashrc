@@ -146,7 +146,7 @@ fi
 # Lazy aliases -----------------------------------------------------------------
 
 alias p="pwd"
-alias v="vim"
+alias v="vim -p"
 
 if [[ $own_computer ]]; then
   alias am="alsamixer"
@@ -244,7 +244,7 @@ s() {
       svn "$@" --limit 40 | svn-pretty-log ;;
     st)
       svn info | grep '^URL' | awk '{print "url:", $NF}'
-      svn "$@" 2>&1 | color-svn-status ;;
+      svn "$@" --ignore-externals 2>&1 | color-svn-status ;;
     add|checkout|co|cp|del|export|remove|rm)
       svn "$@" 2>&1 | color-svn-status ;;
     *)

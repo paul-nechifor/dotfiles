@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 collector_file="$HOME/svn-vimdiff-arguments"
 cmd="$HOME/.pn-dotfiles/bin/svn-diff-collector"

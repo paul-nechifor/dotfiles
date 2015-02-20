@@ -181,9 +181,6 @@ let NERDTreeIgnore=['\.o$', '\~$', '.pyc$']
 " What to ignore in CtrlP.
 let g:ctrlp_custom_ignore = 'node_modules\|DS_Store\|git\|build\|migrations\|environ\|pyc\|svn\|logs'
 
-" Toggle previous file with `,,`.
-nnoremap <Leader><Leader> <c-^>
-
 " Execute current file.
 map <Leader>e :call ExecuteFile(expand("%"))<cr>
 
@@ -238,12 +235,12 @@ hi StatusLineNC ctermbg=231 ctermfg=235
 
 hi DiffAdd ctermbg=236
 hi DiffChange ctermbg=236
-hi DiffDelete ctermbg=234 ctermfg=233
+hi DiffDelete ctermbg=None ctermfg=Black
 hi DiffText ctermbg=16
 
 " Tab colors.
 hi TabLineFill ctermfg=Black
-hi TabLine ctermbg=Black ctermfg=White cterm=NONE
+hi TabLine ctermbg=Black ctermfg=White cterm=None
 hi TabLineSel ctermbg=Black ctermfg=Green
 
 hi Visual ctermbg=236
