@@ -1,0 +1,44 @@
+unmapAll
+
+# Page movement
+map h scrollLeft
+map j scrollDown
+map k scrollUp
+map l scrollRight
+
+map G scrollToBottom
+map gg scrollToTop
+
+# Page options
+map r reload
+map gs toggleViewSource
+
+# History
+map J goForward
+map K goBack
+
+# Search
+map / enterFindMode
+map n performFind
+map N performBackwardsFind
+
+# Links
+map f LinkHints.activateMode
+map F LinkHints.activateModeToOpenInNewTab
+
+# Tab movement
+map L nextTab
+map H previousTab
+map g1 firstTab
+map g0 lastTab
+map t createTab
+map yt duplicateTab
+map x removeTab
+map X restoreTab
+map << moveTabLeft
+map >> moveTabRight
+
+# Other
+map ? showHelp
+map i enterInsertMode
+map : Vomnibar.activateEditUrl
