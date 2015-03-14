@@ -14,10 +14,8 @@ set -o vi
 
 # Clear even in insert mode.
 bind -x '"\C-x":"clear"'
-bind -x '"\e[A":"echo Stop using that."'
 
-# bind '"\e[B":insert-last-argument' Map this to something.
-bind '"\C-o":history-search-backward'
+bind '"\e[A":history-search-backward'
 bind '"\e[B":history-search-forward'
 
 bind 'set match-hidden-files off'
