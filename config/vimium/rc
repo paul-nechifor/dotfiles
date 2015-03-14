@@ -28,15 +28,18 @@ map F LinkHints.activateModeToOpenInNewTab
 
 # Tab movement
 map L nextTab
+map <C-.> nextTab
 map H previousTab
+map <C-,> previousTab
 map g1 firstTab
 map g0 lastTab
 map t createTab
 map yt duplicateTab
 map x removeTab
+map <C-x> removeTab
 map X restoreTab
-map << moveTabLeft
-map >> moveTabRight
+map <C-<> moveTabLeft
+map <C->> moveTabRight
 
 # Other
 map ? showHelp

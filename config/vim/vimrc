@@ -13,9 +13,9 @@ set pastetoggle=<F2>
 nnoremap <silent> <F5> :!~/.pn-dotfiles/bin/run-build %:p<CR><CR>
 nnoremap <silent> <F9> :!~/.pn-dotfiles/bin/run-build %:p edit<CR><CR>
 
-" More reachable end and start line.
-noremap H ^
-noremap L $
+" EasyMotion settings.
+let g:EasyMotion_startofline = 0 " keep cursor colum when JK motion
+map s <Plug>(easymotion-bd-w)
 
 " Don't use the manual.
 noremap K k
@@ -170,13 +170,12 @@ noremap <Leader>7 7gt
 noremap <Leader>8 8gt
 noremap <Leader>9 9gt
 noremap <Leader>0 :tablast<CR>
-map <Leader>a <ESC>:tabprevious<CR>
-map <Leader>s <ESC>:tabnext<CR>
+noremap H <ESC>:tabprevious<CR>
+noremap L <ESC>:tabnext<CR>
 
 " Nerd tree. Toggle it with Ctrl+N.
 map <C-n> :NERDTreeToggle<CR>
 let NERDTreeIgnore=['\.o$', '\~$', '.pyc$']
-
 
 " What to ignore in CtrlP.
 let g:ctrlp_custom_ignore = 'node_modules\|DS_Store\|git\|build\|migrations\|environ\|pyc\|svn\|logs'

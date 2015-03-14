@@ -1,5 +1,6 @@
 --ignore-dir=migrations/
 --ignore-dir=.idea/
+--ignore-dir=.ropeproject/
 
 --type-set=scss=.scss
 --type-set=jade=.jade
