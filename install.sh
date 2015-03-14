@@ -173,6 +173,9 @@ wgetq() {
     args=--no-check-certificate
   fi
   wget $args -q "$1"
+  if [[ $? -ne 0 ]]; then
+    echo 'wget fucked up...'
+  fi
 }
 
 get_pathogen() {
@@ -195,6 +198,7 @@ install_from_github() {
 }
 
 install_vim_modules() {
+  install_from_github ack mileszs/ack.vim
   install_from_github coffee-script kchmck/vim-coffee-script
   install_from_github commentary tpope/vim-commentary
   install_from_github ctrlp kien/ctrlp.vim
@@ -210,7 +214,6 @@ install_vim_modules() {
   install_from_github stylus wavded/vim-stylus
   install_from_github supertab ervandew/supertab
   install_from_github textmanip t9md/vim-textmanip
-  install_from_github ack mileszs/ack.vim
 }
 
 provision_vim() {
