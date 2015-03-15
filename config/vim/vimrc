@@ -10,11 +10,14 @@ filetype plugin indent on
 " Toggle paste insert mode.
 set pastetoggle=<F2>
 
+" Toggle spell checking.
+map <F3> :setlocal spell! spelllang=en_gb<CR>
+
 nnoremap <silent> <F5> :!~/.pn-dotfiles/bin/run-build %:p<CR><CR>
 nnoremap <silent> <F9> :!~/.pn-dotfiles/bin/run-build %:p edit<CR><CR>
 
 " EasyMotion settings.
-let g:EasyMotion_startofline = 0 " keep cursor colum when JK motion
+let g:EasyMotion_startofline = 0 " Keep cursor column on JK motions.
 map s <Plug>(easymotion-bd-w)
 
 " Don't use the manual.
@@ -30,6 +33,7 @@ nnoremap k gk
 " For saving files that require root permission.
 cmap w!! %!sudo tee > /dev/null %
 
+" Shortcut so I don’t have to type ‘Ack’.
 cabbrev ack <c-r>=getcmdpos() == 1 && getcmdtype() == ":" ? "Ack" : "ack"<CR>
 
 " Auto reload .vimrc on write.
@@ -83,7 +87,7 @@ vnoremap <F1> <nop>
 " Confirm to save file instead of failing a command.
 set confirm
 set undolevels=666
-" Doesn't automaticaly break the line. Use gq to rewrap.
+" Doesn't automatically break the line. Use gq to rewrap.
 set formatoptions-=t
 " Anybody who uses anything else should be shot I'm afraid to say.
 set encoding=utf-8
