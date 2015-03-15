@@ -30,7 +30,7 @@ nnoremap k gk
 " For saving files that require root permission.
 cmap w!! %!sudo tee > /dev/null %
 
-cmap ack Ack
+cabbrev ack <c-r>=getcmdpos() == 1 && getcmdtype() == ":" ? "Ack" : "ack"<CR>
 
 " Auto reload .vimrc on write.
 au! bufwritepost .vimrc source %

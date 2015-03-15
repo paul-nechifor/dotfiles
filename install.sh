@@ -131,6 +131,10 @@ link_user_files() {
   mkdir ~/.cmus 2>/dev/null || true
   ln -s "$config_dir/cmus/autosave" ~/.cmus/autosave
 
+  rm -f ~/.config/dunst
+  mkdir ~/.config/dunst 2>/dev/null || true
+  ln -s "$config_dir/dunst/rc" ~/.config/dunst/dunstrc
+
   rm -f ~/.ackrc
   ln -s "$config_dir/ack/rc" ~/.ackrc
 
