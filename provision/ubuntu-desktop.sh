@@ -89,6 +89,7 @@ install_list=(
   vlc
   wicd-gtk
   xchm
+  cool-retro-term
 
   # Media things
   libav-tools
@@ -136,6 +137,7 @@ add_ppas_and_update() {
 
   apt-get install -y python-software-properties
   add-apt-repository -y ppa:chris-lea/node.js
+  add-apt-repository -y ppa:bugs-launchpad-net-falkensweb/cool-retro-term
 
   apt-get update
 }

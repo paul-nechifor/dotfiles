@@ -71,8 +71,11 @@ bindsym $mod+8 workspace 8
 bindsym $mod+9 workspace 9
 bindsym $mod+0 workspace 10
 
+bindsym $mod2+h workspace prev
+bindsym $mod2+l workspace next
+
 # Toogle workspace.
-#bindsym Menu workspace back_and_forth
+bindsym $mod2+m workspace back_and_forth
 
 # Move focused container to workspace.
 bindsym $mod+Shift+exclam move container to workspace 1
@@ -93,10 +96,10 @@ bindsym $mod+Shift+R restart
 #bindsym $mod+Shift+E exit
 
 # Resize. Setup: SHRINK-W SHRINK-H GROW-H GROW-W
-bindsym $mod2+h resize shrink width  10 px or 4 ppt
-bindsym $mod2+j resize shrink height 10 px or 4 ppt
-bindsym $mod2+k resize grow   height 10 px or 4 ppt
-bindsym $mod2+l resize grow   width  10 px or 4 ppt
+bindsym $mod+$mod2+h resize shrink width  10 px or 4 ppt
+bindsym $mod+$mod2+j resize shrink height 10 px or 4 ppt
+bindsym $mod+$mod2+k resize grow   height 10 px or 4 ppt
+bindsym $mod+$mod2+l resize grow   width  10 px or 4 ppt
 
 # Start i3bar.
 bar {

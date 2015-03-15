@@ -113,6 +113,9 @@ link_user_files() {
   rm -f ~/.gitconfig
   ln -s "$config_dir/git/config" ~/.gitconfig
 
+  rm -f ~/.Xmodmap
+  ln -s "$config_dir/x/modmap" ~/.Xmodmap
+
   rm -f ~/.gitignore
   ln -s "$config_dir/git/ignore" ~/.gitignore
 
