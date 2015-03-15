@@ -5,3 +5,4 @@
 --type-set=scss=.scss
 --type-set=jade=.jade
 --type-set=json=.json
+--type-set=rst=.rst

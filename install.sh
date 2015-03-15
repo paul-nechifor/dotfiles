@@ -131,7 +131,7 @@ link_user_files() {
   mkdir ~/.cmus 2>/dev/null || true
   ln -s "$config_dir/cmus/autosave" ~/.cmus/autosave
 
-  rm -f ~/.config/dunst
+  rm -f ~/.config/dunst/dunstrc
   mkdir ~/.config/dunst 2>/dev/null || true
   ln -s "$config_dir/dunst/rc" ~/.config/dunst/dunstrc
 
@@ -225,6 +225,7 @@ provision_vim() {
   create_vim_structure
   get_pathogen
   install_vim_modules
+  echo 'Provisioning Vim complete.'
 }
 
 infect() {
