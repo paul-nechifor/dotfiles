@@ -35,6 +35,7 @@ install_list=(
   nodejs
   openjdk-7-jdk
   python-pip
+  shellcheck
 
   # Langauge pack
   language-pack-$lang_pack
@@ -170,8 +171,10 @@ set_options() {
   gsettings set org.gnome.desktop.background show-desktop-icons false
 }
 
-install_npm_packages() {
+install_non_system_packages() {
   npm install -g ${npm_packages[@]}
+
+  # tmuxinator
 }
 
 post_process() {
@@ -184,7 +187,7 @@ main() {
   add_ppas_and_update
   remove_packages
   install_packages
-  install_npm_packages
+  install_non_system_packages
 
   configure_dirs
   set_options

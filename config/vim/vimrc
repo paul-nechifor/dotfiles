@@ -58,8 +58,12 @@ let g:pymode_options = 0
 let g:pymode_rope_completion = 0
 let g:pymode_run = 0
 let g:pymode_trim_whitespaces = 0
-
 let g:pymode_rope_goto_definition_cmd = 'e'
+
+let g:syntastic_always_populate_loc_list = 1
+let g:syntastic_auto_loc_list = 1
+let g:syntastic_check_on_open = 1
+let g:syntastic_check_on_wq = 0
 
 " Quicksave command
 noremap <C-Q> :update<CR>
