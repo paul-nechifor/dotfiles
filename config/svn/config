@@ -1,0 +1,12 @@
+[auth]
+store-passwords = yes
+store-auth-creds = yes
+
+[miscellany]
+global-ignores =
+  *.pyc
+  *.swo
+  *.swp
+  .ctrlp
+  .ropeproject
+  .vagrant

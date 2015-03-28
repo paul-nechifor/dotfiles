@@ -141,6 +141,10 @@ link_user_files() {
   rm -f ~/.ackrc
   ln -s "$config_dir/ack/rc" ~/.ackrc
 
+  rm -fr ~/.subversion
+  mkdir -p ~/.subversion
+  ln -s "$config_dir/svn/config" ~/.subversion/config
+
   provision_vim
 
   if [[ $DISPLAY ]]; then
