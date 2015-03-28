@@ -1,7 +1,6 @@
 #!/bin/bash
 
 lang_pack="ro"
-username="p"
 
 remove_list=(
   unity-lens-shopping
@@ -27,7 +26,7 @@ install_list=(
   cloc
   golang
   kompare
-  linux-headers-`uname -r`
+  linux-headers-$(uname -r)
   linux-headers-generic
   maven
   nasm
@@ -36,6 +35,7 @@ install_list=(
   openjdk-7-jdk
   python-pip
   shellcheck
+  tidy
 
   # Langauge pack
   language-pack-$lang_pack
@@ -127,7 +127,7 @@ unnecessary_files=(
 )
 
 check_if_root() {
-  if [ "`id -u`" != "0" ]; then
+  if [ "$(id -u)" != 0 ]; then
     echo "You are not root."
     exit 1
   fi
@@ -172,7 +172,7 @@ set_options() {
 }
 
 install_non_system_packages() {
-  npm install -g ${npm_packages[@]}
+  npm install -g "${npm_packages[@]}"
 
   # tmuxinator
 }

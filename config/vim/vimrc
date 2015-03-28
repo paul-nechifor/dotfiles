@@ -37,6 +37,8 @@ cmap w!! %!sudo tee > /dev/null %
 " Shortcut so I don’t have to type ‘Ack’.
 cabbrev ack <c-r>=getcmdpos() == 1 && getcmdtype() == ":" ? "Ack" : "ack"<CR>
 
+cmap xt %!tidy -i -xml % 2>/dev/null<CR>
+
 " Auto reload .vimrc on write.
 au! bufwritepost .vimrc source %
 
