@@ -164,6 +164,9 @@ link_common_files() {
 
   rm -f ~/.vimrc
   ln -s "$config_dir/vim/vimrc" ~/.vimrc
+
+  rm -f ~/.vim-spellfile.utf8.add
+  ln -s "$config_dir/vim/spellfile" ~/.vim-spellfile.utf8.add
 }
 
 create_vim_structure() {

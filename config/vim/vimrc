@@ -12,6 +12,7 @@ set pastetoggle=<F2>
 
 " Toggle spell checking.
 map <F3> :setlocal spell! spelllang=en_gb<CR>
+set spellfile=~/.vim-spellfile.utf8.add
 
 nnoremap <silent> <F5> :!~/.pn-dotfiles/bin/run-build %:p<CR><CR>
 nnoremap <silent> <F9> :!~/.pn-dotfiles/bin/run-build %:p edit<CR><CR>
@@ -121,7 +122,6 @@ set showtabline=2
 set statusline=%f " relative file path
 set statusline+=%= " left-right separator
 set statusline+=\ %l:%c " cursor line:column
-set statusline+=\ %P " percent through file
 
 " Use 1 space when joining sentences.
 set nojoinspaces
@@ -129,7 +129,7 @@ set nojoinspaces
 " Exit visual mode without a timeout.
 set timeoutlen=1000 ttimeoutlen=0
 
-" Override Vim's autodetection.
+" Use 256 colors and override Vim's autodetection.
 set t_Co=256
 
 " Reselect visual block after indent/outdent.
@@ -142,7 +142,7 @@ cnoremap <C-K> <t_ku>
 cnoremap <C-A> <Home>
 cnoremap <C-E> <End>
 
-" Use 'filler' to keep lines in sync. Set the `context` to a large number so
+" Use `filler` to keep lines in sync. Set the `context` to a large number so
 " no folds are shown and hide the `foldcolumn`.
 set diffopt=filler,context:1000000,foldcolumn:0
 
@@ -247,7 +247,7 @@ hi DiffChange ctermbg=236
 hi DiffDelete ctermbg=None ctermfg=Black
 hi DiffText ctermbg=16
 
-" Tab colors.
+" Tab colours.
 hi TabLineFill ctermfg=Black
 hi TabLine ctermbg=Black ctermfg=White cterm=None
 hi TabLineSel ctermbg=Black ctermfg=Green
@@ -259,6 +259,12 @@ hi PmenuSel ctermbg=238 ctermfg=White
 hi Folded ctermbg=240 ctermfg=White
 
 hi Comment ctermfg=242
+
+" Spell checking.
+hi SpellBad ctermbg=197 ctermfg=16
+hi SpellCap ctermbg=197 ctermfg=16
+hi SpellLocal ctermbg=197 ctermfg=16
+hi SpellRare ctermbg=197 ctermfg=16
 
 " Show lines over 80 chars as errors.
 au BufWinEnter * let w:m1=matchadd('ErrorMsg', '\%81v.', -1)
