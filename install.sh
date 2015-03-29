@@ -2,8 +2,8 @@
 
 set -e
 
-install_source="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
-install_script="$install_source/$( basename "${BASH_SOURCE[0]}" )"
+install_source=$(cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd)
+install_script="$install_source/$(basename "${BASH_SOURCE[0]}")"
 
 determine_environment() {
   if [[ ! $ran_before ]]; then
@@ -11,7 +11,7 @@ determine_environment() {
     export ran_before=true
   fi
 
-  export is_vagrant=$(if [[ "$(id -u vagrant 2>/dev/null)" ]]; then echo true; fi)
+  export is_vagrant=$(id -u vagrant 2>/dev/null && echo true)
 
   if [[ $is_vagrant ]]; then
     username=vagrant
@@ -21,26 +21,26 @@ determine_environment() {
     username=p
   fi
 
-  if [ "`id -u`" == "0" ]; then
-    export install_dir="$(su $username -c 'echo $HOME')/.pn-dotfiles"
+  if [[ $(id -u) -eq 0 ]]; then
+    export install_dir="$(su $username -c "echo \$HOME")/.pn-dotfiles"
   else
     export install_dir="$HOME/.pn-dotfiles"
   fi
   export config_dir="$install_dir/config"
 
-  export is_linux=`if [[ "$OSTYPE" == "linux-gnu" ]]; then echo true; fi`
-  export is_freebsd=`if [[ "$OSTYPE" == "freebsd"* ]]; then echo true; fi`
+  export is_linux=$([[ $OSTYPE == linux-gnu ]] && echo true)
+  export is_freebsd=$([[ $OSTYPE == freebsd* ]] && echo true)
   if [[ $is_linux ]]; then
-    export is_ubuntu=`if [[ $(grep Ubuntu /etc/issue) ]]; then echo true; fi`
-    export is_centos=`if [[ $(grep CentOS /etc/issue) ]]; then echo true; fi`
+    export is_ubuntu=$(grep Ubuntu /etc/issue && echo true)
+    export is_centos=$(grep CentOS /etc/issue && echo true)
   fi
-  export own_computer=$(if [[ $is_ubuntu && ! $is_vagrant ]]; then echo true; fi)
+  export own_computer=$([[ $is_ubuntu && ! $is_vagrant ]] && echo true)
 }
 
 check_for_requirements() {
   local to_install=""
 
-  if [[ ! "`unzip -v 2>/dev/null`" ]]; then
+  if [[ ! $(unzip -v 2>/dev/null) ]]; then
     to_install+=" unzip"
   fi
 
@@ -51,9 +51,9 @@ check_for_requirements() {
   echo 'Trying to install requirements...'
 
   if [[ $is_ubuntu ]]; then
-    sudo -SE apt-get -y install -qq $to_install
+    sudo -SE apt-get -y install -qq "$to_install"
   elif [[ $is_centos ]]; then
-    sudo -SE yum -y install $to_install
+    sudo -SE yum -y install "$to_install"
   else
     echo "Could not find or install requirements: $to_install"
     exit 1
@@ -62,7 +62,7 @@ check_for_requirements() {
 
 root_start() {
   local exports="export ran_before=$ran_before http_proxy='$http_proxy' https_proxy='$https_proxy' ignore_security_because_why_not=$ignore_security_because_why_not"
-  if [ "`id -u`" != "0" ]; then
+  if [[ $(id -u) -eq 0 ]]; then
     echo 'Switching to root...'
     sudo -SE su -c "$exports; bash '$install_script' root_start"
     return
@@ -141,8 +141,8 @@ link_user_files() {
   rm -f ~/.ackrc
   ln -s "$config_dir/ack/rc" ~/.ackrc
 
-  rm -fr ~/.subversion
-  mkdir -p ~/.subversion
+  mkdir -p ~/.subversion 2>/dev/null || true
+  rm -f ~/.subversion/config
   ln -s "$config_dir/svn/config" ~/.subversion/config
 
   provision_vim
@@ -152,7 +152,7 @@ link_user_files() {
   fi
 
   if [[ $is_freebsd ]]; then
-    bash $install_dir/provision/freebsd.sh
+    bash "$install_dir/provision/freebsd.sh"
   fi
 
   if [[ ! -e ~/.local-signal ]]; then
@@ -199,7 +199,7 @@ get_pathogen() {
 }
 
 wget_master() {
-  wgetq https://github.com/$1/archive/master.zip
+  wgetq "https://github.com/$1/archive/master.zip"
   unzip -q master.zip
   rm master.zip
 }
@@ -207,8 +207,8 @@ wget_master() {
 install_from_github() {
   cd ~/.vim/bundle
   echo "  Downloading module $1..."
-  wget_master $2
-  mv *-master $1
+  wget_master "$2"
+  mv ./*-master "$1"
 }
 
 install_vim_modules() {
