@@ -63,8 +63,6 @@ let g:pymode_run = 0
 let g:pymode_trim_whitespaces = 0
 let g:pymode_rope_goto_definition_cmd = 'e'
 
-let g:syntastic_always_populate_loc_list = 1
-let g:syntastic_auto_loc_list = 1
 let g:syntastic_check_on_open = 1
 let g:syntastic_check_on_wq = 0
 
@@ -216,8 +214,8 @@ augroup resCur
   au BufWinEnter * call ResCur()
 augroup END
 
-" Highlight trailing spaces in annoying red.
-hi ExtraWhitespace ctermbg=1 guibg=red
+" Highlight trailing spaces in magenta.
+hi ExtraWhitespace ctermbg=197 ctermfg=16
 match ExtraWhitespace /\s\+$/
 au BufWinEnter * match ExtraWhitespace /\s\+$/
 au InsertEnter * match ExtraWhitespace /\s\+\%#\@<!$/
