@@ -86,7 +86,6 @@ install_list=(
   thunar-archive-plugin
   thunar-media-tags-plugin
   tumbler-plugins-extra
-  virtualbox
   vlc
   wicd-gtk
   xchm
@@ -106,6 +105,10 @@ install_list=(
   nautilus-script-audio-convert
   tagtool
   totem-mozilla
+
+  # VirtualBox
+  virtualbox-4.3
+  dkms
 )
 
 npm_packages=(
@@ -140,16 +143,22 @@ add_ppas_and_update() {
   add-apt-repository -y ppa:chris-lea/node.js
   add-apt-repository -y ppa:bugs-launchpad-net-falkensweb/cool-retro-term
 
+  wget -q http://download.virtualbox.org/virtualbox/debian/oracle_vbox.asc -O- |
+  sudo apt-key add -
+
+  echo "deb http://download.virtualbox.org/virtualbox/debian trusty contrib" \
+      >> /etc/apt/sources.list.d/virtualbox.list
+
   apt-get update
 }
 
 remove_packages() {
-  apt-get remove -y ${remove_list[@]}
+  apt-get remove -y "${remove_list[@]}"
 }
 
 install_packages() {
   apt-get upgrade
-  apt-get install ${install_list[@]}
+  apt-get install "${install_list[@]}"
 }
 
 configure_dirs() {
