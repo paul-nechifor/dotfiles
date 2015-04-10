@@ -31,6 +31,8 @@ map Y y$
 nnoremap j gj
 nnoremap k gk
 
+nmap <Space> :nohl<CR>
+
 " For saving files that require root permission.
 cmap w!! %!sudo tee > /dev/null %
 

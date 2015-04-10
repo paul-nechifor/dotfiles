@@ -11,7 +11,7 @@ determine_environment() {
     export ran_before=true
   fi
 
-  export is_vagrant=$(id -u vagrant 2>/dev/null && echo true)
+  export is_vagrant=$(id -u vagrant 2>/dev/null && echo 1)
 
   if [[ $is_vagrant ]]; then
     username=vagrant
@@ -28,13 +28,13 @@ determine_environment() {
   fi
   export config_dir="$install_dir/config"
 
-  export is_linux=$([[ $OSTYPE == linux-gnu ]] && echo true)
-  export is_freebsd=$([[ $OSTYPE == freebsd* ]] && echo true)
+  export is_linux=$([[ $OSTYPE == linux-gnu ]] && echo 1)
+  export is_freebsd=$([[ $OSTYPE == freebsd* ]] && echo 1)
   if [[ $is_linux ]]; then
-    export is_ubuntu=$(grep Ubuntu /etc/issue && echo true)
-    export is_centos=$(grep CentOS /etc/issue && echo true)
+    export is_ubuntu=$(grep Ubuntu /etc/issue && echo 1)
+    export is_centos=$(grep CentOS /etc/issue && echo 1)
   fi
-  export own_computer=$([[ $is_ubuntu && ! $is_vagrant ]] && echo true)
+  export own_computer=$([[ $is_ubuntu && ! $is_vagrant ]] && echo 1)
 }
 
 check_for_requirements() {
@@ -62,7 +62,7 @@ check_for_requirements() {
 
 root_start() {
   local exports="export ran_before=$ran_before http_proxy='$http_proxy' https_proxy='$https_proxy' ignore_security_because_why_not=$ignore_security_because_why_not"
-  if [[ $(id -u) -eq 0 ]]; then
+  if [[ $(id -u) -ne 0 ]]; then
     echo 'Switching to root...'
     sudo -SE su -c "$exports; bash '$install_script' root_start"
     return
@@ -84,7 +84,7 @@ user_start() {
 
 create_user() {
   id -u $username >/dev/null
-  if [ "$?" -eq 0 ]; then
+  if [[ $? -eq 0 ]]; then
     return
   fi
   echo "Creating user ${username}..."
@@ -121,6 +121,9 @@ link_user_files() {
 
   rm -f ~/.tmux.conf
   ln -s "$config_dir/tmux/tmux.conf" ~/.tmux.conf
+
+  rm -f ~/.inputrc
+  ln -s "$config_dir/input/inputrc" ~/.inputrc
 
   rm -f ~/.i3/config
   mkdir ~/.i3 2>/dev/null || true
@@ -160,6 +163,8 @@ link_user_files() {
   fi
 
   mkdir ~/.local-build-commands 2>/dev/null || true
+
+  touch ~/.hushlogin
 }
 
 link_common_files() {
@@ -174,7 +179,7 @@ link_common_files() {
 }
 
 create_vim_structure() {
-  echo '  Recreating Vim folder structure...'
+  echo '  Recreating Vim dir structure...'
   mkdir ~/.vimswap ~/.vimundo 2>/dev/null || true
   rm -fr ~/.vim
   mkdir ~/.vim
@@ -257,7 +262,7 @@ infect() {
 main() {
   determine_environment
 
-  if [ "$#" -eq 0 ]; then
+  if [[ $# -eq 0 ]]; then
     if [[ $own_computer ]]; then
       root_start
     else

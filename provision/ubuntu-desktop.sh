@@ -11,19 +11,15 @@ remove_list=(
 install_list=(
   # Terminal apps
   cmus
-  git
-  git-cola
-  git-svn
-  gitg
-  subversion
-  tmux
-  vim
-  vim-gtk
-  xsel
+  weechat
 
   # Programming
   build-essential
   cloc
+  git
+  git-cola
+  git-svn
+  gitg
   golang
   kompare
   linux-headers-$(uname -r)
@@ -35,7 +31,11 @@ install_list=(
   openjdk-7-jdk
   python-pip
   shellcheck
+  subversion
   tidy
+  tmux
+  vim
+  vim-gtk
 
   # Langauge pack
   language-pack-$lang_pack
@@ -50,6 +50,7 @@ install_list=(
   curl
   festival
   htop
+  inotify-tools
   p7zip
   p7zip-full
   p7zip-rar
@@ -58,7 +59,7 @@ install_list=(
   unrar
   xbacklight
   xdotool
-  inotify-tools
+  xsel
 
   # VPN
   bridge-utils

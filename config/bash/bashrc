@@ -1,23 +1,15 @@
-export is_vagrant=$(if [[ "$(id -u vagrant 2>/dev/null)" ]]; then echo true; fi)
-export is_linux=`if [[ "$OSTYPE" == "linux-gnu" ]]; then echo true; fi`
-export is_freebsd=`if [[ "$OSTYPE" == "freebsd"* ]]; then echo true; fi`
+export is_vagrant=$(id -u vagrant 2>/dev/null && echo 1)
+export is_linux=$([[ $OSTYPE == "linux-gnu" ]] && echo 1)
+export is_freebsd=$([[ $OSTYPE == "freebsd"* ]] && echo 1)
 if [[ $is_linux ]]; then
-  export is_ubuntu=`if [[ $(grep Ubuntu /etc/issue) ]]; then echo true; fi`
-  export is_centos=`if [[ $(grep CentOS /etc/issue) ]]; then echo true; fi`
+  export is_ubuntu=$(grep -q Ubuntu /etc/issue && echo 1)
+  export is_centos=$(grep -q CentOS /etc/issue && echo 1)
 fi
-export own_computer=$(if [[ $is_ubuntu && ! $is_vagrant ]]; then echo true; fi)
+export own_computer=$([[ $is_ubuntu && ! $is_vagrant ]] && echo 1)
 
 # Bash settings ----------------------------------------------------------------
 
-# Set vi mode.
-set -o vi
-
-# Clear even in insert mode.
-bind -x '"\C-x":"clear"'
-
-bind '"\e[A":history-search-backward'
-bind '"\e[B":history-search-forward'
-
+# Don't match hidden files when tab-completing file names.
 bind 'set match-hidden-files off'
 
 # Append to `~/.bash_history`.
@@ -26,29 +18,31 @@ shopt -s histappend
 # Enable using '**' like in 'ack word **/*.py'.
 shopt -s globstar 2>/dev/null
 
-# Bash history controls.
+# Remember an incredible amount of commands.
 export HISTSIZE=1000000
 export HISTCONTROL=ignoreboth
 export HISTFILESIZE=1000000000
+
+# Add a timestamp to every history command.
 export HISTTIMEFORMAT="%F %T"
 
 # Bash prompt ------------------------------------------------------------------
 
 PS1=
 if [[ ! $own_computer ]]; then
-  if [[ ! ( "`whoami`" =~ (^p$|^pnechifor$|^vagrant$|^root$) ) ]]; then
-    if [[ `id -u` -eq 0 ]]; then
+  if [[ ! ( $(whoami) =~ (^p$|^pnechifor$|^vagrant$|^root$) ) ]]; then
+    if [[ $(id -u) -eq 0 ]]; then
       PS1+='\[\e[0;35m\]\u@\[\e[0m\]'
     else
       PS1+='\[\e[0;34m\]\u@\[\e[0m\]'
     fi
   fi
-  if [[ `id -u` -eq 0 ]]; then
+  if [[ $(id -u) -eq 0 ]]; then
     PS1+='\[\e[1;35m\]\h\[\e[0m\] '
   else
     PS1+='\[\e[1;34m\]\h\[\e[0m\] '
   fi
-  if [[ `id -u` -eq 0 ]]; then
+  if [[ $(id -u) -eq 0 ]]; then
     PS1+='\[\e[0;35m\]\w\[\e[0m\] '
   else
     PS1+='\[\e[0;34m\]\w\[\e[0m\] '
@@ -56,13 +50,13 @@ if [[ ! $own_computer ]]; then
   PS1+='\n'
 fi
 if [[ $own_computer ]]; then
-  if [[ `id -u` -eq 0 ]]; then
+  if [[ $(id -u) -eq 0 ]]; then
     PS1+='\[\e[1;31m\]● \[\e[0m\] '
   else
     PS1+='\[\e[1;32m\]● \[\e[0m\] '
   fi
 else
-  if [[ `id -u` -eq 0 ]]; then
+  if [[ $(id -u) -eq 0 ]]; then
     PS1+='\[\e[1;35m\]● \[\e[0m\] '
   else
     PS1+='\[\e[1;34m\]● \[\e[0m\] '
@@ -82,10 +76,11 @@ export LESS_TERMCAP_us=$(printf "\e[0;36m")
 export JAVA_HOME="/usr/lib/jvm/java-7-openjdk-amd64"
 export EDITOR="vim"
 export TERM="xterm-256color"
-export PATH="$PATH:~/.pn-dotfiles/bin"
 
-if [[ -d ~/.local-installs/bin ]]; then
-  PATH="~/.local-installs/bin:$PATH"
+export PATH="$PATH:$HOME/.pn-dotfiles/bin"
+
+if [[ -d $HOME/.local-installs/bin ]]; then
+  PATH="$HOME/.local-installs/bin:$PATH"
 fi
 
 # File system management -------------------------------------------------------
@@ -118,26 +113,24 @@ alias du="du -h"
 # Go to dir and list the contents.
 d() {
   if [ $# -eq 0 ]; then
-    cd && l
+    cd && l .
   else
-    cd "$@" && l
+    cd "$@" && l .
   fi
 }
 
 # Create and go to a directory (possibly nested).
 dc() {
-  dir="$@"
-  mkdir -p "$dir"
-  cd "$dir"
+  mkdir -p "$@"
+  cd "$@"
 }
 
-alias d-="d -"
 alias ..="d .."
 alias ...="d ../.."
 alias ....="d ../../.."
 alias .....="d ../../../.."
 
-if [[ ! `which ack` ]]; then
+if ! which ack 2>/dev/null ; then
   alias ack="ack-grep"
 fi
 
@@ -145,11 +138,12 @@ fi
 
 alias p="pwd"
 alias v="vim -p"
+alias sudo="sudo -E"
 
 if [[ $own_computer ]]; then
   alias am="alsamixer"
-  alias b="thunar . & >/dev/null 2>/dev/null"
-  alias t="gnome-terminal & >/dev/null 2>/dev/null"
+  alias b="thunar . >/dev/null 2>&1 &"
+  alias t="gnome-terminal >/dev/null 2>&1 &"
 fi
 
 if [[ $is_linux ]]; then
@@ -173,14 +167,6 @@ alias resetmod="find . -type f -exec chmod 644 {} + ; find . -type d -exec chmod
 
 # Functions --------------------------------------------------------------------
 
-super() {
-  if [[ $# -eq 0 ]]; then
-    sudo -sE
-  else
-    sudo -sEu $1
-  fi
-}
-
 dirdiff() {
   # -Ewb ignore the bulk of whitespace changes
   # -N detect new files
@@ -190,25 +176,25 @@ dirdiff() {
 }
 
 mvninit() {
-  id=$1
-  mvn archetype:create -DgroupId=net.nechifor.$id -DartifactId=$id
+  local id="$1"
+  mvn archetype:create "-DgroupId=net.nechifor.$id" "-DartifactId=$id"
 }
 
 texwc() {
-  file="$1"
+  local file="$1"
   texcount -total "$file" | grep 'Words in text' | sed 's/[^0-9]*//g'
 }
 
 if [[ $own_computer ]]; then
   sslenc() {
-    file="$1"
-    openssl enc -aes-256-cbc -salt -in $file -out $file.enc \
+    local file="$1"
+    openssl enc -aes-256-cbc -salt -in "$file" -out "$file.enc" \
         -pass file:/home/p/pro/docs/keys/symkey256.bin
   }
 
   ssldec() {
-    file="`basename $1 .enc`"
-    openssl enc -d -aes-256-cbc -salt -in $file.enc -out $file \
+    local file="$(basename "$1" .enc)"
+    openssl enc -d -aes-256-cbc -salt -in "$file.enc" -out "$file" \
         -pass file:/home/p/pro/docs/keys/symkey256.bin
   }
 fi
@@ -227,7 +213,7 @@ alias gl="git-pretty-log"
 alias gs="g s"
 
 gac() {
-  message="$@"
+  local message="$*"
   git add --all
   git commit -m "$message"
 }
@@ -254,7 +240,7 @@ alias sa="s add"
 alias sd="s diff"
 alias sl="s log"
 alias st="s st"
-alias sup="sup"
+alias sup="s up && sl"
 
 color-svn-status() {
   local color
@@ -293,9 +279,9 @@ execute-listen() {
     if [[ $line == '>>>>>' ]]; then
       cmd=
     elif [[ $line == '<<<<<' ]]; then
-      echo =====================================
+      echo "====================================="
       echo "$cmd"
-      echo -------------------------------------
+      echo "-------------------------------------"
       echo
       echo "$cmd" | bash
     else
