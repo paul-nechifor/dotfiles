@@ -186,7 +186,13 @@ wgetq() {
   if [[ $ignore_security_because_why_not ]]; then
     args=--no-check-certificate
   fi
-  wget $args -q "$1"
+
+  if [[ $2 ]]; then
+    wget $args -q "$1" -O- > "$2"
+  else
+    wget $args -q "$1"
+  fi
+
   if [[ $? -ne 0 ]]; then
     echo 'wget fucked up...'
   fi
@@ -199,8 +205,7 @@ get_pathogen() {
 }
 
 wget_master() {
-  # Somehow using - on FreeBSD is necessary.
-  wgetq "https://github.com/$1/archive/master.zip" -O- > master.zip
+  wgetq "https://github.com/$1/archive/master.zip" master.zip
   unzip -q master.zip
   rm master.zip
 }
