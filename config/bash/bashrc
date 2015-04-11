@@ -80,7 +80,7 @@ export TERM="xterm-256color"
 export PATH="$PATH:$HOME/.pn-dotfiles/bin"
 
 if [[ -d $HOME/local/.ownbin ]]; then
-  PATH="$HOME/local/.ownbin:$PATH"
+  PATH="$HOME/local/.ownbin/bin:$PATH"
 fi
 
 # File system management -------------------------------------------------------
@@ -130,7 +130,7 @@ alias ...="d ../.."
 alias ....="d ../../.."
 alias .....="d ../../../.."
 
-if ! which ack 2>/dev/null ; then
+if ! which ack >/dev/null 2>&1; then
   alias ack="ack-grep"
 fi
 
