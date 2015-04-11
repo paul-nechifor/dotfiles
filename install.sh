@@ -106,47 +106,42 @@ link_root_files() {
   dpkg-reconfigure xkb-data
 }
 
+# Remove a directory (relative to home) and recreate it.
+wipeout() {
+  rm -fr "${HOME:?}/$1"
+  mkdir -p "$HOME/$1" 2>/dev/null || true
+}
+
+link_file() {
+  rm -f "$HOME/$2"
+  ln -s "$config_dir/$1" "$HOME/$2"
+}
+
 link_user_files() {
   echo 'Linking user files...'
   link_common_files
 
-  rm -f ~/.gitconfig
-  ln -s "$config_dir/git/config" ~/.gitconfig
+  link_file ack/rc .ackrc
+  link_file git/config .gitconfig
+  link_file git/ignore .gitignore
+  link_file input/inputrc .inputrc
+  link_file tmux/tmux.conf .tmux.conf
+  link_file x/modmap .Xmodmap
 
-  rm -f ~/.Xmodmap
-  ln -s "$config_dir/x/modmap" ~/.Xmodmap
+  wipeout .i3
+  link_file i3/config .i3/config
 
-  rm -f ~/.gitignore
-  ln -s "$config_dir/git/ignore" ~/.gitignore
+  wipeout .config/i3status
+  link_file i3/status .config/i3status/config
 
-  rm -f ~/.tmux.conf
-  ln -s "$config_dir/tmux/tmux.conf" ~/.tmux.conf
+  wipeout .cmus
+  link_file cmus/autosave .cmus/autosave
 
-  rm -f ~/.inputrc
-  ln -s "$config_dir/input/inputrc" ~/.inputrc
+  wipeout .config/dunst
+  link_file dunst/rc .config/dunst/dunstrc
 
-  rm -f ~/.i3/config
-  mkdir ~/.i3 2>/dev/null || true
-  ln -s "$config_dir/i3/config" ~/.i3/config
-
-  rm -f ~/.config/i3status/config
-  mkdir -p ~/.config/i3status 2>/dev/null || true
-  ln -s "$config_dir/i3/status" ~/.config/i3status/config
-
-  rm -f ~/.cmus/autosave
-  mkdir ~/.cmus 2>/dev/null || true
-  ln -s "$config_dir/cmus/autosave" ~/.cmus/autosave
-
-  rm -f ~/.config/dunst/dunstrc
-  mkdir ~/.config/dunst 2>/dev/null || true
-  ln -s "$config_dir/dunst/rc" ~/.config/dunst/dunstrc
-
-  rm -f ~/.ackrc
-  ln -s "$config_dir/ack/rc" ~/.ackrc
-
-  mkdir -p ~/.subversion 2>/dev/null || true
-  rm -f ~/.subversion/config
-  ln -s "$config_dir/svn/config" ~/.subversion/config
+  wipeout .subversion
+  link_file svn/config .subversion/config
 
   provision_vim
 
@@ -204,7 +199,8 @@ get_pathogen() {
 }
 
 wget_master() {
-  wgetq "https://github.com/$1/archive/master.zip"
+  # Somehow using - on FreeBSD is necessary.
+  wgetq "https://github.com/$1/archive/master.zip" -O- > master.zip
   unzip -q master.zip
   rm master.zip
 }
@@ -246,15 +242,18 @@ provision_vim() {
 
 infect() {
   check_for_requirements
+  local tmpdir=$(mktemp -d 2>/dev/null || mktemp -d -t infect)
 
   echo 'Downloading dotfiles archive...'
+  cd "$tmpdir"
   wget_master paul-nechifor/dotfiles
 
   echo 'Starting installation...'
   bash dotfiles-master/install.sh
 
   echo 'Cleaning up...'
-  rm -fr dotfiles-master
+  cd
+  rm -fr "$tmpdir"
 
   echo -e "\033[33m☢ \033[0m Infection complete. \033[33m☢ \033[0m"
 }
