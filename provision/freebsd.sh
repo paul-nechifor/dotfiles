@@ -2,41 +2,63 @@
 
 set -e
 
-install=$HOME/.local-installs
-provision=$HOME/provision-tmp
+lock_file="$HOME/local/.freebsd-provisioned"
+install_path="$HOME/local/.ownbin"
+provision=$(mktemp -dt provision)
 
-setup() {
-  if [[ -f ~/.freebsd-provisioned ]]; then
-    echo 'Remove ~/.freebsd-provisioned to reprovision.'
-    exit
+main() {
+  setup
+
+  if [[ -f $lock_file && ! $force_provisioning ]]; then
+    echo "Remove '$lock_file' to reprovision or set 'force_provisioning'."
+  else
+    install_all
   fi
 
-  rm -fr "$install" "$provision"
-  mkdir -p "$install" "$provision" 2>/dev/null || true
+  teardown
+}
+
+setup() {
+  local mkhome="/usr/local/mintel/shared/utils/mk_local_home"
+  if [[ ! -e "$HOME/local" ]]; then
+    if [[ -e $mkhome ]]; then
+      sudo "$mkhome"
+    else
+      mkdir -p "$HOME/local"
+    fi
+  fi
+
+  rm -fr "$install_path"
+  mkdir -p "$install_path" 2>/dev/null || true
 }
 
 teardown() {
   rm -fr "$provision"
-  touch ~/.freebsd-provisioned
+  touch "$lock_file"
+}
+
+install_all() {
+  install_vim
 }
 
 install_vim() {
   cd "$provision"
-  wget --no-check-certificate https://github.com/b4winckler/vim/archive/master.zip
+  local vim_source="https://github.com/b4winckler/vim/archive/master.zip"
+  wget -q --no-check-certificate "$vim_source" -O- > master.zip
   unzip master.zip
   cd vim-master
   export LDFLAGS="-static"
-  ./configure --with-features=huge --without-x --disable-gui \
-      --enable-multibyte --enable-pythoninterp --prefix=$install
+  local vim_options=(
+    --disable-gui
+    --enable-multibyte
+    --enable-pythoninterp
+    --with-features=huge
+    --without-x
+  )
+  ./configure "${vim_options[@]}" --prefix="$install_path"
   make install
   cd ..
   rm -fr vim-master
-}
-
-main() {
-  setup
-  install_vim
-  teardown
 }
 
 main

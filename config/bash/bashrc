@@ -79,8 +79,8 @@ export TERM="xterm-256color"
 
 export PATH="$PATH:$HOME/.pn-dotfiles/bin"
 
-if [[ -d $HOME/.local-installs/bin ]]; then
-  PATH="$HOME/.local-installs/bin:$PATH"
+if [[ -d $HOME/local/.ownbin ]]; then
+  PATH="$HOME/local/.ownbin:$PATH"
 fi
 
 # File system management -------------------------------------------------------
