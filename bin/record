@@ -1,0 +1,24 @@
+#!/bin/bash -e
+
+main() {
+  local opts=(
+    -f x11grab
+    -r 30
+    -s 1920x1080
+    -i :0.0+0,0
+    -vcodec libx264
+    -pre lossless_ultrafast
+    -threads 0
+  )
+  local prefix="video-"
+  local name=$(find . -path "./$prefix*" -prune | sort | tail -n 1)
+  if [[ $name ]]; then
+    local super=$(( $(echo "$name" | egrep -o '[0-9]+' | sed 's/^0*//') + 1 ))
+    name="${prefix}$(printf "%04d" "$super").mkv"
+  else
+    name="${prefix}0000.mkv"
+  fi
+  avconv "${opts[@]}" "$name"
+}
+
+main "$@"

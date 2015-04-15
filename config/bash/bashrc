@@ -91,6 +91,7 @@ if [[ $is_linux ]]; then
     # l = list
     # G = no groups
     # tail -> remove 'total XXXk' line
+    # shellcheck disable=SC2012
     ls --color=always --group-directories-first -hlG --si "$@" |
     tail --lines=+2
   }
