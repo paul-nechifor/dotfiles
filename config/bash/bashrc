@@ -135,6 +135,10 @@ if ! which ack >/dev/null 2>&1; then
   alias ack="ack-grep"
 fi
 
+if which htop >/dev/null 2>&1; then
+  alias top="htop"
+fi
+
 # Lazy aliases -----------------------------------------------------------------
 
 alias p="pwd"
