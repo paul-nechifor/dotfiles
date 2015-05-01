@@ -223,6 +223,7 @@ au BufWinEnter * match ExtraWhitespace /\s\+$/
 au InsertEnter * match ExtraWhitespace /\s\+\%#\@<!$/
 au InsertLeave * match ExtraWhitespace /\s\+$/
 au BufWinLeave * call clearmatches()
+autocmd ColorScheme * hi ExtraWhitespace ctermbg=197 ctermfg=16
 
 " Colors.
 syntax on
@@ -261,6 +262,8 @@ hi PmenuSel ctermbg=238 ctermfg=White
 hi Folded ctermbg=240 ctermfg=White
 
 hi Comment ctermfg=242
+
+hi ErrorMsg ctermbg=197 ctermfg=16
 
 " Spell checking.
 hi SpellBad ctermbg=197 ctermfg=16
