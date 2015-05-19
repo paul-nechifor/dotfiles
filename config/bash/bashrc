@@ -10,7 +10,7 @@ export own_computer=$([[ $is_ubuntu && ! $is_vagrant ]] && echo 1)
 # Bash settings ----------------------------------------------------------------
 
 # Don't match hidden files when tab-completing file names.
-bind 'set match-hidden-files off'
+#bind 'set match-hidden-files off'
 
 # Append to `~/.bash_history`.
 shopt -s histappend
