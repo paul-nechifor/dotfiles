@@ -119,12 +119,10 @@ fi
 alias du="du -h"
 
 f() {
-  find . |
+  find . -iname "*${@}*" 2>/dev/null  |
   egrep -v '\.(git|svn)' |
-  grep "$*" |
   awk '{print substr($0,3)}' |
-  sort |
-  grep "$*"
+  grep -i "$@"
 }
 
 # Go to dir and list the contents.
