@@ -231,7 +231,7 @@ install_vim_modules() {
   install_from_github nerdtree scrooloose/nerdtree
   install_from_github python-mode klen/python-mode
   install_from_github rename danro/rename.vim
-  install_from_github scss cakebaker/scss-syntax
+  install_from_github scss cakebaker/scss-syntax.vim
   install_from_github stylus wavded/vim-stylus
   install_from_github supertab ervandew/supertab
   install_from_github syntastic scrooloose/syntastic
