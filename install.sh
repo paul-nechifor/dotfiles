@@ -12,13 +12,8 @@ determine_environment() {
   fi
 
   export is_vagrant=$(id -u vagrant 2>/dev/null && echo 1)
-
-  if [[ $is_vagrant ]]; then
-    username=vagrant
-  elif [[ $(id -u pnechifor 2>/dev/null) ]]; then
-    username=pnechifor
-  else
-    username=p
+  if [[ ! $username ]]; then
+    username=$(whoami)
   fi
 
   if [[ $(id -u) -eq 0 ]]; then
@@ -61,10 +56,16 @@ check_for_requirements() {
 }
 
 root_start() {
-  local exports="export ran_before=$ran_before http_proxy='$http_proxy' https_proxy='$https_proxy' ignore_security_because_why_not=$ignore_security_because_why_not"
+  local exports=(
+    "ran_before=$ran_before"
+    "http_proxy=$http_proxy"
+    "https_proxy=$https_proxy"
+    "ignore_security_because_why_not=$ignore_security_because_why_not"
+    "username=$username"
+  )
   if [[ $(id -u) -ne 0 ]]; then
     echo 'Switching to root...'
-    sudo -SE su -c "$exports; bash '$install_script' root_start"
+    sudo -SE su -c "${exports[*]} bash '$install_script' root_start"
     return
   fi
 
