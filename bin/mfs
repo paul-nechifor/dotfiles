@@ -8,46 +8,46 @@ partitions=(
 
 bring-up() {
   if [[ -e /dev/mapper/$1 ]]; then
-    echo $1 was up
+    echo "$1 was up"
     return
   fi
-  sudo cryptsetup luksOpen /home/p/data/part/${1}.fs $1
-  sudo mount /dev/mapper/$1 /$1
+  sudo cryptsetup luksOpen "/home/p/data/part/${1}.fs" "$1"
+  sudo mount "/dev/mapper/$1" "/$1"
 }
 
 bring-down() {
   if [[ ! -e /dev/mapper/$1 ]]; then
-    echo $1 was down
+    echo "$1 was down"
     return
   fi
   case $PWD/ in
     /$1/*)
       cd
-      echo changed dir to $PWD
+      echo "changed dir to $PWD"
       ;;
   esac
-  sudo umount /$1
-  sudo cryptsetup luksClose $1
-  echo $1 is down
+  sudo umount "/$1"
+  sudo cryptsetup luksClose "$1"
+  echo "$1 is down"
 }
 
 main() {
   sudo true # Get root password.
 
   if [[ $# -eq 0 ]]; then
-    for part in ${partitions[@]}; do
+    for part in "${partitions[@]}"; do
       bring-down $part
     done
   fi
 
   case $1 in
     all)
-      for part in ${partitions[@]}; do
+      for part in "${partitions[@]}"; do
         bring-up $part
       done
       ;;
-    up) bring-up $2 ;;
-    down) bring-down $2 ;;
+    up) bring-up "$2" ;;
+    down) bring-down "$2" ;;
   esac
 }
 
