@@ -108,6 +108,10 @@ if [[ $is_linux ]]; then
   else
     alias tree="tree -Cvh --du --dirsfirst"
   fi
+  for i in {2..6}; do
+    # shellcheck disable=SC2139
+    alias "tree$i=tree -L $i"
+  done
   alias df="df -ah --si"
   alias du="du -h"
 elif [[ $is_freebsd ]]; then
