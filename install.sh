@@ -17,7 +17,7 @@ determine_environment() {
   fi
 
   if [[ $(id -u) -eq 0 ]]; then
-    export install_dir="$(su $username -c "echo \$HOME")/.pn-dotfiles"
+    export install_dir="$(su "$username" -c "echo \$HOME")/.pn-dotfiles"
   else
     export install_dir="$HOME/.pn-dotfiles"
   fi
@@ -72,9 +72,9 @@ root_start() {
   check_for_requirements
 
   create_user
-  su $username -c "$exports; bash '$install_script' install_dotfiles"
+  su "$username" -c "${exports[*]}; bash '$install_script' install_dotfiles"
   link_root_files
-  su $username -c "$exports; bash '$install_script' link_user_files"
+  su "$username" -c "${exports[*]}; bash '$install_script' link_user_files"
 }
 
 user_start() {
@@ -84,12 +84,12 @@ user_start() {
 }
 
 create_user() {
-  id -u $username >/dev/null
+  id -u "$username" >/dev/null
   if [[ $? -eq 0 ]]; then
     return
   fi
   echo "Creating user ${username}..."
-  adduser $username --home /home/$username
+  adduser "$username" --home "/home/$username"
 }
 
 install_dotfiles() {
@@ -141,7 +141,6 @@ link_user_files() {
   wipeout .config/dunst
   link_file dunst/rc .config/dunst/dunstrc
 
-  wipeout .subversion
   link_file svn/config .subversion/config
 
   provision_vim
