@@ -153,6 +153,10 @@ link_user_files() {
     bash "$install_dir/provision/freebsd.sh"
   fi
 
+  if [[ $is_centos ]]; then
+    bash "$install_dir/provision/centos6.sh"
+  fi
+
   if [[ ! -e ~/.local-signal ]]; then
     mkfifo ~/.local-signal
   fi

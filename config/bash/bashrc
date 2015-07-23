@@ -90,6 +90,10 @@ if [[ -d $HOME/local/.ownbin ]]; then
   PATH="$HOME/local/.ownbin/bin:$PATH"
 fi
 
+if [[ -d $HOME/.ownbin ]]; then
+  PATH="$HOME/.ownbin/bin:$PATH"
+fi
+
 # File system management -------------------------------------------------------
 if [[ $is_linux ]]; then
   alias ls="ls --color=auto"
