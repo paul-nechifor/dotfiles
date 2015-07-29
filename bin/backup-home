@@ -15,7 +15,7 @@ home_files=(
 )
 backups_dir="$HOME/data/backup"
 destination="$backups_dir/$copy_name"
-archive_name="$copy_name.tar.xz"
+archive_name="${copy_name}.tar.xz"
 
 main() {
   make_copy
