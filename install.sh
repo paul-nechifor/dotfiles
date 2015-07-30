@@ -94,8 +94,8 @@ create_user() {
 
 install_dotfiles() {
   echo 'Installing dotfiles...'
-  mkdir -p "$install_dir" 2>/dev/null
-  rsync -a --del "$install_source/" "$install_dir/"
+  rm -fr "$install_dir"
+  cp -r "$install_source/" "$install_dir/"
 }
 
 link_root_files() {
@@ -141,6 +141,7 @@ link_user_files() {
   wipeout .config/dunst
   link_file dunst/rc .config/dunst/dunstrc
 
+  mkdir -p ~/.subversion >/dev/null 2>&1
   link_file svn/config .subversion/config
 
   provision_vim
