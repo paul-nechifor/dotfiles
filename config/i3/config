@@ -17,12 +17,6 @@ font -misc-fixed-medium-r-normal--13-120-75-75-C-70-iso10646-1
 # Use Mouse+$mod to drag floating windows to their wanted position.
 floating_modifier $mod
 
-# Toggle tiling/floating.
-bindsym $mod+Shift+space floating toggle
-
-# Change focus between tiling/floating windows.
-bindsym $mod+space focus mode_toggle
-
 # Hide borders next to the screen edge.
 hide_edge_borders both
 
@@ -41,11 +35,17 @@ bindsym $mod+l focus right
 # Focus the parent container.
 bindsym $mod+a focus parent
 
-# Focus the child container.
-#bindcode $mod+d focus child
-
 # Enter fullscreen mode for the focused container.
+bindsym $mod+u layout splith
+bindsym $mod+i layout splitv
+bindsym $mod+o layout tabbed
 bindsym $mod+f fullscreen
+
+# Toggle tiling/floating.
+bindsym $mod+Shift+space floating toggle
+
+# Change focus between tiling/floating windows.
+bindsym $mod+space focus mode_toggle
 
 # Move focused window.
 bindsym $mod+Shift+H move left
@@ -92,22 +92,11 @@ bindsym $mod+Shift+parenright move container to workspace 10
 # Restart i3 inplace (preserves your layout/session, can be used to upgrade i3)
 bindsym $mod+Shift+R restart
 
-# Exit i3 (logs you out of your X session).
-#bindsym $mod+Shift+E exit
-
 # Resize. Setup: SHRINK-W SHRINK-H GROW-H GROW-W
 bindsym $mod+$mod2+h resize shrink width  10 px or 4 ppt
 bindsym $mod+$mod2+j resize shrink height 10 px or 4 ppt
 bindsym $mod+$mod2+k resize grow   height 10 px or 4 ppt
 bindsym $mod+$mod2+l resize grow   width  10 px or 4 ppt
-
-# Start i3bar.
-bar {
-  position bottom
-  status_command i3status
-  mode hide
-  modifier $mod
-}
 
 # Workspaces monitors.
 workspace 1 output LVDS1
@@ -118,20 +107,53 @@ workspace 5 output LVDS1
 workspace 6 output LVDS1
 workspace 7 output LVDS1
 workspace 8 output LVDS1
-workspace 9 output VGA1
-workspace 10 output VGA1
+workspace 9 output LVDS1
+workspace 10 output LVDS1
 
-# Programs
+# Programs.
 bindsym $mod+Return exec i3-sensible-terminal
 bindsym $mod+b exec thunar
 bindsym $mod+c exec google-chrome
 bindsym $mod+d exec dmenu_run
-bindsym $mod+w exec webstorm
 bindsym $mod2+Return exec cool-retro-term
 bindsym $mod+$mod2+c exec gnome-control-center
 bindsym $mod+$mod2+f exec firefox
-bindsym $mod+$mod2+i exec /opt/idea/bin/idea.sh
 bindsym $mod+$mod2+m exec killall -9 chrome
-bindsym $mod+$mod2+n exec /bin/sh "/usr/local/netbeans-7.2.1/bin/netbeans"
 bindsym $mod+$mod2+t exec transmission-gtk
 bindsym $mod+$mod2+v exec VirtualBox
+
+# Colors.
+set $bg #272727
+set $fg #9f9f9f
+set $hi #efef8f
+set $ac #3b5894
+set $av #111111
+set $tx #040404
+set $ia #8f8f8f
+set $be #8faf9f
+set $yw #ccdc90
+set $gn #88b090
+set $rd #e89393
+
+# Color                     Border     Background  Text
+client.focused              $av        $av         $fg
+client.unfocused            $bg        $bg         $ia
+client.focused_inactive     $rd        $bg         $ac
+client.urgent               $rd        $rd         $tx
+
+# Start i3bar.
+bar {
+  position bottom
+  status_command i3status
+  mode hide
+  modifier $mod
+  colors {
+    background          $bg
+    statusline          $fg
+    separator           $hi
+    focused_workspace   $fg        $fg        $bg
+    active_workspace    $gn        $ac        $tx
+    inactive_workspace  $bg        $bg        $ia
+    urgent_workspace    $rd        $bg        $ac
+  }
+}
