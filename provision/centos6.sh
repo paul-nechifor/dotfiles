@@ -6,18 +6,75 @@ install_path="$HOME/.ownbin"
 tmpdir=$(mktemp -dt provisionXXXXXXXX)
 
 main() {
+  # You have to `export root_req=1` before running the script in order to
+  # install the root packages required if they are not present.
+  [[ $root_req ]] && install_root_requirements
+
   [[ -d "$install_path" ]] || mkdir -p "$install_path"
   install_python
   install_vim
+  install_tmux
   rm -fr "$tmpdir"
+}
+
+install_root_requirements() {
+  local packages=(
+    ack
+    bzip2-devel
+    compat-readline5
+    docker-io
+    glib2-devel
+    glibc-static
+    gnutls-devel
+    htop
+    libuv
+    libuv-devel
+    libxslt
+    libxslt-devel
+    lsof
+    mysql
+    mysql-devel
+    mysql-server
+    ncurses
+    ncurses-devel
+    nodejs
+    npm
+    openldap-clients
+    openldap-devel
+    openssl-devel
+    readline-devel
+    realpath
+    redis
+    sqlite-devel
+    tmux
+    tree
+    vim-common
+    vim-enhanced
+    xmlsec1
+    xmlsec1-devel
+    xz-devel
+    zlib-devel
+  )
+
+  cd /tmp
+  local file="epel-release-6-8.noarch.rpm"
+  wget -q "http://dl.fedoraproject.org/pub/epel/6/x86_64/$file"
+  rpm -Uvh "$file" >/dev/null 2>&1 || true
+  rm "$file"
+
+  sudo yum -y install centos-release-SCL
+  sudo yum -y shell <<<"
+    update
+    groupinstall 'Development tools'
+    install ${packages[@]}
+    run
+  "
 }
 
 install_python() {
   local version=2.7.9
 
-  if which python2.7 >/dev/null 2>&1; then
-    return
-  fi
+  [[ -e "$install_path/bin/python2.7" ]] && return
 
   cd "$tmpdir"
   wgetf https://www.python.org/ftp/python/$version/Python-${version}.tgz Python.tgz
@@ -33,9 +90,7 @@ install_python() {
 }
 
 install_vim() {
-  if vim --version | grep -q 'IMproved 7.4'; then
-    return
-  fi
+  [[ -e "$install_path/bin/vim" ]] && return
 
   cd "$tmpdir"
   local vim_source="https://github.com/b4winckler/vim/archive/master.zip"
@@ -54,6 +109,26 @@ install_vim() {
   make install
   cd ..
   rm -fr vim-master
+}
+
+install_tmux() {
+  [[ -e "$install_path/bin/tmux" ]] && return
+
+  cd "$tmpdir"
+  local libevent="libevent-2.0.21-stable"
+  wgetf "https://github.com/downloads/libevent/libevent/${libevent}.tar.gz" libevent.tar.gz
+  tar -xzf libevent.tar.gz
+  cd "$libevent"
+  ./configure --prefix="$install_path"
+  make && make install
+
+  cd "$tmpdir"
+  wgetf https://github.com/tmux/tmux/releases/download/1.8/tmux-1.8.tar.gz tmux.tar.gz
+  tar -xzf tmux.tar.gz
+  cd tmux-1.8
+  ./configure CFLAGS="-I$install_path/include" LDFLAGS="-L$install_path/lib" --prefix="$install_path"
+
+  make && make install
 }
 
 wgetf() {

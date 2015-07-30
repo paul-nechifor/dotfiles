@@ -83,10 +83,17 @@ export LESS_TERMCAP_us=$(printf "\e[0;36m")
 export EDITOR="vim"
 export TERM="xterm-256color"
 
-PATH="$PATH:$HOME/.pn-dotfiles/bin"
-[[ -d $HOME/local/.ownbin ]] && PATH="$HOME/local/.ownbin/bin:$PATH"
-[[ -d $HOME/.ownbin ]] && PATH="$HOME/.ownbin/bin:$PATH"
-export PATH
+export PATH="$PATH:$HOME/.pn-dotfiles/bin"
+
+if [[ -d $HOME/local/.ownbin ]]; then
+  export PATH="$HOME/local/.ownbin/bin:$PATH"
+  export LD_LIBRARY_PATH="$HOME/local/.ownbin/lib:$LD_LIBRARY_PATH"
+fi
+
+if [[ -d $HOME/.ownbin ]]; then
+  export PATH="$HOME/.ownbin/bin:$PATH"
+  export LD_LIBRARY_PATH="$HOME/.ownbin/lib:$LD_LIBRARY_PATH"
+fi
 
 # File system management -------------------------------------------------------
 if [[ $is_linux ]]; then
