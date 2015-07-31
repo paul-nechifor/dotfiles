@@ -5,9 +5,9 @@ relative_time="%C(bold green)%ar%C(reset)"
 subject="%C(bold white)%s%C(reset)"
 author="%C(bold black)%an%C(reset)"
 refs="%C(bold yellow)%d%C(reset)"
-format="$hash##$relative_time##$subject $author $refs"
+format="$hash"$'\t'"$relative_time"$'\t'"$subject $author $refs"
 
-git log --graph --pretty="tformat:$format" $@ |
+git log --graph --pretty="tformat:$format" "$@" |
 sed 's/ ago//' |
-column -t -s "##" |
+column -t -s $'\t' |
 less -FXRS
