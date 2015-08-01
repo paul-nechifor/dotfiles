@@ -11,9 +11,9 @@ main() {
   [[ $root_req ]] && install_root_requirements
 
   [[ -d "$install_path" ]] || mkdir -p "$install_path"
-  install_python
-  install_vim
-  install_tmux
+  install_python || soft_fail 'Failed to install Python.'
+  install_vim || soft_fail 'Failed to install Vim'
+  install_tmux || soft_fail 'Failed to install Tmux'
   rm -fr "$tmpdir"
 }
 
@@ -133,6 +133,10 @@ install_tmux() {
 
 wgetf() {
   wget -q --no-check-certificate "$1" -O- > "$2"
+}
+
+soft_fail() {
+  echo "$(tput setaf 1)$1$(tput sgr0)"
 }
 
 main
