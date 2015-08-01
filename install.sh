@@ -237,6 +237,7 @@ install_vim_modules() {
   install_from_github commentary tpope/vim-commentary
   install_from_github ctrlp kien/ctrlp.vim
   install_from_github easymotion Lokaltog/vim-easymotion
+  install_from_github fugitive tpope/vim-fugitive
   install_from_github gitgutter airblade/vim-gitgutter
   install_from_github jade digitaltoad/vim-jade
   install_from_github javascript pangloss/vim-javascript
