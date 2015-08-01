@@ -145,6 +145,18 @@ d() {
   fi
 }
 
+z() {
+  d ~/pro/"$1"
+}
+
+_z() {
+  local cur="${COMP_WORDS[COMP_CWORD]}"
+  # shellcheck disable=SC2010
+  COMPREPLY=( $(compgen -W "$(ls ~/pro | grep "^$cur")" ) )
+}
+
+complete -F _z -o dirnames z
+
 # Create and go to a directory (possibly nested).
 dc() {
   mkdir -p "$@"
@@ -189,7 +201,6 @@ fi
 # Complex aliases --------------------------------------------------------------
 
 alias dt="du -ba| sort -n | tail -50"
-alias xp="echo -n 'NAME, CLASS = '; xprop | grep 'WM_CLASS' | cut -c20-"
 
 alias less="less -r"
 
@@ -199,40 +210,6 @@ alias infect="wget -q -O- https://github.com/paul-nechifor/dotfiles/raw/master/i
 # Recursively reset all files in the current dir to 644 for normal and 755 for
 # dirs.
 alias resetmod="find . -type f -exec chmod 644 {} + ; find . -type d -exec chmod 755 {} +"
-
-# Functions --------------------------------------------------------------------
-
-dirdiff() {
-  # -Ewb ignore the bulk of whitespace changes
-  # -N detect new files
-  # -u unified
-  # -r recurse
-  diff -ENwbur "$1" "$2"  | kompare -o -
-}
-
-mvninit() {
-  local id="$1"
-  mvn archetype:create "-DgroupId=net.nechifor.$id" "-DartifactId=$id"
-}
-
-texwc() {
-  local file="$1"
-  texcount -total "$file" | grep 'Words in text' | sed 's/[^0-9]*//g'
-}
-
-if [[ $own_computer ]]; then
-  sslenc() {
-    local file="$1"
-    openssl enc -aes-256-cbc -salt -in "$file" -out "$file.enc" \
-        -pass file:/home/p/pro/docs/keys/symkey256.bin
-  }
-
-  ssldec() {
-    local file="$(basename "$1" .enc)"
-    openssl enc -d -aes-256-cbc -salt -in "$file.enc" -out "$file" \
-        -pass file:/home/p/pro/docs/keys/symkey256.bin
-  }
-fi
 
 # Git aliases and functions ----------------------------------------------------
 

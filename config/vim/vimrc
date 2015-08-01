@@ -142,7 +142,7 @@ cnoremap <C-E> <End>
 
 " Use `filler` to keep lines in sync. Set the `context` to a large number so
 " no folds are shown and hide the `foldcolumn`.
-set diffopt=filler,context:1000000,foldcolumn:0
+set diffopt=filler,vertical,context:1000000,foldcolumn:0
 
 " Map Q to repeat last recorded command.
 map Q @@
@@ -250,7 +250,7 @@ hi TabLine ctermbg=Black ctermfg=White cterm=None
 hi TabLineSel ctermbg=Black ctermfg=Green
 
 hi Visual ctermbg=236
-hi Search ctermbg=Magenta ctermfg=White
+hi Search ctermbg=226 ctermfg=16
 hi Pmenu ctermbg=234 ctermfg=White
 hi PmenuSel ctermbg=238 ctermfg=White
 hi Folded ctermbg=240 ctermfg=White
@@ -262,10 +262,10 @@ hi LineNr ctermbg=233 ctermfg=240
 hi NonText ctermfg=0
 
 " Spell checking.
-hi SpellBad ctermbg=197 ctermfg=16
-hi SpellCap ctermbg=197 ctermfg=16
-hi SpellLocal ctermbg=197 ctermfg=16
-hi SpellRare ctermbg=197 ctermfg=16
+hi SpellBad ctermbg=164 ctermfg=16
+hi SpellCap ctermbg=164 ctermfg=16
+hi SpellLocal ctermbg=164 ctermfg=16
+hi SpellRare ctermbg=164 ctermfg=16
 
 " Use the full pipe for the split character instead of the ASCII one.
 set fillchars=vert:\│
