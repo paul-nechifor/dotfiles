@@ -81,6 +81,7 @@ user_start() {
   check_for_requirements
   install_dotfiles
   link_user_files
+  post_install
 }
 
 create_user() {
@@ -176,6 +177,14 @@ link_common_files() {
 
   rm -f ~/.vim-spellfile.utf8.add
   ln -s "$config_dir/vim/spellfile" ~/.vim-spellfile.utf8.add
+}
+
+post_install() {
+  cd /tmp
+  # Change 'push.default' from 'simple' to 'matching' for ancient versions.
+  if git clone x 2>&1 | grep -q 'Malformed value for push.default'; then
+    git config --global push.default matching
+  fi
 }
 
 create_vim_structure() {
