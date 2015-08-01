@@ -10,6 +10,11 @@ main() {
   # install the root packages required if they are not present.
   [[ $root_req ]] && install_root_requirements
 
+  if ! which gcc > /dev/null 2>&1; then
+    echo "$(tput setaf 1)No GCC found.$(tput sgr0)"
+    return
+  fi
+
   [[ -d "$install_path" ]] || mkdir -p "$install_path"
   install_python || soft_fail 'Failed to install Python.'
   install_vim || soft_fail 'Failed to install Vim'
