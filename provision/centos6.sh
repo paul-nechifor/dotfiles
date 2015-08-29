@@ -28,6 +28,7 @@ install_root_requirements() {
     bzip2-devel
     compat-readline5
     docker-io
+    git-svn
     glib2-devel
     glibc-static
     gnutls-devel
