@@ -95,10 +95,12 @@ set formatoptions-=t
 " Anybody who uses anything else should be shot I'm afraid to say.
 set encoding=utf-8
 
-" Search options:
-set hlsearch " Highlight results.
-set incsearch " Don't wait for me to hit enter to search.
-set ignorecase
+" Highlight search results.
+set hlsearch
+" Don't wait for me to hit enter to search.
+set incsearch
+" Ignore case only if all characters are lowercase.
+set smartcase
 
 " Indentation options:
 set smartindent
