@@ -130,6 +130,18 @@ set timeoutlen=1000 ttimeoutlen=0
 " Use 256 colors and override Vim's autodetection.
 set t_Co=256
 
+" Open help in a new tab (better than using cabbrev).
+augroup HelpInTabs
+    autocmd!
+    autocmd BufEnter  *.txt   call HelpInNewTab()
+augroup END
+function! HelpInNewTab ()
+    if &buftype == 'help'
+        "Convert the help window to a tab...
+        execute "normal \<C-W>T"
+    endif
+endfunction
+
 " Reselect visual block after indent/outdent.
 vnoremap < <gv
 vnoremap > >gv
