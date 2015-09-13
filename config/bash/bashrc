@@ -213,11 +213,19 @@ alias resetmod="find . -type f -exec chmod 644 {} + ; find . -type d -exec chmod
 
 # Git aliases and functions ----------------------------------------------------
 
+ga() {
+  if [[ $# -eq 0 ]]; then
+    git add --all .
+  else
+    git add --all "$@"
+  fi
+}
+
 alias g="git"
-alias ga="g add --all ."
 alias gc="g c"
 alias gca="g c --amend"
 alias gd="g diff"
+alias gdd="git-vimdiff"
 alias gdc="g diff --cached"
 alias gad="ga && gdc"
 alias gg="gitg"

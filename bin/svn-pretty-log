@@ -4,10 +4,7 @@ import os
 import re
 import sys
 
-# TODO
-# color the tag differently
-# read svnmerge logs
-# use a limit argument
+# TODO use a limit argument
 
 
 def log(stdin):
@@ -18,7 +15,7 @@ def log(stdin):
 
 def get_info(commit):
     lines = commit.strip().split('\n')
-    revision, user, date, mods = tuple([x.strip() for x in lines[0].split('|')])
+    revision, user, date, mods = [x.strip() for x in lines[0].split('|')]
     revision = revision[1:]
     date = date[:16]
     message = re.sub(r'\s+', ' ', '\n'.join(lines[1:])).strip()
@@ -36,7 +33,7 @@ def get_n_columns():
 
 def print_info(info):
     def max_len(key):
-        return max(map(len, [x[key] for x in info]))
+        return max([len(x[key]) for x in info])
     max_revision = max_len('revision')
     max_user = max_len('user')
     max_date = max_len('date')
@@ -48,7 +45,8 @@ def print_info(info):
         '\033[32m\033[1m%s  ', reset,
         '\033[37m%s  ', reset,
     ])
-    columns += 3 * 10 + 3 * 9 + 5 # Color characters.
+    # Color characters.
+    columns += 3 * 10 + 3 * 9 + 5
     for i in reversed(info):
         line = format % (
             i['revision'].rjust(max_revision),
