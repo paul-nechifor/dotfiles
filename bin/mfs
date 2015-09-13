@@ -1,10 +1,41 @@
 #!/bin/bash
 
+set -e
+
 partitions=(
   eth
   null
   safe
 )
+
+main() {
+  sudo true
+  subcommand-"$@"
+}
+
+subcommand-up() {
+  if [[ $# -eq 0 ]]; then
+    map bring-up "${partitions[@]}"
+  else
+    map bring-up "$@"
+  fi
+}
+
+subcommand-down() {
+  if [[ $# -eq 0 ]]; then
+    map bring-down "${partitions[@]}"
+  else
+    map bring-down "$@"
+  fi
+}
+
+map() {
+  local func="$1"
+  shift
+  for arg in "$@"; do
+    "$func" "$arg"
+  done
+}
 
 bring-up() {
   if [[ -e /dev/mapper/$1 ]]; then
@@ -20,7 +51,7 @@ bring-down() {
     echo "$1 was down"
     return
   fi
-  case $PWD/ in
+  case "$PWD/" in
     /$1/*)
       cd
       echo "changed dir to $PWD"
@@ -29,26 +60,6 @@ bring-down() {
   sudo umount "/$1"
   sudo cryptsetup luksClose "$1"
   echo "$1 is down"
-}
-
-main() {
-  sudo true # Get root password.
-
-  if [[ $# -eq 0 ]]; then
-    for part in "${partitions[@]}"; do
-      bring-down $part
-    done
-  fi
-
-  case $1 in
-    all)
-      for part in "${partitions[@]}"; do
-        bring-up $part
-      done
-      ;;
-    up) bring-up "$2" ;;
-    down) bring-down "$2" ;;
-  esac
 }
 
 main "$@"

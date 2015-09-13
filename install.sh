@@ -5,6 +5,20 @@ set -e
 install_source=$(cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd)
 install_script="$install_source/$(basename "${BASH_SOURCE[0]}")"
 
+main() {
+  determine_environment
+
+  if [[ $# -eq 0 ]]; then
+    if [[ $own_computer ]]; then
+      root_start
+    else
+      user_start
+    fi
+  else
+    $1
+  fi
+}
+
 determine_environment() {
   if [[ ! $ran_before ]]; then
     echo 'Determining environment...'
@@ -278,20 +292,6 @@ infect() {
   rm -fr "$tmpdir"
 
   echo -e "\033[33m☢ \033[0m Infection complete. \033[33m☢ \033[0m"
-}
-
-main() {
-  determine_environment
-
-  if [[ $# -eq 0 ]]; then
-    if [[ $own_computer ]]; then
-      root_start
-    else
-      user_start
-    fi
-  else
-    $1
-  fi
 }
 
 main "$@"
