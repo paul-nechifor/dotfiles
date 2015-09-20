@@ -1,3 +1,4 @@
+# # Bash run commands
 export is_vagrant=$(id -u vagrant 2>/dev/null && echo 1)
 export is_linux=$([[ $OSTYPE == "linux-gnu" ]] && echo 1)
 export is_freebsd=$([[ $OSTYPE == "freebsd"* ]] && echo 1)
@@ -7,7 +8,7 @@ if [[ $is_linux ]]; then
 fi
 export own_computer=$([[ $is_ubuntu && ! $is_vagrant ]] && echo 1)
 
-# Bash settings ----------------------------------------------------------------
+# ## Bash settings
 
 # Set vi mode.
 set -o vi
@@ -33,7 +34,7 @@ export HISTFILESIZE=1000000000
 # Add a timestamp to every history command.
 export HISTTIMEFORMAT="%F %T"
 
-# Bash prompt ------------------------------------------------------------------
+# ## Bash prompt
 
 PS1=
 if [[ ! $own_computer ]]; then
@@ -70,7 +71,7 @@ else
   fi
 fi
 
-# Exports ----------------------------------------------------------------------
+# ## Exports
 
 export LESS_TERMCAP_mb=$(printf "\e[1;37m")
 export LESS_TERMCAP_md=$(printf "\e[1;37m")
@@ -95,7 +96,7 @@ if [[ -d $HOME/.ownbin ]]; then
   export LD_LIBRARY_PATH="$HOME/.ownbin/lib:$LD_LIBRARY_PATH"
 fi
 
-# File system management -------------------------------------------------------
+# ## File system management
 if [[ $is_linux ]]; then
   alias ls="ls --color=auto"
   function l() {
@@ -181,7 +182,7 @@ if which htop >/dev/null 2>&1; then
   alias top="htop"
 fi
 
-# Lazy aliases -----------------------------------------------------------------
+# ## Lazy aliases
 
 alias p="pwd"
 alias v="vim -p"
@@ -198,7 +199,7 @@ if [[ $is_linux ]]; then
   alias grep="grep --color=auto"
 fi
 
-# Complex aliases --------------------------------------------------------------
+# ## Complex aliases
 
 alias dt="du -ba| sort -n | tail -50"
 
@@ -211,7 +212,7 @@ alias infect="wget -q -O- https://github.com/paul-nechifor/dotfiles/raw/master/i
 # dirs.
 alias resetmod="find . -type f -exec chmod 644 {} + ; find . -type d -exec chmod 755 {} +"
 
-# Git aliases and functions ----------------------------------------------------
+# ## Git aliases and functions
 
 ga() {
   if [[ $# -eq 0 ]]; then
@@ -224,9 +225,9 @@ ga() {
 alias g="git"
 alias gc="g c"
 alias gca="g c --amend"
-alias gd="g diff"
+alias gd="g diff -M"
 alias gdd="git-vimdiff"
-alias gdc="g diff --cached"
+alias gdc="g diff --cached -M"
 alias gad="ga && gdc"
 alias gg="gitg"
 alias gl="git-pretty-log"
@@ -238,7 +239,7 @@ gac() {
   git commit -m "$message"
 }
 
-# SVN aliases and functions ----------------------------------------------------
+# ## SVN aliases and functions
 
 s() {
   case $1 in
@@ -281,7 +282,7 @@ color-svn-status() {
   done
 }
 
-# Load local bashrc ------------------------------------------------------------
+# Load local bashrc
 
 if [ -f ~/.bashrc-local ]; then
   source ~/.bashrc-local

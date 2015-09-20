@@ -1,0 +1,12 @@
+#!/bin/bash
+
+root=$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)
+
+main() {
+    cd "$root"
+    npm i docco
+    export PATH="$PATH:node_modules/.bin"
+    docco config/bash/bashrc.sh
+}
+
+main

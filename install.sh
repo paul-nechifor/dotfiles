@@ -184,7 +184,7 @@ link_user_files() {
 
 link_common_files() {
   rm -f ~/.bashrc
-  ln -s "$config_dir/bash/bashrc" ~/.bashrc
+  ln -s "$config_dir/bash/bashrc.sh" ~/.bashrc
 
   rm -f ~/.vimrc
   ln -s "$config_dir/vim/vimrc" ~/.vimrc
