@@ -187,7 +187,7 @@ link_common_files() {
   ln -s "$config_dir/bash/bashrc.sh" ~/.bashrc
 
   rm -f ~/.vimrc
-  ln -s "$config_dir/vim/vimrc" ~/.vimrc
+  ln -s "$config_dir/vim/vimrc.vim" ~/.vimrc
 
   rm -f ~/.vim-spellfile.utf8.add
   ln -s "$config_dir/vim/spellfile" ~/.vim-spellfile.utf8.add
