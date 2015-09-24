@@ -188,6 +188,10 @@ alias p="pwd"
 alias v="vim -p"
 alias sudo="sudo -E"
 
+sink() {
+  pactl -- set-sink-volume 0 "$1%"
+}
+
 if [[ $own_computer ]]; then
   alias am="alsamixer"
   alias b="thunar . >/dev/null 2>&1 &"
@@ -280,6 +284,26 @@ color-svn-status() {
     fi
     echo -e "$color${line/\\/\\\\}\033[0m\033[0;0m"
   done
+}
+
+3men() {
+  festival --tts <<EOF
+And we sit there, by its margin while the moon, who loves it too, stoops down to
+kiss it with a sister's kiss, and throws her silver arms around it clingingly;
+and we watch it as it flows, ever singing, ever whispering, out to meet its
+king, the sea -- till our voices die away in silence, and the pipes go out --
+till we, commonplace, everyday young men, feel strangely full of thoughts, half
+sad, half sweet, and do not care or want to speak -- till we laugh, and rising,
+knock the ashes from our burnt-out pipes, and say "Good night" and, lulled by
+the lapping water and the rustling trees, we fall asleep beneath the great,
+still stars, and dream that the world is young again -- young and sweet as she
+used to be ere the centuries of fret and care had made old her loving heart --
+sweet as she was in those bygone days when a new-made mother, she nursed us, her
+children, upon her own deep breast -- ere the wiles of painted civilization had
+lured us away from her fond arms, and the poisoned sneers of artificiality had
+made us ashamed of the simple life we led with her, and the simple, stately home
+where mankind was born so many thousands of years ago.
+EOF
 }
 
 # Load local bashrc
