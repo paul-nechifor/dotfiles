@@ -185,6 +185,7 @@ fi
 # ## Lazy aliases
 
 alias p="pwd"
+alias py="ipython --no-banner --no-confirm-exit"
 alias v="vim -p"
 alias sudo="sudo -E"
 

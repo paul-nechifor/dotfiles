@@ -21,6 +21,7 @@ install_list=(
   git-svn
   gitg
   golang
+  ipython
   kompare
   linux-headers-$(uname -r)
   linux-headers-generic
