@@ -31,8 +31,6 @@ map Y y$
 nnoremap j gj
 nnoremap k gk
 
-nmap <Space> :nohl<CR>
-
 " Shortcut so I don’t have to type ‘Ack’.
 cabbrev ack <c-r>=getcmdpos() == 1 && getcmdtype() == ":" ? "Ack" : "ack"<CR>
 
@@ -45,7 +43,7 @@ set mouse=a
 " Make Backspace and Delete work as expected.
 set bs=2
 
-let mapleader = ','
+let mapleader = "\<Space>"
 let g:move_key_modifier = 'C'
 let g:move_auto_indent = 0
 xmap <C-j> <Plug>(textmanip-move-down)
@@ -100,6 +98,7 @@ set hlsearch
 " Don't wait for me to hit enter to search.
 set incsearch
 " Ignore case only if all characters are lowercase.
+set ignorecase
 set smartcase
 
 " Indentation options:
@@ -162,11 +161,12 @@ set diffopt=filler,vertical,context:1000000,foldcolumn:0
 map Q @@
 
 " Tell vim to remember certain things on exit.
-"  '10  :  marks will be remembered for up to 10 previously edited files
-"  "100 :  will save up to 100 lines for each register
-"  :50  :  up to 50 lines of command-line history will be remembered
-"  %    :  saves and restores the buffer list
-"  n... :  where to save the viminfo files
+"
+" * `'10`: marks will be remembered for up to 10 previously edited files
+" * `"100`: will save up to 100 lines for each register
+" * `:50`: up to 50 lines of command-line history will be remembered
+" * `%`: saves and restores the buffer list
+" * `n...`: where to save the viminfo files
 set viminfo='10,\"100,:50,%,n~/.viminfo
 
 " Make undo work after restarting Vim.
@@ -182,16 +182,6 @@ nnoremap <C-L> <C-W><C-L>
 nnoremap <C-H> <C-W><C-H>
 
 " Go to tab by number.
-noremap <Leader>1 1gt
-noremap <Leader>2 2gt
-noremap <Leader>3 3gt
-noremap <Leader>4 4gt
-noremap <Leader>5 5gt
-noremap <Leader>6 6gt
-noremap <Leader>7 7gt
-noremap <Leader>8 8gt
-noremap <Leader>9 9gt
-noremap <Leader>0 :tablast<CR>
 noremap H <ESC>:tabprevious<CR>
 noremap L <ESC>:tabnext<CR>
 
@@ -205,9 +195,13 @@ let g:ctrlp_custom_ignore = 'node_modules\|DS_Store\|git\|build\|migrations\|env
 " Execute current file.
 map <Leader>e :call ExecuteFile(expand("%"))<cr>
 
+map <Leader>h :nohl<CR>
+map <Leader>w :wqa<CR>
+nnoremap <Leader>o :CtrlP<CR>
+
 au Syntax c,java,cpp,cs set autoindent cindent
 
-au FileType python,javascript,c set ts=4 sw=4 sts=4
+au FileType python,javascript,c,bash set ts=4 sw=4 sts=4
 au FileType python setlocal textwidth=79
 au FileType diff setlocal textwidth=81
 
