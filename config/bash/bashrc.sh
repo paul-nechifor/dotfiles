@@ -1,5 +1,10 @@
 # # Bash run commands
-export is_vagrant=$(id -u vagrant 2>/dev/null && echo 1)
+export is_vagrant=$([[ -e /vagrant ]] && echo 1)
+
+# ## System detection
+#
+# This exports some boolean variables that are later used to customise behaviour
+# based on the detected OS and distribution.
 export is_linux=$([[ $OSTYPE == "linux-gnu" ]] && echo 1)
 export is_freebsd=$([[ $OSTYPE == "freebsd"* ]] && echo 1)
 if [[ $is_linux ]]; then
@@ -26,7 +31,7 @@ shopt -s histappend
 # Enable using '**' like in 'ack word **/*.py'.
 shopt -s globstar 2>/dev/null
 
-# Remember an incredible amount of commands.
+# Remember an incredible amount of commands in the history.
 export HISTSIZE=1000000
 export HISTCONTROL=ignoreboth
 export HISTFILESIZE=1000000000
@@ -37,26 +42,7 @@ export HISTTIMEFORMAT="%F %T"
 # ## Bash prompt
 
 PS1=
-if [[ ! $own_computer ]]; then
-  if [[ ! ( $(whoami) =~ (^p$|^pnechifor$|^vagrant$|^root$) ) ]]; then
-    if [[ $(id -u) -eq 0 ]]; then
-      PS1+='\[\e[0;35m\]\u@\[\e[0m\]'
-    else
-      PS1+='\[\e[0;34m\]\u@\[\e[0m\]'
-    fi
-  fi
-  if [[ $(id -u) -eq 0 ]]; then
-    PS1+='\[\e[1;35m\]\h\[\e[0m\] '
-  else
-    PS1+='\[\e[1;34m\]\h\[\e[0m\] '
-  fi
-  if [[ $(id -u) -eq 0 ]]; then
-    PS1+='\[\e[0;35m\]\w\[\e[0m\] '
-  else
-    PS1+='\[\e[0;34m\]\w\[\e[0m\] '
-  fi
-  PS1+='\n'
-fi
+ucolor=$(if [[ $(id -u) -eq 0 ]]; then echo 35; else echo 34; fi)
 if [[ $own_computer ]]; then
   if [[ $(id -u) -eq 0 ]]; then
     PS1+='\[\e[1;31m\]● \[\e[0m\] '
@@ -64,14 +50,16 @@ if [[ $own_computer ]]; then
     PS1+='\[\e[1;32m\]● \[\e[0m\] '
   fi
 else
-  if [[ $(id -u) -eq 0 ]]; then
-    PS1+='\[\e[1;35m\]● \[\e[0m\] '
-  else
-    PS1+='\[\e[1;34m\]● \[\e[0m\] '
+  # Only include my username if it's not one I expect.
+  if [[ ! ( $(whoami) =~ (^p$|^pnechifor$|^vagrant$|^root$) ) ]]; then
+    PS1+='\[\e[0;'"$ucolor"'m\]\u@\[\e[0m\]'
   fi
+  PS1+='\[\e[1;'"$ucolor"'m\]\h\[\e[0m\] \[\e[0;'"$ucolor"'m\]\w\[\e[0m\] \n'
+  PS1+='\[\e[1;'"$ucolor"'m\]● \[\e[0m\] '
 fi
+unset ucolor
 
-# ## Exports
+# ## Environment variables
 
 export LESS_TERMCAP_mb=$(printf "\e[1;37m")
 export LESS_TERMCAP_md=$(printf "\e[1;37m")
@@ -100,10 +88,10 @@ fi
 if [[ $is_linux ]]; then
   alias ls="ls --color=auto"
   function l() {
-    # h = human readable
-    # l = list
-    # G = no groups
-    # tail -> remove 'total XXXk' line
+    # * h = human readable
+    # * l = list
+    # * G = no groups
+    # * tail -> remove 'total XXXk' line
     # shellcheck disable=SC2012
     ls --color=always --group-directories-first -hlG --si "$@" |
     tail --lines=+2
@@ -125,7 +113,8 @@ fi
 
 alias du="du -h"
 
-for i in {2..6}; do
+# Define lazy level commands for `tree`: `tree1`, `tree2`, ...
+for i in {1..6}; do
   # shellcheck disable=SC2139
   alias "tree$i=tree -L $i"
 done
@@ -174,15 +163,14 @@ for i in {1..9}; do
   )"
 done
 
-if ! which ack >/dev/null 2>&1; then
+if [[ $is_ubuntu ]]; then
   alias ack="ack-grep"
 fi
 
-if which htop >/dev/null 2>&1; then
+# Replace `top` with `htop` if it exits.
+if which htop &>/dev/null; then
   alias top="htop"
 fi
-
-# ## Lazy aliases
 
 alias p="pwd"
 alias py="ipython --no-banner --no-confirm-exit"
@@ -203,8 +191,6 @@ if [[ $is_linux ]]; then
   alias egrep="egrep --color=auto"
   alias grep="grep --color=auto"
 fi
-
-# ## Complex aliases
 
 alias dt="du -ba| sort -n | tail -50"
 
@@ -287,6 +273,7 @@ color-svn-status() {
   done
 }
 
+# ## Fun things
 3men() {
   festival --tts <<EOF
 And we sit there, by its margin while the moon, who loves it too, stoops down to
@@ -307,7 +294,7 @@ where mankind was born so many thousands of years ago.
 EOF
 }
 
-# Load local bashrc
+# ## Local bashrc
 
 if [ -f ~/.bashrc-local ]; then
   source ~/.bashrc-local

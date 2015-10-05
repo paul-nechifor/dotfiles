@@ -7,6 +7,7 @@ main() {
     npm i docco
     export PATH="$PATH:node_modules/.bin"
     docco config/bash/bashrc.sh
+    docco config/vim/vimrc.vim
 }
 
 main
