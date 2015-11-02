@@ -201,7 +201,7 @@ nnoremap <Leader>o :CtrlP<CR>
 
 au Syntax c,java,cpp,cs set autoindent cindent
 
-au FileType python,javascript,c,bash set ts=4 sw=4 sts=4
+au FileType python,javascript,c,bash,sh set ts=4 sw=4 sts=4
 au FileType python setlocal textwidth=79
 au FileType diff setlocal textwidth=81
 au FileType css,html,stylus,sass set iskeyword=a-z,A-Z,_,- ts=2 sw=2 sts=2
@@ -308,6 +308,6 @@ function! ExecuteFile(filename)
   elseif match(a:filename, '\.go$') != -1
     exec ":!go run " . a:filename
   else
-    exec ":!echo \"Don't know how to execute: \"" . a:filename
+    exec ":!bash " . a:filename
   end
 endf
