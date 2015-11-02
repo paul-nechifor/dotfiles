@@ -1,0 +1,7 @@
+#!/bin/bash -e
+
+main() {
+    grep --color=auto "$@" ~/.bash_history
+}
+
+main "$@"
