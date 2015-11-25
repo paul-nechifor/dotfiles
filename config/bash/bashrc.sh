@@ -84,6 +84,8 @@ if [[ -d $HOME/.ownbin ]]; then
   export LD_LIBRARY_PATH="$HOME/.ownbin/lib:$LD_LIBRARY_PATH"
 fi
 
+export LIBRARY_PATH="$LD_LIBRARY_PATH"
+
 # ## File system management
 if [[ $is_linux ]]; then
   alias ls="ls --color=auto"
