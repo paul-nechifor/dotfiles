@@ -30,6 +30,7 @@ install_list=(
   netbeans
   nodejs
   openjdk-7-jdk
+  python-jedi
   python-pip
   shellcheck
   subversion

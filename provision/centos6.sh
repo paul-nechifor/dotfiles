@@ -93,7 +93,7 @@ install_python() {
   wgetf https://bitbucket.org/pypa/setuptools/raw/bootstrap/ez_setup.py ez_setup.py
   "$install_path/bin/python2.7" ez_setup.py
   "$install_path/bin/easy_install-2.7" pip
-  "$install_path/bin/pip2.7" install virtualenv
+  "$install_path/bin/pip2.7" install virtualenv jedi
 }
 
 install_vim() {

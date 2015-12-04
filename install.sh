@@ -257,10 +257,10 @@ install_vim_modules() {
   install_from_github gitgutter airblade/vim-gitgutter
   install_from_github jade digitaltoad/vim-jade
   install_from_github javascript pangloss/vim-javascript
+  install_from_github jedi davidhalter/jedi-vim
   install_from_github markdown tpope/vim-markdown
   install_from_github matchem ervandew/matchem
   install_from_github nerdtree scrooloose/nerdtree
-  install_from_github python-mode klen/python-mode
   install_from_github rename danro/rename.vim
   install_from_github scss cakebaker/scss-syntax.vim
   install_from_github stylus wavded/vim-stylus
