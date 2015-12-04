@@ -86,6 +86,8 @@ fi
 
 export LIBRARY_PATH="$LD_LIBRARY_PATH"
 
+export PYTHONSTARTUP="$HOME/.pythonrc"
+
 # ## File system management
 if [[ $is_linux ]]; then
   alias ls="ls --color=auto"
@@ -175,7 +177,7 @@ if which htop &>/dev/null; then
 fi
 
 alias p="pwd"
-alias py="ipython --no-banner --no-confirm-exit"
+alias python="ipython --no-banner --no-confirm-exit"
 alias v="vim -p"
 alias sudo="sudo -E"
 alias gdb="gdb -q"

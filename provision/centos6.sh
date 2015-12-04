@@ -33,6 +33,7 @@ install_root_requirements() {
     glibc-static
     gnutls-devel
     htop
+    ipython
     libuv
     libuv-devel
     libxslt

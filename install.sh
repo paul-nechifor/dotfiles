@@ -156,6 +156,8 @@ link_user_files() {
   wipeout .config/dunst
   link_file dunst/rc .config/dunst/dunstrc
 
+  link_file python/pythonrc.py .pythonrc
+
   mkdir -p ~/.subversion >/dev/null 2>&1
   link_file svn/config .subversion/config
 
