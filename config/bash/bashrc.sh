@@ -237,46 +237,12 @@ gac() {
 
 # ## SVN aliases and functions
 
-s() {
-  case $1 in
-    diff)
-      svn "$@" | vim +'set bt=nowrite' +'set syntax=diff' - ;;
-    log)
-      svn "$@" --limit 40 | svn-pretty-log ;;
-    st)
-      svn info | grep '^URL' | awk '{print "url:", $NF}'
-      svn "$@" --ignore-externals 2>&1 | color-svn-status ;;
-    add|checkout|co|cp|del|export|remove|rm)
-      svn "$@" 2>&1 | color-svn-status ;;
-    *)
-      svn "$@" ;;
-  esac
-}
-
+alias s="svn-color"
 alias sa="s add"
 alias sd="s diff"
 alias sl="s log"
 alias st="s st"
-alias sup="s up && sl"
-
-color-svn-status() {
-  local color
-  while read -r line; do
-    if [[ $line =~ ^\ ?M ]]; then color="\033[34m";
-    elif [[ $line =~ ^\ ?C ]]; then color="\033[41m\033[37m\033[1m";
-    elif [[ $line =~ ^A ]]; then color="\033[32m\033[1m";
-    elif [[ $line =~ ^D ]]; then color="\033[31m\033[1m";
-    elif [[ $line =~ ^X ]]; then color="\033[30m\033[1m";
-    elif [[ $line =~ ^! ]]; then color="\033[43m\033[37m\033[1m";
-    elif [[ $line =~ ^I ]]; then color="\033[33m";
-    elif [[ $line =~ ^R ]]; then color="\033[35m";
-    elif [[ $line =~ ^svn:\ E ]]; then color="\033[31m\033[1m";
-    elif [[ $line =~ ^Performing ]]; then color="\033[30m\033[1m";
-    else color=""
-    fi
-    echo -e "$color${line/\\/\\\\}\033[0m\033[0;0m"
-  done
-}
+alias sup="s up"
 
 # ## Fun things
 3men() {
@@ -301,6 +267,6 @@ EOF
 
 # ## Local bashrc
 
-if [ -f ~/.bashrc-local ]; then
-  source ~/.bashrc-local
+if [[ -f ~/.bashrc-local ]]; then
+  . ~/.bashrc-local
 fi
