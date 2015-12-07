@@ -175,10 +175,6 @@ link_user_files() {
     bash "$install_dir/provision/centos6.sh"
   fi
 
-  if [[ ! -e ~/.local-signal ]]; then
-    mkfifo ~/.local-signal
-  fi
-
   mkdir ~/.local-build-commands 2>/dev/null || true
 
   touch ~/.hushlogin
