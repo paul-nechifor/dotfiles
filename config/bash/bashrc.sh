@@ -140,8 +140,14 @@ d() {
 }
 
 z() {
-  d ~/pro/"$1"
+  local file="$HOME/pro/$1"
+  if [[ -f $file && -x $file ]]; then
+      "$file"
+  else
+      d "$file"
+  fi
 }
+
 
 _z() {
   local cur="${COMP_WORDS[COMP_CWORD]}"
