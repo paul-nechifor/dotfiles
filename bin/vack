@@ -1,0 +1,13 @@
+#!/bin/bash -e
+
+main() {
+    vim +"$(
+        ack "$@" |
+        cut -d: -f1-2 |
+        sed 's/^/tabe /g' |
+        sed 's/:/|/g' |
+        tr '\n' '|'
+    )|tabfirst|q"
+}
+
+main "$@"
