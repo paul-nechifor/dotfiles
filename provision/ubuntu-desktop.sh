@@ -121,14 +121,14 @@ npm_packages=(
 )
 
 unnecessary_files=(
-    Descărcări
     Desktop
-    Documente
-    Muzică
-    Poze
+    Documents Documente
+    Downloads Descărcări
+    Music Muzică
+    Pictures Poze
     Public
-    Șabloane
-    Video
+    Templates Șabloane
+    Videos Video
     examples.desktop
 )
 
