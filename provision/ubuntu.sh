@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/bash -e
 
 lang_pack="ro"
 
@@ -132,24 +132,49 @@ unnecessary_files=(
     examples.desktop
 )
 
-main() {
-    check_if_root
+gconf2_values=(
+    /apps/gnome-terminal/profiles/Default/scrollbar_position string hidden
+    /apps/gnome-terminal/profiles/Default/use_system_font bool false
+    /apps/gnome-terminal/profiles/Default/use_theme_background bool false
+    /apps/gnome-terminal/profiles/Default/use_theme_colors bool false
+    /desktop/gnome/url-handlers/magnet/command string '/usr/bin/transmission-gtk %s'
+    /desktop/gnome/url-handlers/magnet/enabled bool true
+    /apps/gnome-terminal/profiles/Default/bold_color_same_as_fg bool false
+    /apps/gnome-terminal/profiles/Default/default_show_menubar bool false
+    /apps/gnome-terminal/profiles/Default/font string 'Ubuntu Mono 11'
+)
 
+gsettings_values=(
+    org.gnome.desktop.background picture-options 'none'
+    org.gnome.desktop.background picture-uri ''
+    org.gnome.desktop.background primary-color '#45a2570a4b04'
+    org.gnome.desktop.background show-desktop-icons false
+    org.gnome.desktop.interface cursor-theme 'DMZ-Black'
+    org.gnome.desktop.interface document-font-name 'Sans 9'
+    org.gnome.desktop.interface font-name 'Ubuntu 9'
+    org.gnome.desktop.interface gtk-theme 'Radiance'
+    org.gnome.desktop.interface monospace-font-name 'Ubuntu Mono 10'
+    org.gnome.desktop.wm.preferences theme 'Adwaita'
+    org.gnome.desktop.wm.preferences titlebar-font 'Ubuntu Bold 9'
+    org.gnome.gedit.preferences.editor scheme 'oblivion'
+    org.gnome.gedit.preferences.editor use-default-font false
+)
+
+main() {
+    subcommand_"$@"
+}
+
+subcommand_desktop_root() {
     add_ppas_and_update
     remove_packages
     install_packages
     install_non_system_packages
-
-    configure_dirs
-    set_options
     post_process
 }
 
-check_if_root() {
-    if [[ $(id -u) != 0 ]]; then
-        echo "You are not root."
-        exit 1
-    fi
+subcommand_desktop_user() {
+    set_options
+    configure_dirs
 }
 
 add_ppas_and_update() {
@@ -177,6 +202,30 @@ install_packages() {
     apt-get install "${install_list[@]}" -y
 }
 
+install_non_system_packages() {
+    npm install -g "${npm_packages[@]}"
+}
+
+post_process() {
+    fc-cache -f -v
+    gdk-pixbuf-query-loaders \
+        > /usr/lib/x86_64-linux-gnu/gdk-pixbuf-2.0/2.10.0/loaders.cache
+}
+
+set_options() {
+    local i
+
+    local a=("${gconf2_values[@]}")
+    for (( i=0; i<"${#a[@]}"; i+=3)); do
+        gconftool-2 --set "${a[i]}" --type "${a[i+1]}" "${a[i+2]}"
+    done
+
+    local a=("${gsettings_values[@]}")
+    for (( i=0; i<"${#a[@]}"; i+=3)); do
+        gsettings set "${a[i]}" "${a[i+1]}" "${a[i+2]}"
+    done
+}
+
 configure_dirs() {
     cd
 
@@ -185,23 +234,10 @@ configure_dirs() {
     cd -
 
     # Create main dirs.
-    mkdir data eth pro || true
+    mkdir -p data eth pro
 
     # Create backups dir.
-    mkdir -p data/backup || true
+    mkdir -p data/backup
 }
 
-set_options() {
-    # Don't show desktop with Nautilus.
-    gsettings set org.gnome.desktop.background show-desktop-icons false
-}
-
-install_non_system_packages() {
-    npm install -g "${npm_packages[@]}"
-}
-
-post_process() {
-    fc-cache -f -v
-}
-
-main
+main "$@"

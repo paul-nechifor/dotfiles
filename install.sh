@@ -2,21 +2,39 @@
 
 set -e
 
-install_source=$(cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd)
+install_source="$(cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd)"
 install_script="$install_source/$(basename "${BASH_SOURCE[0]}")"
 
 main() {
   determine_environment
 
-  if [[ $# -eq 0 ]]; then
-    if [[ $own_computer ]]; then
-      root_start
-    else
-      user_start
-    fi
-  else
-    $1
+  if [[ $1 ]]; then
+    "$@"
+    return
   fi
+  if [[ $own_computer ]]; then
+    root_start
+  else
+    user_start
+  fi
+}
+
+infect() {
+  check_for_requirements
+  local tmpdir=$(mktemp -d 2>/dev/null || mktemp -d -t infect)
+
+  echo 'Downloading dotfiles archive...'
+  cd "$tmpdir"
+  wget_master paul-nechifor/dotfiles
+
+  echo 'Starting installation...'
+  bash dotfiles-master/install.sh
+
+  echo 'Cleaning up...'
+  cd
+  rm -fr "$tmpdir"
+
+  echo -e "\033[33m☢ \033[0m Infection complete. \033[33m☢ \033[0m"
 }
 
 determine_environment() {
@@ -71,11 +89,11 @@ check_for_requirements() {
 
 root_start() {
   local exports=(
-    "ran_before=$ran_before"
-    "http_proxy=$http_proxy"
-    "https_proxy=$https_proxy"
-    "ignore_security_because_why_not=$ignore_security_because_why_not"
-    "username=$username"
+    ran_before="$ran_before"
+    http_proxy="$http_proxy"
+    https_proxy="$https_proxy"
+    ignore_security_because_why_not="$ignore_security_because_why_not"
+    username="$username"
   )
   if [[ $(id -u) -ne 0 ]]; then
     echo 'Switching to root...'
@@ -272,24 +290,6 @@ provision_vim() {
   get_pathogen
   install_vim_modules
   echo 'Provisioning Vim complete.'
-}
-
-infect() {
-  check_for_requirements
-  local tmpdir=$(mktemp -d 2>/dev/null || mktemp -d -t infect)
-
-  echo 'Downloading dotfiles archive...'
-  cd "$tmpdir"
-  wget_master paul-nechifor/dotfiles
-
-  echo 'Starting installation...'
-  bash dotfiles-master/install.sh
-
-  echo 'Cleaning up...'
-  cd
-  rm -fr "$tmpdir"
-
-  echo -e "\033[33m☢ \033[0m Infection complete. \033[33m☢ \033[0m"
 }
 
 main "$@"
