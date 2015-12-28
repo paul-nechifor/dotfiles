@@ -115,9 +115,6 @@ set scrolloff=3 " Keep 3 lines at the top or bottom of the screen
 "set number " Line numbers.
 set ruler " Show line and column in the status bar.
 
-" Always show tab line.
-set showtabline=2
-
 " Status line:
 set statusline=%f " relative file path
 set statusline+=%= " left-right separator
@@ -308,6 +305,8 @@ function! ExecuteFile(filename)
     exec ":!bash " . a:filename
   elseif match(a:filename, '\.go$') != -1
     exec ":!go run " . a:filename
+  elseif match(a:filename, '\.p6$') != -1
+    exec ":!perl6 " . a:filename
   else
     exec ":!bash " . a:filename
   end
