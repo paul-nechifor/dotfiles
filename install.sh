@@ -168,7 +168,7 @@ link_user_files() {
   wipeout .config/i3status
   link_file i3/status .config/i3status/config
 
-  wipeout .cmus
+  mkdir -p "$HOME/.cmus"
   link_file cmus/autosave .cmus/autosave
 
   wipeout .config/dunst
