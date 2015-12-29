@@ -1,4 +1,5 @@
-import os, sys
+import os
+import sys
 
 # Coloured prompt
 if os.getenv('TERM') in ('xterm', 'vt100', 'rxvt', 'Eterm', 'putty'):
@@ -13,7 +14,7 @@ if os.getenv('TERM') in ('xterm', 'vt100', 'rxvt', 'Eterm', 'putty'):
 
 # Completion!
 try:
-    import readline
+    import readline  # NOQA
 except ImportError:
     print("Module readline not available.")
 else:
@@ -40,3 +41,5 @@ else:
 
 del sys
 del os
+
+from pprint import pprint as p  # NOQA

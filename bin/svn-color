@@ -12,7 +12,7 @@ main() {
         add|checkout|co|cp|del|export|remove|rm)
             svn "$@" 2>&1 | color-svn-status ;;
         up)
-            svn up && s log ;;
+            svn up && main log ;;
         *)
             svn "$@" ;;
     esac
