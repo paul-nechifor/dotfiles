@@ -1,5 +1,6 @@
 #!/usr/bin/env python
 
+import os
 import re
 import subprocess
 import sys
@@ -10,7 +11,8 @@ class ColorSet(object):
         list = re.findall(r'[0-9a-fA-F]{6}', colors)
         self.background = '#' + list[0]
         self.foreground = '#' + list[1]
-        self.palette = '#' + ':#'.join(list[2:])
+        self.colors = list[2:]
+        self.palette = '#' + ':#'.join(self.colors)
 
 
 ROOT = '/apps/gnome-terminal/profiles/Default/'
@@ -78,6 +80,23 @@ def set_theme(theme):
     gconf_set(ROOT + 'background_color', 'string', theme.background)
     gconf_set(ROOT + 'foreground_color', 'string', theme.foreground)
     gconf_set(ROOT + 'palette', 'string', theme.palette)
+
+    def trans_color(x):
+        return x[0:2] + '/' + x[2: 4] + '/' + x[4:6]
+
+    def trans_cols():
+        yield 'background', trans_color(theme.background[1:])
+        yield 'foreground', trans_color(theme.foreground[1:])
+        for i, color in enumerate(theme.colors):
+            yield 'color%s' % i, trans_color(color)
+
+    f = 'XTerm*selectToClipboard: true\n'
+    f += 'Xterm*Border: off\n'
+    f += 'Xterm*none: on\n'
+    f += 'Xterm*clientDecoration: none\n'
+    f += '\n'.join('XTerm*%s: rgb:%s' % x for x in trans_cols())
+    open(os.path.expanduser('~/.Xdefaults'), 'w').write(f)
+    os.system('xrdb ~/.Xdefaults')
 
 
 def set_font_size(size=16, relative=None):
