@@ -2,8 +2,10 @@
 
 collector_file="$HOME/svn-vimdiff-arguments"
 cmd="$HOME/.pn-dotfiles/bin/svn-diff-collector"
-echo -n > "$collector_file"
+
+echo -n "vim +'" > "$collector_file"
 svn diff --diff-cmd "$cmd" "$@" >/dev/null
-args="vim $(cat "$collector_file") +'tabfirst' +'q'"
+echo -n " tabfirst | q'" >> "$collector_file"
+
+bash "$collector_file"
 rm "$collector_file"
-bash -c "$args"
