@@ -75,7 +75,7 @@ bindsym $mod2+h workspace prev
 bindsym $mod2+l workspace next
 
 # Toogle workspace.
-bindsym $mod2+m workspace back_and_forth
+bindsym $mod+grave workspace back_and_forth
 
 # Move focused container to workspace.
 bindsym $mod+Shift+exclam move container to workspace 1
