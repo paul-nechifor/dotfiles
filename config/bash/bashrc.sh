@@ -73,7 +73,7 @@ export LESS_TERMCAP_ue=$(printf "\e[0m")
 export LESS_TERMCAP_us=$(printf "\e[0;36m")
 
 export EDITOR="vim"
-export TERM="xterm-256color"
+export TERM="screen-256color"
 
 export PATH="$PATH:$HOME/.pn-dotfiles/bin"
 

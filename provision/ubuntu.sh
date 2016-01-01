@@ -35,6 +35,7 @@ install_list=(
     shellcheck
     subversion
     tidy
+    tig
     tmux
     vim
     vim-gtk
