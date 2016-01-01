@@ -59,6 +59,9 @@ else
 fi
 unset ucolor
 
+# Override. See if this is better.
+PS1='\n  '
+
 # ## Environment variables
 
 export LESS_TERMCAP_mb=$(printf "\e[1;37m")
@@ -99,6 +102,9 @@ if [[ $is_linux ]]; then
     # shellcheck disable=SC2012
     ls --color=always --group-directories-first -hlG --si "$@" |
     tail --lines=+2
+    tput setaf 8
+    get_home_relative_path
+    tput sgr0
   }
   alias la="l -A"
   if [[ $is_centos ]]; then
@@ -132,11 +138,7 @@ f() {
 
 # Go to dir and list the contents.
 d() {
-  if [ $# -eq 0 ]; then
-    cd && l .
-  else
-    cd "$@" && l .
-  fi
+  cd "$@" && l .
 }
 
 z() {
@@ -147,7 +149,6 @@ z() {
       d "$file"
   fi
 }
-
 
 _z() {
   local cur="${COMP_WORDS[COMP_CWORD]}"
@@ -182,7 +183,17 @@ if which htop &>/dev/null; then
   alias top="htop"
 fi
 
-alias p="pwd"
+get_home_relative_path() {
+  local wd="$(readlink -f "$(pwd)")"
+  local home="$(readlink -f "$(eval echo ~"$(whoami)")")"
+  sed "s#^$home/##" <<<"$wd"
+}
+
+p() {
+    echo -n "$(whoami) $(hostname)$(tput setaf 0):$(tput setaf 12)"
+    echo "$(get_home_relative_path)$(tput sgr0)"
+}
+
 alias python="ipython --no-banner --no-confirm-exit"
 alias v="vim -p"
 alias sudo="sudo -E"
