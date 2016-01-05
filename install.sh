@@ -236,10 +236,6 @@ wgetq() {
   else
     wget $args -q "$1"
   fi
-
-  if [[ $? -ne 0 ]]; then
-    echo 'wget fucked up...'
-  fi
 }
 
 get_pathogen() {

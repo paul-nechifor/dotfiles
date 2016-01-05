@@ -59,9 +59,6 @@ else
 fi
 unset ucolor
 
-# Override. See if this is better.
-PS1='\n  '
-
 # ## Environment variables
 
 export LESS_TERMCAP_mb=$(printf "\e[1;37m")
@@ -102,9 +99,6 @@ if [[ $is_linux ]]; then
     # shellcheck disable=SC2012
     ls --color=always --group-directories-first -hlG --si "$@" |
     tail --lines=+2
-    tput setaf 8
-    get_home_relative_path
-    tput sgr0
   }
   alias la="l -A"
   if [[ $is_centos ]]; then
