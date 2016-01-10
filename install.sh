@@ -207,6 +207,9 @@ link_common_files() {
 
   rm -f ~/.vim-spellfile.utf8.add
   ln -s "$config_dir/vim/spellfile" ~/.vim-spellfile.utf8.add
+
+  rm -f ~/.dircolors
+  ln -s "$config_dir/dircolors/dircolors" ~/.dircolors
 }
 
 post_install() {

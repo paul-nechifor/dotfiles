@@ -69,6 +69,9 @@ export LESS_TERMCAP_so=$(printf "\e[1;47;30m")
 export LESS_TERMCAP_ue=$(printf "\e[0m")
 export LESS_TERMCAP_us=$(printf "\e[0;36m")
 
+# Load the colors to be used in `ls`.
+eval "$(dircolors ~/.dircolors)"
+
 export EDITOR="vim"
 export TERM="screen-256color"
 
