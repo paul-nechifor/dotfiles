@@ -1,6 +1,16 @@
 DIR 1;37
+
 .png 92
+
 .js 33
+.jsx 33
+.coffee 33
+
 .py 34
-.jade 35
+
 .styl 32
+.css 32
+.scss 32
+
+.jade 35
+.html 35
