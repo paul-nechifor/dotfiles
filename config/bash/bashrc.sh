@@ -42,21 +42,17 @@ export HISTTIMEFORMAT="%F %T"
 # ## Bash prompt
 
 PS1=
-ucolor=$(if [[ $(id -u) -eq 0 ]]; then echo 35; else echo 34; fi)
-if [[ $own_computer ]]; then
-  if [[ $(id -u) -eq 0 ]]; then
-    PS1+='\[\e[1;31m\]● \[\e[0m\] '
-  else
-    PS1+='\[\e[1;32m\]● \[\e[0m\] '
-  fi
-else
-  # Only include my username if it's not one I expect.
-  if [[ ! ( $(whoami) =~ (^p$|^pnechifor$|^vagrant$|^root$) ) ]]; then
-    PS1+='\[\e[0;'"$ucolor"'m\]\u@\[\e[0m\]'
-  fi
-  PS1+='\[\e[1;'"$ucolor"'m\]\h\[\e[0m\] \[\e[0;'"$ucolor"'m\]\w\[\e[0m\] \n'
-  PS1+='\[\e[1;'"$ucolor"'m\]● \[\e[0m\] '
+ucolor=$(if [[ $(id -u) -eq 0 ]]; then echo 31; else echo 32; fi)
+# Only include my username if it's not one I expect.
+if [[ ! ( $(whoami) =~ (^p$|^pnechifor$|^vagrant$|^root$) ) ]]; then
+  PS1+='\[\e[0;'"$ucolor"'m\]\u@\[\e[0m\]'
 fi
+# Only include the host I'm not directly on my computer.
+if [[ ! $own_computer ]]; then
+  PS1+='\[\e[1;'"$ucolor"'m\]\h\[\e[0;30m\]:\[\e[0m\]'
+fi
+PS1+='\[\e[0;'"$ucolor"'m\]$(get_home_relative_path)\[\e[0m\] \n'
+PS1+='\[\e[1;'"$ucolor"'m\]● \[\e[0m\] '
 unset ucolor
 
 # ## Environment variables

@@ -1,6 +1,5 @@
-DIR 1;37
-
-.png 92
+DIR 1;32
+EXEC 0;32
 
 .js 33
 .jsx 33
@@ -8,9 +7,9 @@ DIR 1;37
 
 .py 34
 
-.styl 32
-.css 32
-.scss 32
+.styl 36
+.css 36
+.scss 36
 
 .jade 35
 .html 35
