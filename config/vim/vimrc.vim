@@ -49,19 +49,13 @@ let g:move_auto_indent = 0
 xmap <C-j> <Plug>(textmanip-move-down)
 xmap <C-k> <Plug>(textmanip-move-up)
 
-" Disable some PyMode things.
-let g:pymode_doc = 0
-let g:pymode_folding = 0
-let g:pymode_options = 0
-let g:pymode_rope_completion = 0
-let g:pymode_run = 0
-let g:pymode_trim_whitespaces = 0
-let g:pymode_rope_goto_definition_cmd = 'e'
-
 let g:syntastic_check_on_open = 1
 let g:syntastic_check_on_wq = 0
 let g:syntastic_auto_loc_list = 0
 let g:syntastic_python_checkers=['flake8']
+let g:syntastic_javascript_checkers=['eslint']
+
+let g:tmux_navigator_save_on_switch = 1
 
 " Quicksave command
 noremap <C-Q> :update<CR>
@@ -114,6 +108,9 @@ set shiftwidth=2
 set scrolloff=3 " Keep 3 lines at the top or bottom of the screen
 "set number " Line numbers.
 set ruler " Show line and column in the status bar.
+
+" Always show tab line.
+set showtabline=2
 
 " Status line:
 set statusline=%f " relative file path
@@ -172,12 +169,6 @@ if exists('+undofile')
   set undodir=~/.vimundo//
   set undofile
 endif
-
-" Navigation windows
-nnoremap <C-J> <C-W><C-J>
-nnoremap <C-K> <C-W><C-K>
-nnoremap <C-L> <C-W><C-L>
-nnoremap <C-H> <C-W><C-H>
 
 " Go to tab by number.
 noremap H <ESC>:tabprevious<CR>

@@ -282,6 +282,7 @@ install_vim_modules() {
   install_from_github svn-blame paul-nechifor/vim-svn-blame
   install_from_github syntastic scrooloose/syntastic
   install_from_github textmanip t9md/vim-textmanip
+  install_from_github tmux-navigator christoomey/vim-tmux-navigator
 }
 
 provision_vim() {
