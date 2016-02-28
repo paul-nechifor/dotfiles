@@ -71,7 +71,7 @@ eval "$(dircolors ~/.dircolors)"
 export EDITOR="vim"
 export TERM="screen-256color"
 
-export PATH="$PATH:$HOME/.pn-dotfiles/bin"
+export PATH="$PATH:$HOME/.pn-dotfiles/bin:$HOME/.local/bin"
 
 if [[ -d $HOME/local/.ownbin ]]; then
   export PATH="$HOME/local/.ownbin/bin:$PATH"

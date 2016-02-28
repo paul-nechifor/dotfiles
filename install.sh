@@ -107,6 +107,10 @@ root_start() {
   su "$username" -c "${exports[*]}; bash '$install_script' install_dotfiles"
   link_root_files
   su "$username" -c "${exports[*]}; bash '$install_script' link_user_files"
+
+  if grep Xenial </etc/issue &>/dev/null; then
+    bash "$install_source"/provision/ubuntu16.04.sh
+  fi
 }
 
 user_start() {

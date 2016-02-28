@@ -1,6 +1,7 @@
 #!/bin/bash -e
 
 lang_pack="ro"
+username="$(getent passwd 1000 | cut -d: -f1)"
 
 remove_list=(
     unity-lens-shopping
@@ -91,9 +92,13 @@ install_list=(
 )
 
 npm_packages=(
-    bower
     coffee-script
+    eslint
     gulp
+)
+
+pip_packages=(
+    flake8
 )
 
 unnecessary_files=(
@@ -129,7 +134,7 @@ gsettings_values=(
     org.gnome.desktop.interface document-font-name 'Sans 9'
     org.gnome.desktop.interface font-name 'Ubuntu 9'
     org.gnome.desktop.interface gtk-theme 'Radiance'
-    org.gnome.desktop.interface monospace-font-name 'Ubuntu Mono 10'
+    org.gnome.desktop.interface monospace-font-name 'Ubuntu Mono 11'
     org.gnome.desktop.wm.preferences theme 'Adwaita'
     org.gnome.desktop.wm.preferences titlebar-font 'Ubuntu Bold 9'
     org.gnome.gedit.preferences.editor scheme 'oblivion'
@@ -138,10 +143,10 @@ gsettings_values=(
 
 main() {
     if [[ $1 ]]; then
-        subcommand_"$@"
-        return
+        subcommand_"$1"
+    else
+        subcommand_desktop_root
     fi
-    subcommand_desktop_root
 }
 
 subcommand_desktop_root() {
@@ -149,11 +154,7 @@ subcommand_desktop_root() {
     remove_packages
     install_packages
     install_non_system_packages
-}
-
-subcommand_desktop_user() {
-    set_options
-    configure_dirs
+    switch_to_user
 }
 
 add_ppas_and_update() {
@@ -171,6 +172,16 @@ install_packages() {
 
 install_non_system_packages() {
     npm install -g "${npm_packages[@]}"
+}
+
+switch_to_user() {
+    su "$username" -c "bash $BASH_SOURCE desktop_user"
+}
+
+subcommand_desktop_user() {
+    set_options
+    configure_dirs
+    install_user_things
 }
 
 set_options() {
@@ -199,6 +210,10 @@ configure_dirs() {
 
     # Create backups dir.
     mkdir -p data/backup
+}
+
+install_user_things() {
+    pip install -U --user "${pip_packages[@]}"
 }
 
 main "$@"
