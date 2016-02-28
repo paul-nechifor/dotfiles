@@ -39,6 +39,7 @@ install_list=(
     tmux
     vim
     vim-gtk
+    cryptsetup
 
     # Langauge pack
     language-pack-$lang_pack
@@ -63,6 +64,7 @@ install_list=(
     xbacklight
     xdotool
     xsel
+    ack-grep
 
     # VPN
     bridge-utils

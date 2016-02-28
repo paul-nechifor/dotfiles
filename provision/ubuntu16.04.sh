@@ -9,12 +9,14 @@ remove_list=(
 )
 
 install_list=(
+    ack-grep
     audacity
     bridge-utils
     build-essential
     cheese
     cloc
     cmus
+    cryptsetup
     curl
     dkms
     easytag

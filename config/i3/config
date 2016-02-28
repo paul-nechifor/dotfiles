@@ -70,12 +70,23 @@ bindsym $mod+7 workspace 7
 bindsym $mod+8 workspace 8
 bindsym $mod+9 workspace 9
 bindsym $mod+0 workspace 10
+bindsym $mod2+1 workspace 1
+bindsym $mod2+2 workspace 2
+bindsym $mod2+3 workspace 3
+bindsym $mod2+4 workspace 4
+bindsym $mod2+5 workspace 5
+bindsym $mod2+6 workspace 6
+bindsym $mod2+7 workspace 7
+bindsym $mod2+8 workspace 8
+bindsym $mod2+9 workspace 9
+bindsym $mod2+0 workspace 10
 
 bindsym $mod2+h workspace prev
 bindsym $mod2+l workspace next
 
 # Toogle workspace.
 bindsym $mod+grave workspace back_and_forth
+bindsym $mod2+grave workspace back_and_forth
 
 # Move focused container to workspace.
 bindsym $mod+Shift+exclam move container to workspace 1
@@ -143,7 +154,7 @@ client.urgent               $rd        $rd         $tx
 
 # Start i3bar.
 bar {
-  position bottom
+  position top
   status_command i3status
   mode hide
   modifier $mod

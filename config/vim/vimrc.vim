@@ -190,7 +190,7 @@ nnoremap <Leader>o :CtrlP<CR>
 
 au Syntax c,java,cpp,cs set autoindent cindent
 
-au FileType python,javascript,c,bash,sh,cpp set ts=4 sw=4 sts=4
+au FileType python,c,bash,sh,cpp set ts=4 sw=4 sts=4
 au FileType python setlocal textwidth=79
 au FileType diff setlocal textwidth=81
 au FileType css,html,stylus,sass set iskeyword=a-z,A-Z,_,- ts=2 sw=2 sts=2
