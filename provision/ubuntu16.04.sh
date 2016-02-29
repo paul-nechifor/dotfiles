@@ -69,6 +69,7 @@ install_list=(
     python-pip
     scrot
     shellcheck
+    silversearcher-ag
     subversion
     tagtool
     texlive-full

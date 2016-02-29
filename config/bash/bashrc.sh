@@ -170,9 +170,17 @@ for i in {1..9}; do
   )"
 done
 
-if [[ $is_ubuntu ]]; then
-  alias ack="ack-grep"
+if ! which ag &>/dev/null; then
+  if [[ $is_ubuntu ]]; then
+    alias ag="ack-grep"
+  else
+    alias ag='ack'
+  fi
 fi
+
+ack() {
+  echo "Use \`ag\`."
+}
 
 # Replace `top` with `htop` if it exits.
 if which htop &>/dev/null; then
@@ -268,6 +276,7 @@ ga() {
   else
     s add "$@"
   fi
+  gs
 }
 
 gc() {
