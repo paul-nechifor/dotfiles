@@ -71,6 +71,7 @@ install_list=(
     shellcheck
     subversion
     tagtool
+    texlive-full
     thunar
     thunar-archive-plugin
     thunar-media-tags-plugin

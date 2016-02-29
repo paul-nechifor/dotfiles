@@ -8,6 +8,7 @@ refs="%C(bold yellow)%d%C(reset)"
 format="$hash"$'\t'"$relative_time"$'\t'"$subject $author $refs"
 
 git log --graph --pretty="tformat:$format" "$@" |
+tac |
 sed 's/ ago//' |
 column -t -s $'\t' |
-less -FXRS
+less -FXRS +G

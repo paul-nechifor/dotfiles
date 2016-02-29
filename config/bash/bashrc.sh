@@ -1,17 +1,20 @@
+#!/bin/bash
+
 # # Bash run commands
-export is_vagrant=$([[ -e /vagrant ]] && echo 1)
+
+export is_vagrant; is_vagrant=$([[ -e /vagrant ]] && echo 1)
 
 # ## System detection
 #
 # This exports some boolean variables that are later used to customise behaviour
 # based on the detected OS and distribution.
-export is_linux=$([[ $OSTYPE == "linux-gnu" ]] && echo 1)
-export is_freebsd=$([[ $OSTYPE == "freebsd"* ]] && echo 1)
+export is_linux; is_linux=$([[ $OSTYPE == "linux-gnu" ]] && echo 1)
+export is_freebsd; is_freebsd=$([[ $OSTYPE == "freebsd"* ]] && echo 1)
 if [[ $is_linux ]]; then
-  export is_ubuntu=$(grep -q Ubuntu /etc/issue && echo 1)
-  export is_centos=$(grep -q CentOS /etc/issue && echo 1)
+  export is_ubuntu; is_ubuntu=$(grep -q Ubuntu /etc/issue && echo 1)
+  export is_centos; is_centos=$(grep -q CentOS /etc/issue && echo 1)
 fi
-export own_computer=$([[ $is_ubuntu && ! $is_vagrant ]] && echo 1)
+export own_computer; own_computer=$([[ $is_ubuntu && ! $is_vagrant ]] && echo 1)
 
 # ## Bash settings
 
@@ -57,13 +60,13 @@ unset ucolor
 
 # ## Environment variables
 
-export LESS_TERMCAP_mb=$(printf "\e[1;37m")
-export LESS_TERMCAP_md=$(printf "\e[1;37m")
-export LESS_TERMCAP_me=$(printf "\e[0m")
-export LESS_TERMCAP_se=$(printf "\e[0m")
-export LESS_TERMCAP_so=$(printf "\e[1;47;30m")
-export LESS_TERMCAP_ue=$(printf "\e[0m")
-export LESS_TERMCAP_us=$(printf "\e[0;36m")
+export LESS_TERMCAP_mb; LESS_TERMCAP_mb=$(printf "\e[1;37m")
+export LESS_TERMCAP_md; LESS_TERMCAP_md=$(printf "\e[1;37m")
+export LESS_TERMCAP_me; LESS_TERMCAP_me=$(printf "\e[0m")
+export LESS_TERMCAP_se; LESS_TERMCAP_se=$(printf "\e[0m")
+export LESS_TERMCAP_so; LESS_TERMCAP_so=$(printf "\e[1;47;30m")
+export LESS_TERMCAP_ue; LESS_TERMCAP_ue=$(printf "\e[0m")
+export LESS_TERMCAP_us; LESS_TERMCAP_us=$(printf "\e[0;36m")
 
 # Load the colors to be used in `ls`.
 eval "$(dircolors ~/.dircolors)"
@@ -123,7 +126,7 @@ for i in {1..6}; do
 done
 
 f() {
-  find . -iname "*${@}*" 2>/dev/null  |
+  find . -iname "*${*}*" 2>/dev/null  |
   egrep -v '\.(git|svn)' |
   awk '{print substr($0,3)}' |
   grep -i "$@"
@@ -177,8 +180,8 @@ if which htop &>/dev/null; then
 fi
 
 get_home_relative_path() {
-  local wd="$(readlink -f "$(pwd)")"
-  local home="$(readlink -f "$(eval echo ~"$(whoami)")")"
+  local wd; wd="$(readlink -f "$(pwd)")"
+  local home; home="$(readlink -f "$(eval echo ~"$(whoami)")")"
   sed "s#^$home/##" <<<"$wd"
 }
 
@@ -218,40 +221,77 @@ alias infect="wget -q -O- https://github.com/paul-nechifor/dotfiles/raw/master/i
 # dirs.
 alias resetmod="find . -type f -exec chmod 644 {} + ; find . -type d -exec chmod 755 {} +"
 
-# ## Git aliases and functions
+# ## Git (...and sadly SVN)
 
-ga() {
-  if [[ $# -eq 0 ]]; then
-    git add --all .
+alias g="git"
+alias s="svn-color"
+
+gs() {
+  if git status &>/dev/null; then
+    g s
   else
-    git add --all "$@"
+    s st
   fi
 }
 
-alias g="git"
-alias gc="g c"
+gl() {
+  if git status &>/dev/null; then
+    git-pretty-log
+  else
+    s log
+  fi
+}
+
+gd() {
+  if git status &>/dev/null; then
+    g diff -M
+  else
+    s diff
+  fi
+}
+
+gdd() {
+  if git status &>/dev/null; then
+    git-vimdiff
+  else
+    sdd
+  fi
+}
+
+ga() {
+  if git status &>/dev/null; then
+    if [[ $# -eq 0 ]]; then
+      git add --all .
+    else
+      git add --all "$@"
+    fi
+  else
+    s add "$@"
+  fi
+}
+
+gc() {
+  local message="$*"
+  if git status &>/dev/null; then
+    git commit -m "$message"
+    gl -n "$(( $(tput lines) - 5 ))"
+  else
+    s ci -m "$message"
+    svn up
+    s log
+  fi
+}
+
 alias gca="g c --amend"
-alias gd="g diff -M"
-alias gdd="git-vimdiff"
 alias gdc="g diff --cached -M"
 alias gad="ga && gdc"
 alias gg="gitg"
-alias gl="git-pretty-log"
-alias gs="g s"
 
 gac() {
-  local message="$*"
   git add --all
-  git commit -m "$message"
+  gc "$@"
 }
 
-# ## SVN aliases and functions
-
-alias s="svn-color"
-alias sa="s add"
-alias sd="s diff"
-alias sl="s log"
-alias st="s st"
 alias sup="s up"
 
 # ## Fun things
