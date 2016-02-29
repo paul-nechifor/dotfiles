@@ -236,33 +236,33 @@ alias s="svn-color"
 
 gs() {
   if git status &>/dev/null; then
-    g s
+    g s "$@"
   else
-    s st
+    s st "$@"
   fi
 }
 
 gl() {
   if git status &>/dev/null; then
-    git-pretty-log
+    git-pretty-log "$@"
   else
-    s log
+    s log "$@"
   fi
 }
 
 gd() {
   if git status &>/dev/null; then
-    g diff -M
+    g diff -M "$@"
   else
-    s diff
+    s diff "$@"
   fi
 }
 
 gdd() {
   if git status &>/dev/null; then
-    git-vimdiff
+    git-vimdiff "$@"
   else
-    sdd
+    sdd "$@"
   fi
 }
 
@@ -276,7 +276,7 @@ ga() {
   else
     s add "$@"
   fi
-  gs
+  gs .
 }
 
 gc() {

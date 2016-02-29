@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/bash -e
 
 hash="%C(bold blue)%h%C(reset)"
 relative_time="%C(bold green)%ar%C(reset)"
@@ -7,8 +7,19 @@ author="%C(bold black)%an%C(reset)"
 refs="%C(bold yellow)%d%C(reset)"
 format="$hash"$'\t'"$relative_time"$'\t'"$subject $author $refs"
 
-git log --graph --pretty="tformat:$format" "$@" |
-tac |
-sed 's/ ago//' |
-column -t -s $'\t' |
-less -FXRS +G
+main() {
+    if [[ $1 == '-n' && $2 -lt $(tput lines) ]]; then
+        custom_log | tail -n "$2"
+        return
+    fi
+    custom_log "$@" | less -FXRS +G
+}
+
+custom_log() {
+    git log --graph --pretty="tformat:$format" "$@" |
+    tac |
+    sed 's/ ago//' |
+    column -t -s $'\t'
+}
+
+main "$@"
