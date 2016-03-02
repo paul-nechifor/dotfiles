@@ -9,6 +9,12 @@ remove_list=(
 )
 
 install_list=(
+    libmtp-common
+    mtp-tools
+    libmtp-dev
+    libmtp-runtime
+    libmtp9
+
     # Terminal apps
     cmus
     weechat

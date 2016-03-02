@@ -47,11 +47,16 @@ install_list=(
     language-pack-gnome-$lang_pack-base
     libav-tools
     libmad0
+    libmtp-common
+    libmtp-dev
+    libmtp-runtime
+    libmtp9
     linux-headers-$(uname -r)
     linux-headers-generic
     maven
     mencoder
     mpg321
+    mtp-tools
     nasm
     nautilus-script-audio-convert
     netbeans
