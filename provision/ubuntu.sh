@@ -208,7 +208,8 @@ remove_packages() {
 
 install_packages() {
     apt-get upgrade -y
-    apt-get install "${install_list[@]}" -y
+    apt-get install "${install_list[@]}" -y --force-yes
+    apt-get autoremove
 }
 
 install_non_system_packages() {
