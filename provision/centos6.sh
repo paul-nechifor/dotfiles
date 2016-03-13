@@ -10,10 +10,7 @@ main() {
   # install the root packages required if they are not present.
   [[ $root_req ]] && install_root_requirements
 
-  if ! which gcc > /dev/null 2>&1; then
-    echo "$(tput setaf 1)No GCC found.$(tput sgr0)"
-    return
-  fi
+  which gcc &>/dev/null || die 'No GCC found.'
 
   [[ -d "$install_path" ]] || mkdir -p "$install_path"
   install_python || soft_fail 'Failed to install Python.'
@@ -138,12 +135,38 @@ install_tmux() {
   make && make install
 }
 
+install_ag() {
+    wget http://ftp.cs.stanford.edu/mirrors/exim/pcre/pcre-8.38.tar.bz2
+    tar xvf pcre-8.38.tar.bz2
+    rm -fr pcre-8.38.tar.bz2
+    (
+        cd pcre-8.38/
+        ./configure --prefix=$HOME/pcre --enable-jit --enable-unicode-properties
+        make
+        make install
+    )
+    rm -fr pcre-8.38
+
+    git clone https://github.com/ggreer/the_silver_searcher.git
+    (
+        cd the_silver_searcher/
+        aclocal && autoconf && autoheader && automake --add-missing
+        ./configure PCRE_CFLAGS="-I $HOME/pcre/include" PCRE_LIBS="-L $HOME/pcre/lib -Wl,-Bstatic -lpcre -Wl,-Bdynamic"
+        make
+    )
+}
+
 wgetf() {
   wget -q --no-check-certificate "$1" -O- > "$2"
 }
 
 soft_fail() {
   echo "$(tput setaf 1)$1$(tput sgr0)"
+}
+
+die() {
+    soft_fail "$@"
+    exit 1
 }
 
 main
