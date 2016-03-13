@@ -9,6 +9,7 @@ remove_list=(
 )
 
 install_list=(
+    silversearcher-ag
     libmtp-common
     mtp-tools
     libmtp-dev

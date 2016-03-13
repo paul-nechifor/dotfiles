@@ -1,0 +1,32 @@
+#!/bin/bash -e
+
+main() {
+    vim +"$(unique_file_search "$@" | files_to_vim)"
+}
+
+unique_file_search() {
+    content_search "$@" |
+    cut -d: -f1-2 |
+    sort -u -t: -k1,1
+}
+
+files_to_vim() {
+    sed 's/^/tabe /g' |
+    sed 's/:/|/g' |
+    tr '\n' '|'
+    echo -n 'tabfirst|q'
+}
+
+content_search() {
+    if which ag &>/dev/null; then
+        command ag "$@"
+    elif which ack-grep &>/dev/null; then
+        command ack-grep "$@"
+    elif which ack &>/dev/null; then
+        command ack "$@"
+    else
+        echo 'No search ag/ack.'
+    fi
+}
+
+main "$@"
