@@ -97,7 +97,7 @@ set ignorecase
 set smartcase
 
 " Indentation options:
-set smartindent
+set autoindent
 set expandtab " Replace <tab> with spaces.
 set smarttab " Backspace spaces as if they were tabs.
 set tabstop=2
@@ -188,7 +188,7 @@ map <Leader>h :nohl<CR>
 map <Leader>w :wqa<CR>
 nnoremap <Leader>o :CtrlP<CR>
 
-au Syntax c,java,cpp,cs set autoindent cindent
+au Syntax c,java,cpp,cs set smartindent cindent
 
 au FileType python,c,bash,sh,cpp set ts=4 sw=4 sts=4
 au FileType python setlocal textwidth=79
