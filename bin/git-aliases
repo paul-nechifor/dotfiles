@@ -84,6 +84,31 @@ gdc() {
   g diff --cached -M
 }
 
+gin() {
+  if git status &>/dev/null; then
+    git info 2>/dev/null |
+    sed "/Type 'git log' for more commits/q" |
+    head -n -1
+  else
+    svn-color info
+  fi
+}
+
+gcl() {
+  if git status &>/dev/null; then
+    git clone "$@"
+  else
+    svn co "$@"
+  fi
+
+  separator —
+  if [[ "$2" ]]; then
+    d "$2"
+  else
+    d "$(basename "$1" | sed 's/\.git$//')"
+  fi
+}
+
 alias gca="g c --amend"
 alias gad="ga && gdc"
 alias gg="gitg"
