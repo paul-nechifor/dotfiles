@@ -10,18 +10,26 @@ gs() {
 
 gl() {
   if git status &>/dev/null; then
-    git-pretty-log "$@"
+    max_lines_to_show="$(tput cols)" git-pretty-log "$@"
   else
     svn-color log "$@"
   fi
 }
 
-gd() {
-  separator —
+gll() {
   if git status &>/dev/null; then
+    git-pretty-log "$@"
+  else
+    svn log | less
+  fi
+}
+
+gd() {
+  if git status &>/dev/null; then
+    separator —
     git diff -M "$@"
   else
-    svn-color diff "$@"
+    [[ "$(svn diff 2>/dev/null)" ]] && svn-color diff "$@"
   fi
 }
 
@@ -106,6 +114,14 @@ gcl() {
     d "$2"
   else
     d "$(basename "$1" | sed 's/\.git$//')"
+  fi
+}
+
+grev() {
+  if git status &>/dev/null; then
+    git checkout HEAD -- "$@"
+  else
+    svn revert -R "$@"
   fi
 }
 

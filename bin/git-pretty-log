@@ -8,11 +8,11 @@ refs="%C(bold yellow)%d%C(reset)"
 format="$hash"$'\t'"$relative_time"$'\t'"$subject $author $refs"
 
 main() {
-    if [[ $1 == '-n' && $2 -lt $(tput lines) ]]; then
-        custom_log | tail -n "$2"
-        return
+    if [[ "$max_lines_to_show" ]]; then
+        custom_log "$@" | tail -n "$max_lines_to_show"
+    else
+        custom_log "$@" | less -RS +G
     fi
-    custom_log "$@" | less -FRS +G
 }
 
 custom_log() {
