@@ -17,6 +17,7 @@ gl() {
 }
 
 gd() {
+  separator —
   if git status &>/dev/null; then
     git diff -M "$@"
   else
@@ -78,7 +79,11 @@ gac() {
   gc "$@"
 }
 
+gdc() {
+  separator —
+  g diff --cached -M
+}
+
 alias gca="g c --amend"
-alias gdc="g diff --cached -M"
 alias gad="ga && gdc"
 alias gg="gitg"
