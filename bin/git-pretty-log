@@ -12,7 +12,7 @@ main() {
         custom_log | tail -n "$2"
         return
     fi
-    custom_log "$@" | less -FXRS +G
+    custom_log "$@" | less -FRS +G
 }
 
 custom_log() {

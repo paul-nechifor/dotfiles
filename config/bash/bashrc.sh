@@ -214,7 +214,7 @@ fi
 
 alias dt="du -ba| sort -n | tail -50"
 
-alias less="less -r"
+alias less="less -FiSsr"
 
 # Reinstall the dotfiles from the repo.
 alias infect="wget -q -O- https://github.com/paul-nechifor/dotfiles/raw/master/install.sh | bash -s - infect && . ~/.bashrc"
