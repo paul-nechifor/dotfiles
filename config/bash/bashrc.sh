@@ -225,77 +225,7 @@ alias resetmod="find . -type f -exec chmod 644 {} + ; find . -type d -exec chmod
 
 # ## Git (...and sadly SVN)
 
-alias g="git"
-alias s="svn-color"
-
-gs() {
-  if git status &>/dev/null; then
-    g s "$@"
-  else
-    s st "$@"
-  fi
-}
-
-gl() {
-  if git status &>/dev/null; then
-    git-pretty-log "$@"
-  else
-    s log "$@"
-  fi
-}
-
-gd() {
-  if git status &>/dev/null; then
-    g diff -M "$@"
-  else
-    s diff "$@"
-  fi
-}
-
-gdd() {
-  if git status &>/dev/null; then
-    git-vimdiff "$@"
-  else
-    sdd "$@"
-  fi
-}
-
-ga() {
-  if git status &>/dev/null; then
-    if [[ $# -eq 0 ]]; then
-      git add --all .
-    else
-      git add --all "$@"
-    fi
-  else
-    s add "$@"
-  fi
-  gs .
-}
-
-gc() {
-  local message="$*"
-  if git status &>/dev/null; then
-    git commit -m "$message"
-    gl -n "$(( $(tput lines) - 5 ))"
-  else
-    s ci -m "$message"
-    svn up
-    s log
-  fi
-}
-
-alias gca="g c --amend"
-alias gdc="g diff --cached -M"
-alias gad="ga && gdc"
-alias gg="gitg"
-
-gac() {
-  git add --all
-  gc "$@"
-}
-
-alias sup="s up"
+. "$HOME/.pn-dotfiles/bin/git-aliases"
 
 # ## Fun things
 3men() {
