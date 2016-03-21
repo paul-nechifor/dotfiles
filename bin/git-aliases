@@ -1,13 +1,10 @@
 #!/bin/bash
 
-alias g="git"
-alias s="svn-color"
-
 gs() {
   if git status &>/dev/null; then
-    g s "$@"
+    git s "$@"
   else
-    s st "$@"
+    svn-color st "$@"
   fi
 }
 
@@ -15,15 +12,15 @@ gl() {
   if git status &>/dev/null; then
     git-pretty-log "$@"
   else
-    s log "$@"
+    svn-color log "$@"
   fi
 }
 
 gd() {
   if git status &>/dev/null; then
-    g diff -M "$@"
+    git diff -M "$@"
   else
-    s diff "$@"
+    svn-color diff "$@"
   fi
 }
 
@@ -43,7 +40,7 @@ ga() {
       git add --all "$@"
     fi
   else
-    s add "$@"
+    svn-color add "$@"
   fi
   gs .
 }
@@ -54,9 +51,9 @@ gc() {
     git commit -m "$message"
     gl -n "$(( $(tput lines) - 5 ))"
   else
-    s ci -m "$message"
+    svn-color ci -m "$message"
     svn up
-    s log
+    svn-color log
   fi
 }
 
@@ -72,6 +69,14 @@ alias gca="g c --amend"
 alias gdc="g diff --cached -M"
 alias gad="ga && gdc"
 alias gg="gitg"
+
+g() {
+  if git status &>/dev/null; then
+    git "$@"
+  else
+    svn-color "$@"
+  fi
+}
 
 gac() {
   git add --all
