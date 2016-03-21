@@ -66,7 +66,7 @@ gc() {
   fi
 }
 
-gpl() {
+gp() {
   if git status &>/dev/null; then
     git pull
   else
