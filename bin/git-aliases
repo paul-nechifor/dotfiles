@@ -121,7 +121,11 @@ grev() {
   if git status &>/dev/null; then
     git checkout HEAD -- "$@"
   else
-    svn revert -R "$@"
+    if [[ $1 ]]; then
+      svn revert -R "$@"
+    else
+      svn revert -R .
+    fi
   fi
 }
 
