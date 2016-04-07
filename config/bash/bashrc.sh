@@ -223,6 +223,8 @@ alias infect="wget -q -O- https://github.com/paul-nechifor/dotfiles/raw/master/i
 # dirs.
 alias resetmod="find . -type f -exec chmod 644 {} + ; find . -type d -exec chmod 755 {} +"
 
+alias c=cmus
+
 # ## Git (...and sadly SVN)
 
 . "$HOME/.pn-dotfiles/bin/git-aliases"
