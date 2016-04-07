@@ -2,6 +2,7 @@
 
 lang_pack="ro"
 username="$(getent passwd 1000 | cut -d: -f1)"
+export DEBIAN_FRONTEND=noninteractive
 
 remove_list=(
     unity-lens-shopping
