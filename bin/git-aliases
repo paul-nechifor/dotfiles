@@ -1,84 +1,84 @@
 #!/bin/bash
 
 gs() {
-  if git status &>/dev/null; then
-    git s "$@"
-  else
+  if svn info &>/dev/null; then
     svn-color st "$@"
+  else
+    git s "$@"
   fi
 }
 
 gl() {
-  if git status &>/dev/null; then
-    max_lines_to_show="$(tput cols)" git-pretty-log "$@"
-  else
+  if svn info &>/dev/null; then
     svn-color log "$@"
+  else
+    max_lines_to_show="$(tput cols)" git-pretty-log "$@"
   fi
 }
 
 gll() {
-  if git status &>/dev/null; then
-    git-pretty-log "$@"
-  else
+  if svn info &>/dev/null; then
     svn log | less
+  else
+    git-pretty-log "$@"
   fi
 }
 
 gd() {
-  if git status &>/dev/null; then
+  if svn info &>/dev/null; then
+    [[ "$(svn diff 2>/dev/null)" ]] && svn-color diff "$@"
+  else
     separator —
     git diff -M "$@"
-  else
-    [[ "$(svn diff 2>/dev/null)" ]] && svn-color diff "$@"
   fi
 }
 
 gdd() {
-  if git status &>/dev/null; then
-    git-vimdiff "$@"
-  else
+  if svn info &>/dev/null; then
     sdd "$@"
+  else
+    git-vimdiff "$@"
   fi
 }
 
 ga() {
-  if git status &>/dev/null; then
+  if svn info &>/dev/null; then
+    svn-color add "$@"
+  else
     if [[ $# -eq 0 ]]; then
       git add --all .
     else
       git add --all "$@"
     fi
-  else
-    svn-color add "$@"
   fi
   gs .
 }
 
 gc() {
   local message="$*"
-  if git status &>/dev/null; then
-    git commit -m "$message"
-    gl -n "$(( $(tput lines) - 5 ))"
-  else
+  if svn info &>/dev/null; then
     svn-color ci -m "$message"
     svn up
     svn-color log
+  else
+    git commit -m "$message"
+    gl -n "$(( $(tput lines) - 5 ))"
   fi
 }
 
 gp() {
-  if git status &>/dev/null; then
-    git pull
-  else
+  if svn info &>/dev/null; then
     svn-color up
+  else
+    git pull
   fi
 }
 
 g() {
-  if git status &>/dev/null; then
-    git "$@"
-  else
+  if svn info &>/dev/null; then
     svn-color "$@"
+  else
+    git "$@"
   fi
 }
 
@@ -93,20 +93,20 @@ gdc() {
 }
 
 gin() {
-  if git status &>/dev/null; then
+  if svn info &>/dev/null; then
+    svn-color info
+  else
     git info 2>/dev/null |
     sed "/Type 'git log' for more commits/q" |
     head -n -1
-  else
-    svn-color info
   fi
 }
 
 gcl() {
-  if git status &>/dev/null; then
-    git clone "$@"
-  else
+  if svn info &>/dev/null; then
     svn co "$@"
+  else
+    git clone "$@"
   fi
 
   separator —
@@ -118,14 +118,14 @@ gcl() {
 }
 
 grev() {
-  if git status &>/dev/null; then
-    git checkout HEAD -- "$@"
-  else
+  if svn info &>/dev/null; then
     if [[ $1 ]]; then
       svn revert -R "$@"
     else
       svn revert -R .
     fi
+  else
+    git checkout HEAD -- "$@"
   fi
 }
 
