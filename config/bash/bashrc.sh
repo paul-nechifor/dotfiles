@@ -74,7 +74,12 @@ if [[ ! $is_freebsd ]]; then
 fi
 
 export EDITOR="vim"
-export TERM="screen-256color"
+
+if [[ $is_freebsd ]]; then
+  export TERM="xterm-256color"
+else
+  export TERM="screen-256color"
+fi
 
 export PATH="$PATH:$HOME/.pn-dotfiles/bin:$HOME/.local/bin"
 
