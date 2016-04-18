@@ -43,6 +43,9 @@ set mouse=a
 " Make Backspace and Delete work as expected.
 set bs=2
 
+" Patterns to ignore when expanding wildcards. This also works for CtrlP.
+set wildignore+=*.so,*.swp,*.zip
+
 let mapleader = "\<Space>"
 let g:move_key_modifier = 'C'
 let g:move_auto_indent = 0
@@ -179,7 +182,13 @@ map <C-n> :NERDTreeToggle<CR>
 let NERDTreeIgnore=['\.o$', '\~$', '.pyc$']
 
 " What to ignore in CtrlP.
-let g:ctrlp_custom_ignore = 'node_modules\|DS_Store\|git\|build\|migrations\|environ\|pyc\|svn\|logs'
+let g:ctrlp_custom_ignore = {
+  \ 'dir':  '\v[\/](\.(git|hg|svn)|node_modules|build|migrations|env|environ|logs)$',
+  \ 'file': '\v\.(o|so|pyc)$',
+  \ }
+
+" let let g:ctrlp_root_markers = ['setup.py', 'bootstrap']
+let g:ctrlp_root_markers = ['.ctrlproot']
 
 " Execute current file.
 map <Leader>e :call ExecuteFile(expand("%"))<cr>
