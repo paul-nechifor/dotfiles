@@ -268,7 +268,7 @@ install_vim_modules() {
   install_from_github ack mileszs/ack.vim
   install_from_github coffee-script kchmck/vim-coffee-script
   install_from_github commentary tpope/vim-commentary
-  install_from_github ctrlp kien/ctrlp.vim
+  install_from_github ctrlp ctrlpvim/ctrlp.vim
   install_from_github easymotion Lokaltog/vim-easymotion
   install_from_github fugitive tpope/vim-fugitive
   install_from_github gitgutter airblade/vim-gitgutter
