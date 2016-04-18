@@ -68,8 +68,10 @@ export LESS_TERMCAP_so; LESS_TERMCAP_so=$(printf "\e[1;47;30m")
 export LESS_TERMCAP_ue; LESS_TERMCAP_ue=$(printf "\e[0m")
 export LESS_TERMCAP_us; LESS_TERMCAP_us=$(printf "\e[0;36m")
 
-# Load the colors to be used in `ls`.
-eval "$(dircolors ~/.dircolors)"
+if [[ ! $is_freebsd ]]; then
+  # Load the colors to be used in `ls`.
+  eval "$(dircolors ~/.dircolors)"
+fi
 
 export EDITOR="vim"
 export TERM="screen-256color"
@@ -186,6 +188,12 @@ get_home_relative_path() {
   local home; home="$(readlink -f "$(eval echo ~"$(whoami)")")"
   sed "s#^$home/##" <<<"$wd"
 }
+
+if [[ $is_freebsd ]]; then
+  get_home_relative_path() {
+    pwd
+  }
+fi
 
 p() {
     echo -n "$(whoami) $(hostname)$(tput setaf 0):$(tput setaf 12)"
