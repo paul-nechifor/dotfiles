@@ -65,7 +65,7 @@ install_list=(
     network-manager-openvpn-gnome
     nodejs
     npm
-    openjdk-7-jdk
+    openjdk-8-jdk
     openvpn
     p7zip
     p7zip-full
