@@ -11,6 +11,9 @@ remove_list=(
 )
 
 install_list=(
+    # openjdk-8-jdk
+    # texlive-full
+    # ttf-'*'
     ack-grep
     audacity
     bridge-utils
@@ -65,7 +68,6 @@ install_list=(
     network-manager-openvpn-gnome
     nodejs
     npm
-    openjdk-8-jdk
     openvpn
     p7zip
     p7zip-full
@@ -78,7 +80,6 @@ install_list=(
     silversearcher-ag
     subversion
     tagtool
-    texlive-full
     thunar
     thunar-archive-plugin
     thunar-media-tags-plugin
@@ -86,7 +87,6 @@ install_list=(
     tig
     tmux
     tree
-    ttf-'*'
     tumbler-plugins-extra
     unrar
     vim
