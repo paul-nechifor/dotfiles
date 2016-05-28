@@ -57,6 +57,7 @@ install_list=(
     libmtp9
     linux-headers-$(uname -r)
     linux-headers-generic
+    lm-sensors
     maven
     mencoder
     mpg321
