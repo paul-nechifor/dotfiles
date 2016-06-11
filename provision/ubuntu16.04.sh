@@ -14,6 +14,8 @@ install_list=(
     # openjdk-8-jdk
     # texlive-full
     # ttf-'*'
+    # ubuntu-restricted-extras
+    # virtualbox-qt
     ack-grep
     audacity
     bridge-utils
