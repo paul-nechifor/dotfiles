@@ -66,7 +66,7 @@ install_root_requirements() {
   rpm -Uvh "$file" >/dev/null 2>&1 || true
   rm "$file"
 
-  sudo yum -y install centos-release-SCL
+  # sudo yum -y install centos-release-SCL
   sudo yum -y shell <<<"
     update
     groupinstall 'Development tools'
@@ -141,7 +141,7 @@ install_ag() {
     rm -fr pcre-8.38.tar.bz2
     (
         cd pcre-8.38/
-        ./configure --prefix=$HOME/pcre --enable-jit --enable-unicode-properties
+        ./configure --prefix="$HOME/pcre" --enable-jit --enable-unicode-properties
         make
         make install
     )
