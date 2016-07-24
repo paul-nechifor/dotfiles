@@ -17,6 +17,7 @@ install_list=(
     audacity
     bridge-utils
     build-essential
+    calibre
     cheese
     cloc
     cmus
