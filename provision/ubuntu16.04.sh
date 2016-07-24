@@ -12,10 +12,7 @@ remove_list=(
 
 install_list=(
     # openjdk-8-jdk
-    # texlive-full
     # ttf-'*'
-    # ubuntu-restricted-extras
-    # virtualbox-qt
     ack-grep
     audacity
     bridge-utils
@@ -83,6 +80,7 @@ install_list=(
     silversearcher-ag
     subversion
     tagtool
+    texlive-full
     thunar
     thunar-archive-plugin
     thunar-media-tags-plugin
@@ -90,10 +88,14 @@ install_list=(
     tig
     tmux
     tree
+    ttf-mscorefonts-installer
     tumbler-plugins-extra
+    ubuntu-restricted-extras
     unrar
     vim
     vim-gtk
+    virtualbox-guest-additions-iso
+    virtualbox-qt
     vlc
     wicd-gtk
     xbacklight
@@ -163,6 +165,7 @@ main() {
 subcommand_desktop_root() {
     add_ppas_and_update
     remove_packages
+    preconfigure_packages
     install_packages
     install_non_system_packages
     switch_to_user
@@ -176,7 +179,34 @@ remove_packages() {
     apt-get remove -y "${remove_list[@]}"
 }
 
+preconfigure_packages() {
+    echo '
+gdm3	gdm3/daemon_name	string	/usr/sbin/gdm3
+gdm3	shared/default-x-display-manager	select	lightdm
+libssl1.0.0	libssl1.0.0/restart-failed	error	
+libssl1.0.0	libssl1.0.0/restart-services	string	
+mathematica-fonts	mathematica-fonts/accept_license	boolean	true
+mathematica-fonts	mathematica-fonts/http_proxy	string	
+mathematica-fonts	mathematica-fonts/license	note	
+openvpn	openvpn/create_tun	boolean	false
+texlive-base	texlive-base/binary_chooser	multiselect	pdftex, dvips, dvipdfmx, xdvi
+texlive-base	texlive-base/texconfig_ignorant	error	
+ttf-mscorefonts-installer	msttcorefonts/accepted-mscorefonts-eula	boolean	false
+ttf-mscorefonts-installer	msttcorefonts/baddldir	error	
+ttf-mscorefonts-installer	msttcorefonts/dldir	string	
+ttf-mscorefonts-installer	msttcorefonts/dlurl	string	
+ttf-mscorefonts-installer	msttcorefonts/error-mscorefonts-eula	error	
+ttf-mscorefonts-installer	msttcorefonts/present-mscorefonts-eula	note	
+ttf-root-installer	ttf-root-installer/baddldir	error	
+ttf-root-installer	ttf-root-installer/blurb	note	
+ttf-root-installer	ttf-root-installer/dldir	string	
+ttf-root-installer	ttf-root-installer/savedir	string	
+wicd-daemon	wicd/users	multiselect
+' | debconf-set-selections
+}
+
 install_packages() {
+    apt-get install -y debconf-utils
     apt-get upgrade -y
     apt-get install "${install_list[@]}" -y --force-yes
     apt-get autoremove
