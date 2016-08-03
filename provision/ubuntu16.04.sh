@@ -76,6 +76,7 @@ install_list=(
     pidgin
     python-jedi
     python-pip
+    rxvt-unicode-256color
     scrot
     shellcheck
     silversearcher-ag
