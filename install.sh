@@ -20,8 +20,10 @@ main() {
 }
 
 infect() {
+  local tmpdir
+
   check_for_requirements
-  local tmpdir=$(mktemp -d 2>/dev/null || mktemp -d -t infect)
+  tmpdir=$(mktemp -d 2>/dev/null || mktemp -d -t infect)
 
   echo 'Downloading dotfiles archive...'
   cd "$tmpdir"
@@ -165,6 +167,7 @@ link_user_files() {
   link_file input/inputrc .inputrc
   link_file tmux/tmux.conf .tmux.conf
   link_file x/modmap .Xmodmap
+  link_file x/resources .Xresources
 
   wipeout .i3
   link_file i3/config .i3/config
