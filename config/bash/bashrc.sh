@@ -68,6 +68,18 @@ export LESS_TERMCAP_so; LESS_TERMCAP_so=$(printf "\e[1;47;30m")
 export LESS_TERMCAP_ue; LESS_TERMCAP_ue=$(printf "\e[0m")
 export LESS_TERMCAP_us; LESS_TERMCAP_us=$(printf "\e[0;36m")
 
+man() {
+  env \
+  LESS_TERMCAP_mb="$(printf "\e[1;31m")" \
+  LESS_TERMCAP_md="$(printf "\e[1;31m")" \
+  LESS_TERMCAP_me="$(printf "\e[0m")" \
+  LESS_TERMCAP_se="$(printf "\e[0m")" \
+  LESS_TERMCAP_so="$(printf "\e[1;44;33m")" \
+  LESS_TERMCAP_ue="$(printf "\e[0m")" \
+  LESS_TERMCAP_us="$(printf "\e[1;32m")" \
+  man "$@"
+}
+
 if [[ ! $is_freebsd ]]; then
   # Load the colors to be used in `ls`.
   eval "$(dircolors ~/.dircolors)"
