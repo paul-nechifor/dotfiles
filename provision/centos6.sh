@@ -50,6 +50,7 @@ install_root_requirements() {
     realpath
     redis
     sqlite-devel
+    the_silver_searcher
     tmux
     tree
     vim-common
