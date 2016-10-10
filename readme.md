@@ -19,6 +19,10 @@ After that, you can update everything with:
 
     infect
 
+### Local usage
+
+    sudo true; ./install.sh
+
 ## License
 
 MIT

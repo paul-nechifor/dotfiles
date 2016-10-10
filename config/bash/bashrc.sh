@@ -217,6 +217,16 @@ p() {
     echo "$(get_home_relative_path)$(tput sgr0)"
 }
 
+rm() {
+  command rm "$@"
+  # If everything that's deleted is from the current dir then list the dir so I
+  # can know what's left.
+  if ! echo "$@" | grep / &>/dev/null; then
+    separator —
+    l
+  fi
+}
+
 alias python="ipython --no-banner --no-confirm-exit"
 alias v="vim -p"
 alias sudo="sudo -E"
