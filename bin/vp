@@ -1,0 +1,22 @@
+#!/usr/bin/env bash
+
+# This opens all the files in the arguments as tabs in Vim. The difference from
+# normal `vim -p` is that this supports more than ten files.
+
+set -e
+
+main() {
+  vim +"$(prepare_args "$@")"
+}
+
+prepare_args() {
+  for arg in "$@"; do
+    echo "$arg"
+  done |
+  sed 's/^/tabe /g' |
+  sed 's/:/|/g' |
+  tr '\n' '|'
+  echo -n 'tabfirst|q'
+}
+
+main "$@"

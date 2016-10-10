@@ -8,6 +8,17 @@ gs() {
   fi
 }
 
+gsv() {
+  local files="$(
+    if svn info &>/dev/null; then
+      svn st
+    else
+      git status --short
+    fi
+  ) | sed 's/\s\+/ /g' | cut -d' ' -f2)"
+  vp "${files[@]}"
+}
+
 gl() {
   if svn info &>/dev/null; then
     svn-color log "$@"
