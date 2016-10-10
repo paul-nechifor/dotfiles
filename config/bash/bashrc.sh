@@ -189,11 +189,15 @@ for i in {1..9}; do
   )"
 done
 
-if which ag &>/dev/null; then
-  alias a='ag'
-else
-  alias a='ack'
-fi
+a() {
+  separator —
+
+  if which ag &>/dev/null; then
+    ag "$@"
+  else
+    ack "$@"
+  fi
+}
 
 # Replace `top` with `htop` if it exits.
 if which htop &>/dev/null; then
