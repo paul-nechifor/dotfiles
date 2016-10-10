@@ -193,9 +193,9 @@ a() {
   separator —
 
   if which ag &>/dev/null; then
-    ag "$@"
+    ag --color "$@" | cut -c1-400
   else
-    ack "$@"
+    ack --color "$@" | cut -c1-400
   fi
 }
 

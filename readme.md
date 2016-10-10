@@ -19,7 +19,7 @@ After that, you can update everything with:
 
     infect
 
-### Local usage
+Locally, just run:
 
     sudo true; ./install.sh
 
