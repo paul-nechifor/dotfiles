@@ -11,11 +11,11 @@ gs() {
 gsv() {
   local files="$(
     if svn info &>/dev/null; then
-      svn st
+      command svn st
     else
       git status --short
-    fi
-  ) | sed 's/\s\+/ /g' | cut -d' ' -f2)"
+    fi | sed 's/\s\+/ /g' | cut -d' ' -f2
+  )"
   vp "${files[@]}"
 }
 
