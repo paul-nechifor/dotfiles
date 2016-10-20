@@ -37,7 +37,7 @@ gll() {
 
 gd() {
   if svn info &>/dev/null; then
-    [[ "$(svn diff 2>/dev/null)" ]] && svn-color diff "$@"
+    [[ "$(svn diff "$@" 2>/dev/null)" ]] && svn-color diff "$@"
   else
     separator —
     git diff -M "$@"
