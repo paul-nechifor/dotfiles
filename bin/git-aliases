@@ -69,7 +69,9 @@ gc() {
   local message="$*"
   if svn info &>/dev/null; then
     svn-color ci -m "$message"
-    svn up
+    while ! svn up &>/dev/null; do
+      sleep 1
+    done
     svn-color log
   else
     git commit -m "$message"
