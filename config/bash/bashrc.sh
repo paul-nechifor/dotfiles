@@ -237,7 +237,7 @@ alias sudo="sudo -E"
 alias gdb="gdb -q"
 
 sink() {
-  pactl -- set-sink-volume 0 "$1%"
+  pactl -- set-sink-volume 40 "$1%"
 }
 
 if [[ $own_computer ]]; then
