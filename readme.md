@@ -23,6 +23,26 @@ Locally, just run:
 
     sudo true; ./install.sh
 
+## TODO
+
+- `gc` should add a timeout before running `sup`.
+
+- `gd` (in SVN) should not open `vim` if the diff is empty.
+
+- Run `setxkbmap ro; xmodmap ~/.Xmodmap` every minute.
+
+- Start `nm-manager` in i3.
+
+- Add `sass-lint` to Syntastic
+
+- Add an `ag-do` command which takes an `ag` selector and the rest is a command
+  to run on all the files. For example this would be useful with `sed` rename
+  commands.
+
+- Add a command called `o` which does the same thing as `v` and `d`.
+
+- Use `grep` if `ack` or `ag` don't exist.
+
 ## License
 
 MIT
