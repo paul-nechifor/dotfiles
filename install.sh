@@ -45,25 +45,28 @@ determine_environment() {
     export ran_before=true
   fi
 
-  export is_vagrant=$(id -u vagrant 2>/dev/null && echo 1)
+  is_vagrant="$(id -u vagrant 2>/dev/null && echo 1)"
   if [[ ! $username ]]; then
     username=$(whoami)
   fi
 
   if [[ $(id -u) -eq 0 ]]; then
-    export install_dir="$(su "$username" -c "echo \$HOME")/.pn-dotfiles"
+    install_dir="$(su "$username" -c "echo \$HOME")/.pn-dotfiles"
   else
-    export install_dir="$HOME/.pn-dotfiles"
+    install_dir="$HOME/.pn-dotfiles"
   fi
   export config_dir="$install_dir/config"
 
-  export is_linux=$([[ $OSTYPE == linux-gnu ]] && echo 1)
-  export is_freebsd=$([[ $OSTYPE == freebsd* ]] && echo 1)
+  is_linux=$([[ $OSTYPE == linux-gnu ]] && echo 1)
+  is_freebsd=$([[ $OSTYPE == freebsd* ]] && echo 1)
   if [[ $is_linux ]]; then
-    export is_ubuntu=$(grep Ubuntu /etc/issue && echo 1)
-    export is_centos=$(grep CentOS /etc/issue && echo 1)
+    is_ubuntu=$(grep Ubuntu /etc/issue && echo 1)
+    is_centos=$(grep CentOS /etc/issue && echo 1)
   fi
-  export own_computer=$([[ $is_ubuntu && ! $is_vagrant ]] && echo 1)
+  own_computer=$([[ $is_ubuntu && ! $is_vagrant ]] && echo 1)
+
+  export is_vagrant install_dir config_dir is_linux is_freebsd is_ubuntu
+  export is_centos own_computer
 }
 
 check_for_requirements() {
