@@ -25,7 +25,9 @@ Locally, just run:
 
 ## TODO
 
-- `gc` should add a timeout before running `sup`.
+- Separate `git-aliases` into separate files.
+
+- Don't show `X`es in `svn st` because there are no changes.
 
 - `gd` (in SVN) should not open `vim` if the diff is empty.
 
