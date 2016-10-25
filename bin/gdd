@@ -1,0 +1,11 @@
+#!/bin/bash
+
+main() {
+  if svn info &>/dev/null; then
+    sdd "$@"
+  else
+    git-vimdiff "$@"
+  fi
+}
+
+main "$@"

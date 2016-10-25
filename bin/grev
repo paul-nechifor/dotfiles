@@ -1,0 +1,15 @@
+#!/bin/bash
+
+main() {
+  if svn info &>/dev/null; then
+    if [[ $1 ]]; then
+      svn revert -R "$@"
+    else
+      svn revert -R .
+    fi
+  else
+    git checkout HEAD -- "$@"
+  fi
+}
+
+main "$@"

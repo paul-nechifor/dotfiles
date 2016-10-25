@@ -1,0 +1,14 @@
+#!/bin/bash
+
+main() {
+  local files="$(
+    if svn info &>/dev/null; then
+      command svn st | grep '^M'
+    else
+      git status --short
+    fi | sed 's/\s\+/ /g' | cut -d' ' -f2
+  )"
+  vp "${files[@]}"
+}
+
+main "$@"

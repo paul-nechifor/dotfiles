@@ -264,10 +264,6 @@ alias resetmod="find . -type f -exec chmod 644 {} + ; find . -type d -exec chmod
 
 alias c=cmus
 
-# ## Git (...and sadly SVN)
-
-. "$HOME/.pn-dotfiles/bin/git-aliases"
-
 # ## Fun things
 3men() {
   festival --tts <<EOF

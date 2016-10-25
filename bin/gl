@@ -1,0 +1,11 @@
+#!/bin/bash
+
+main() {
+  if svn info &>/dev/null; then
+    svn-color log "$@"
+  else
+    max_lines_to_show="$(tput cols)" git-pretty-log "$@"
+  fi
+}
+
+main "$@"
