@@ -93,7 +93,7 @@ else
   export TERM="screen-256color"
 fi
 
-export PATH="$PATH:$HOME/.pn-dotfiles/bin:$HOME/.local/bin"
+export PATH="$HOME/.pn-dotfiles/bin:$PATH:$HOME/.local/bin"
 
 if [[ -d $HOME/local/.ownbin ]]; then
   export PATH="$HOME/local/.ownbin/bin:$PATH"
@@ -112,15 +112,6 @@ export PYTHONSTARTUP="$HOME/.pythonrc"
 # ## File system management
 if [[ $is_linux ]]; then
   alias ls="ls --color=auto"
-  function l() {
-    # * h = human readable
-    # * l = list
-    # * G = no groups
-    # * tail -> remove 'total XXXk' line
-    # shellcheck disable=SC2012
-    ls --color=always --group-directories-first -hlG --si "$@" |
-    tail --lines=+2
-  }
   alias la="l -A"
   if [[ $is_centos ]]; then
     alias tree="tree -Cvh --dirsfirst"
@@ -130,7 +121,6 @@ if [[ $is_linux ]]; then
   alias df="df -ah --si"
   alias du="du -h"
 elif [[ $is_freebsd ]]; then
-  alias l="ls -lhG"
   alias la="ls -lhaG"
   alias tree="tree -Cvh --dirsfirst"
   alias df="df -ah"
@@ -144,16 +134,17 @@ for i in {1..6}; do
   alias "tree$i=tree -L $i"
 done
 
-f() {
-  find . -iname "*${*}*" 2>/dev/null  |
-  egrep -v '\.(git|svn)' |
-  awk '{print substr($0,3)}' |
-  grep -i "$@"
+# Go to a directory and delete all pyc files in there.
+change_dir() {
+  cd "$@" && (rm ./*.pyc &>/dev/null || true) && l
 }
 
-# Go to dir and list the contents.
-d() {
-  cd "$@" && l .
+o() {
+  if [[ $# -eq 0 || -d "$1" ]]; then
+    change_dir "$@"
+  else
+    command vim -p "$@"
+  fi
 }
 
 z() {
@@ -232,7 +223,7 @@ rm() {
 }
 
 alias python="ipython --no-banner --no-confirm-exit"
-alias v="vim -p"
+alias vim="vim -p"
 alias sudo="sudo -E"
 alias gdb="gdb -q"
 

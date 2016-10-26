@@ -45,6 +45,8 @@ determine_environment() {
     export ran_before=true
   fi
 
+  set +e
+
   is_vagrant="$(id -u vagrant 2>/dev/null && echo 1)"
   if [[ ! $username ]]; then
     username=$(whoami)
@@ -67,6 +69,8 @@ determine_environment() {
 
   export is_vagrant install_dir config_dir is_linux is_freebsd is_ubuntu
   export is_centos own_computer
+
+  set -e
 }
 
 check_for_requirements() {

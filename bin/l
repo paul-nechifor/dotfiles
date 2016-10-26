@@ -1,0 +1,19 @@
+#!/bin/bash
+
+export is_freebsd; is_freebsd=$([[ $OSTYPE == "freebsd"* ]] && echo 1)
+
+main() {
+  if [[ $is_freebsd ]]; then
+    command ls -lhG "$@"
+  else
+    # * h = human readable
+    # * l = list
+    # * G = no groups
+    # * tail -> remove 'total XXXk' line
+    # shellcheck disable=SC2012
+    command ls --color=always --group-directories-first -hlG --si "$@" |
+    tail --lines=+2
+  fi
+}
+
+main "$@"
