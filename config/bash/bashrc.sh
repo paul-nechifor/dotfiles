@@ -152,7 +152,7 @@ z() {
   if [[ -f $file && -x $file ]]; then
       "$file"
   else
-      d "$file"
+      change_dir "$file"
   fi
 }
 
@@ -173,7 +173,7 @@ dc() {
 # Create aliases for going up, i.e. '..'='cd ..', '...'='cd ../..', &c.
 for i in {1..9}; do
   # shellcheck disable=SC2139,SC2030,SC2031
-  alias "..$(for ((j=1; j < i; j += 1)); do echo -n .; done)=d ..$(
+  alias "..$(for ((j=1; j < i; j += 1)); do echo -n .; done)=change_dir ..$(
     for ((j=1; j < i; j += 1)); do
       echo -n '/..'
     done
