@@ -4,7 +4,7 @@ main() {
   find . -iname "*${*}*" 2>/dev/null  |
   egrep -v '\.(git|svn)' |
   awk '{print substr($0,3)}' |
-  grep -i "$@"
+  grep -i --color=always "$@"
 }
 
 main "$@"

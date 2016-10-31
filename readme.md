@@ -25,17 +25,11 @@ Locally, just run:
 
 ## TODO
 
-- Don't show `X`es in `svn st` because there are no changes.
-
 - Run `setxkbmap ro; xmodmap ~/.Xmodmap` every minute.
 
 - Start `nm-manager` in i3.
 
 - Add `sass-lint` to Syntastic
-
-- Add an `ag-do` command which takes an `ag` selector and the rest is a command
-  to run on all the files. For example this would be useful with `sed` rename
-  commands.
 
 - Use `grep` if `ack` or `ag` don't exist.
 

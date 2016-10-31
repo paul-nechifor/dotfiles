@@ -1,0 +1,31 @@
+#!/bin/bash -e
+
+main() {
+    local search="$1"
+    shift
+    unique_file_search "$search" | (
+        while read -r file; do
+            "$@" "$file"
+        done
+    )
+}
+
+unique_file_search() {
+    content_search "$1" |
+    cut -d: -f1 |
+    sort -u
+}
+
+content_search() {
+    if which ag &>/dev/null; then
+        command ag "$@"
+    elif which ack-grep &>/dev/null; then
+        command ack-grep "$@"
+    elif which ack &>/dev/null; then
+        command ack "$@"
+    else
+        echo 'No search ag/ack.'
+    fi
+}
+
+main "$@"

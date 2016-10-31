@@ -140,7 +140,7 @@ change_dir() {
 }
 
 o() {
-  if [[ $# -eq 0 || -d "$1" ]]; then
+  if [[ "$1" == '-' || $# -eq 0 || -d "$1" ]]; then
     change_dir "$@"
   else
     command vim -p "$@"
