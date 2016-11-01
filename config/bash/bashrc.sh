@@ -227,10 +227,6 @@ alias vim="vim -p"
 alias sudo="sudo -E"
 alias gdb="gdb -q"
 
-sink() {
-  pactl -- set-sink-volume 40 "$1%"
-}
-
 if [[ $own_computer ]]; then
   alias am="alsamixer"
   alias b="thunar . >/dev/null 2>&1 &"
