@@ -12,6 +12,7 @@ set pastetoggle=<F2>
 
 " Toggle spell checking.
 map <F3> :setlocal spell! spelllang=en_gb<CR>
+imap <F3> <ESC>:setlocal spell! spelllang=en_gb<CR>
 set spellfile=~/.vim-spellfile.utf8.add
 
 nnoremap <silent> <F5> :!~/.pn-dotfiles/bin/run-build %:p<CR><CR>
