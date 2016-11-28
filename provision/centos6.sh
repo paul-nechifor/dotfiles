@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-set -e
+set -ex
 
 install_path="$HOME/.ownbin"
 tmpdir=$(mktemp -dt provisionXXXXXXXX)
@@ -87,7 +87,7 @@ install_python() {
   ./configure --prefix="$install_path"
   make && make altinstall
 
-  wgetf https://bitbucket.org/pypa/setuptools/raw/bootstrap/ez_setup.py ez_setup.py
+  wgetf https://bootstrap.pypa.io/ez_setup.py ez_setup.py
   "$install_path/bin/python2.7" ez_setup.py
   "$install_path/bin/easy_install-2.7" pip
   "$install_path/bin/pip2.7" install virtualenv jedi
