@@ -222,7 +222,7 @@ rm() {
   fi
 }
 
-alias python="ipython --no-banner --no-confirm-exit"
+alias ipython="ipython --no-banner --no-confirm-exit"
 alias vim="vim -p"
 alias sudo="sudo -E"
 alias gdb="gdb -q"
