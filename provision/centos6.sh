@@ -90,7 +90,9 @@ install_python() {
   wgetf https://bootstrap.pypa.io/ez_setup.py ez_setup.py
   "$install_path/bin/python2.7" ez_setup.py
   "$install_path/bin/easy_install-2.7" pip
-  "$install_path/bin/pip2.7" install virtualenv jedi
+  "$install_path/bin/pip2.7" install virtualenv jedi flake8
+  ln -s "$install_path/bin/python2.7" "$install_path/bin/python"
+  ln -s "$install_path/bin/python2.7" "$install_path/bin/python2"
 }
 
 install_vim() {
