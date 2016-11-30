@@ -3,7 +3,7 @@
 main() {
   local files="$(
     if svn info &>/dev/null; then
-      command svn st | grep '^M'
+      command svn st | egrep '^(M|A)'
     else
       git status --short
     fi | sed 's/\s\+/ /g' | cut -d' ' -f2
