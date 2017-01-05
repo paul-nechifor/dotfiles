@@ -120,6 +120,9 @@ def set_font_size(size=16, relative=None):
 def show_table():
     for i in range(2):
         for j in range(30, 38):
+            sys.stdout.write(
+                '\33[%d;%dm%d;%d\33[m ' % (i, j, i, j)
+            )
             for k in range(40, 48):
                 sys.stdout.write(
                     '\33[%d;%d;%dm%d;%d;%d\33[m ' % (i, j, k, i, j, k)
