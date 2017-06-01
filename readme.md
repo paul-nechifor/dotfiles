@@ -33,6 +33,12 @@ Locally, just run:
 
 - Use `grep` if `ack` or `ag` don't exist.
 
+- Fix Syntastic conf.
+
+- Use proselint in Syntastic.
+
+- Compile Vim 8.
+
 ## License
 
 MIT
