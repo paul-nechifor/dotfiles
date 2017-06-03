@@ -2,7 +2,7 @@
 
 main() {
   local sink
-  sink="$(pacmd list-sinks | grep 'index:' | egrep -o '[0-9]+')"
+  sink="$(pacmd list-sinks | grep '* index:' | egrep -o '[0-9]+')"
   pactl -- set-sink-volume "$sink" "$1%"
 }
 
