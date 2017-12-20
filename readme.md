@@ -39,6 +39,8 @@ Locally, just run:
 
 - Compile Vim 8.
 
+- Add a script for which program is using which port.
+
 ## License
 
 MIT

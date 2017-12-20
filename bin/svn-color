@@ -8,7 +8,7 @@ main() {
             svn "$@" --limit $(( $(tput lines) - 5 )) | svn-pretty-log ;;
         st)
             svn info | grep '^URL' | awk '{print "url:", $NF}'
-            svn "$@" --ignore-externals 2>&1 | color-svn-status ;;
+            svn "$@" 2>&1 | egrep -v '(^Performing|^$)' | color-svn-status ;;
         add|checkout|co|cp|del|export|remove|rm)
             svn "$@" 2>&1 | color-svn-status ;;
         up)
