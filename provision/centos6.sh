@@ -129,12 +129,12 @@ install_tmux() {
   make && make install
 
   cd "$tmpdir"
-  wgetf https://github.com/tmux/tmux/releases/download/1.8/tmux-1.8.tar.gz tmux.tar.gz
+  wgetf https://github.com/tmux/tmux/releases/download/2.6/tmux-2.6.tar.gz tmux.tar.gz
   tar -xzf tmux.tar.gz
-  cd tmux-1.8
+  cd tmux-2.6
   ./configure CFLAGS="-I$install_path/include" LDFLAGS="-L$install_path/lib" --prefix="$install_path"
 
-  make && make install
+  make -j"$(nproc)" && make install
 }
 
 install_ag() {
