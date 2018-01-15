@@ -258,14 +258,14 @@ hi TabLineFill ctermfg=Black
 hi TabLine ctermbg=Black ctermfg=White cterm=None
 hi TabLineSel ctermbg=Black ctermfg=Green
 
-hi Visual ctermbg=252
+hi Visual ctermbg=236
 hi Search ctermbg=226 ctermfg=16
 hi Pmenu ctermbg=234 ctermfg=White
 hi PmenuSel ctermbg=238 ctermfg=White
 hi Folded ctermbg=240 ctermfg=White
 
 " Other colors.
-hi Comment ctermfg=250
+hi Comment ctermfg=242
 hi ErrorMsg ctermbg=197 ctermfg=16
 hi LineNr ctermbg=233 ctermfg=240
 hi NonText ctermfg=0

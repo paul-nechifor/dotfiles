@@ -4,7 +4,7 @@ set $mod2 Mod4
 
 # Startup programs.
 exec --no-startup-id gnome-settings-daemon
-exec --no-startup-id xsetroot -solid "#cccccc"
+exec --no-startup-id xsetroot -solid "#333333"
 
 # Run on startup and reload.
 exec_always synclient TapButton3=2
