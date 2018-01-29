@@ -76,16 +76,27 @@ def gconf_set(path, type, value):
     subprocess.call(['gconftool-2', '--set', path, '--type', type, value])
 
 
+def rgb(s):
+    def h(x):
+        return int(s[x+1:x+3], 16)
+    return "'rgb(%s,%s,%s)'" % (h(0), h(2), h(4))
+
+
+def dconf_set(name, value):
+    id = ':b1dcc9dd-5262-4d8d-a863-c897e6d979b9'
+    root = '/org/gnome/terminal/legacy/profiles:/%s/' % id
+    subprocess.call(['dconf', 'write', root + name, value])
+
+
 def set_theme(theme):
     gconf_set(ROOT + 'use_theme_background', 'bool', 'false')
     gconf_set(ROOT + 'use_theme_colors', 'bool', 'false')
     gconf_set(ROOT + 'background_color', 'string', theme.background)
     gconf_set(ROOT + 'foreground_color', 'string', theme.foreground)
     gconf_set(ROOT + 'palette', 'string', theme.palette)
-    subprocess.call([
-        dirname + '/gnome-terminal-theme',
-        theme.background, theme.foreground, theme.palette,
-    ])
+    dconf_set('background-color', rgb(theme.background))
+    dconf_set('foreground-color', rgb(theme.foreground))
+    dconf_set('palette', "['#%s']" % "', '#".join(theme.colors))
 
     def trans_color(x):
         return x[0:2] + '/' + x[2: 4] + '/' + x[4:6]
