@@ -99,12 +99,15 @@ install_vim() {
   [[ -e "$install_path/bin/vim" ]] && return
 
   cd "$tmpdir"
-  local vim_source="https://github.com/b4winckler/vim/archive/master.zip"
-  wgetf "$vim_source" master.zip
-  unzip -q master.zip
-  cd vim-master
+  local vim_source="https://github.com/vim/vim/archive/v8.0.1444.zip"
+  wgetf "$vim_source" vim
+  unzip -q vim
+  cd vim-8*
   local vim_options=(
     --disable-gui
+    --disable-netbeans
+    --enable-cscope
+    --enable-largefile
     --enable-multibyte
     --enable-pythoninterp
     --with-features=huge
@@ -114,7 +117,7 @@ install_vim() {
   ./configure "${vim_options[@]}" --prefix="$install_path"
   make install
   cd ..
-  rm -fr vim-master
+  rm -fr vim-8*
 }
 
 install_tmux() {
