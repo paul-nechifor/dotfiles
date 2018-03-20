@@ -37,8 +37,10 @@ install_list=(
     gxine
     htop
     i3
+    i3lock
     icedax
     id3tool
+    imagemagick
     inkscape
     inotify-tools
     ipython
