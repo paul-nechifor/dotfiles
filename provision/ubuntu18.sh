@@ -1,14 +1,14 @@
 #!/bin/bash -e
 
-# lang_pack="ro"
-# username="$(getent passwd 1000 | cut -d: -f1)"
-# export DEBIAN_FRONTEND=noninteractive
+lang_pack="ro"
+username="$(getent passwd 1000 | cut -d: -f1)"
+export DEBIAN_FRONTEND=noninteractive
 
-# remove_list=(
-#     unity-lens-shopping
-#     unity-scope-musicstores
-#     unity-scope-video-remote
-# )
+remove_list=(
+    unity-lens-shopping
+    unity-scope-musicstores
+    unity-scope-video-remote
+)
 
 install_list=(
     # openjdk-8-jdk
@@ -19,185 +19,91 @@ install_list=(
     calibre # Ebook program.
     cheese # Webcam program.
     cloc # Counts lines of code.
-    # cmus
-    # cryptsetup
-    # curl
-    # dkms
-    # easytag # MP3 tag editor.
-    # festival
-    # gimp
-    # git
-    # git-cola
-    # git-svn
-    # gitg
-    # gnome-shell
-    # gnome-tweak-tool
-    # golang
-    # gxine
+    cmus
+    cryptsetup
+    curl
+    dkms
+    easytag # MP3 tag editor.
+    festival
+    gimp
+    git
+    git-cola
+    git-svn
+    gitg
+    gnome-shell
+    gnome-tweak-tool
+    golang
     htop # Better than top.
-    # i3
-    # i3lock
-    # icedax
-    # id3tool
-    # imagemagick
-    # inkscape
-    # inotify-tools
-    # ipython
-    # kdenlive
-    # kompare
-    # lame
-    # language-pack-$lang_pack
-    # language-pack-$lang_pack-base
-    # language-pack-gnome-$lang_pack
-    # language-pack-gnome-$lang_pack-base
-    # libav-tools
-    # libmad0
-    # libmtp-common
-    # libmtp-dev
-    # libmtp-runtime
-    # libmtp9
-    # linux-headers-$(uname -r)
-    # linux-headers-generic
-    # lm-sensors
-    # maven
-    # mencoder
-    # mpg321
-    # mtp-tools
-    # nasm
-    # nautilus-script-audio-convert
-    # netbeans
-    # network-manager-openvpn
-    # network-manager-openvpn-gnome
-    # # nodejs
-    # # npm
-    # openvpn
-    # p7zip
-    # p7zip-full
-    # p7zip-rar
-    # pidgin
-    # python-jedi
-    # python-pip
-    # rxvt-unicode-256color
-    # scrot
-    # shellcheck
-    # silversearcher-ag
-    # subversion
-    # tagtool
-    # texlive-full
-    # thunar
-    # thunar-archive-plugin
-    # thunar-media-tags-plugin
-    # tidy
-    # tig
-    # tmux
-    # tree
-    # ttf-mscorefonts-installer
-    # tumbler-plugins-extra
-    # ubuntu-restricted-extras
-    # unrar
-    # vim
-    # vim-gtk
-    # virtualbox-guest-additions-iso
-    # virtualbox-qt
+    i3
+    i3lock
+    icedax
+    id3tool
+    imagemagick
+    inkscape
+    inotify-tools
+    ipython
+    kdenlive
+    kompare
+    lame
+    language-pack-$lang_pack
+    language-pack-$lang_pack-base
+    language-pack-gnome-$lang_pack
+    language-pack-gnome-$lang_pack-base
+    libav-tools
+    libmad0
+    libmtp-common
+    libmtp-dev
+    libmtp-runtime
+    libmtp9
+    linux-headers-$(uname -r)
+    linux-headers-generic
+    lm-sensors
+    maven
+    mencoder
+    mpg321
+    mtp-tools
+    nasm
+    nautilus-script-audio-convert
+    netbeans
+    network-manager-openvpn
+    network-manager-openvpn-gnome
+    nodejs
+    npm
+    openvpn
+    p7zip
+    p7zip-full
+    p7zip-rar
+    pidgin
+    python-jedi
+    python-pip
+    qutebrowser
+    rxvt-unicode-256color
+    scrot
+    shellcheck
+    silversearcher-ag
+    subversion
+    texlive-full
+    thunar
+    thunar-archive-plugin
+    thunar-media-tags-plugin
+    tidy
+    tig
+    tmux
+    tree
+    ttf-mscorefonts-installer
+    tumbler-plugins-extra
+    ubuntu-restricted-extras
+    unrar
+    vim
+    vim-gtk
+    virtualbox-guest-additions-iso
+    virtualbox-qt
     vlc # Video player.
-    # wicd-gtk
-    # xbacklight
-    # xchm
+    wicd-gtk
+    xbacklight
+    xchm
     xdotool
     xsel
-
-    qutebrowser
-
-#     ack-grep
-#     bridge-utils
-#     build-essential
-#     calibre
-#     cheese
-#     cloc
-#     cmus
-#     cryptsetup
-#     curl
-#     dkms
-#     easytag
-#     festival
-#     gimp
-#     git-cola
-#     git-svn
-#     gnome-shell
-#     gnome-tweak-tool
-#     golang
-#     gxine
-#     htop
-#     i3
-#     i3lock
-#     icedax
-#     id3tool
-#     imagemagick
-#     inkscape
-#     inotify-tools
-#     ipython
-#     kdenlive
-#     kompare
-#     lame
-#     language-pack-$lang_pack
-#     language-pack-$lang_pack-base
-#     language-pack-gnome-$lang_pack
-#     language-pack-gnome-$lang_pack-base
-#     libav-tools
-#     libmad0
-#     libmtp-common
-#     libmtp-dev
-#     libmtp-runtime
-#     libmtp9
-#     linux-headers-$(uname -r)
-#     linux-headers-generic
-#     lm-sensors
-#     maven
-#     mencoder
-#     mpg321
-#     mtp-tools
-#     nasm
-#     nautilus-script-audio-convert
-#     netbeans
-#     network-manager-openvpn
-#     network-manager-openvpn-gnome
-#     nodejs
-#     npm
-#     openvpn
-#     p7zip
-#     p7zip-full
-#     p7zip-rar
-#     pidgin
-#     python-jedi
-#     python-pip
-#     rxvt-unicode-256color
-#     scrot
-#     shellcheck
-#     silversearcher-ag
-#     subversion
-#     tagtool
-#     texlive-full
-#     thunar
-#     thunar-archive-plugin
-#     thunar-media-tags-plugin
-#     tidy
-#     tig
-#     tmux
-#     tree
-#     ttf-mscorefonts-installer
-#     tumbler-plugins-extra
-#     ubuntu-restricted-extras
-#     unrar
-#     vim
-#     vim-gtk
-#     virtualbox-guest-additions-iso
-#     virtualbox-qt
-#     vlc
-#     wicd-gtk
-#     xbacklight
-#     xchm
-#     xdotool
-#     xsel
 )
 
 npm_packages=(
@@ -261,10 +167,10 @@ main() {
 subcommand_desktop_root() {
     add_ppas_and_update
     remove_packages
-    # preconfigure_packages
+    preconfigure_packages
     install_packages
-    # install_non_system_packages
-    # switch_to_user
+    install_non_system_packages
+    switch_to_user
 }
 
 add_ppas_and_update() {
@@ -324,11 +230,6 @@ subcommand_desktop_user() {
 
 set_options() {
     local i
-
-    local a=("${gconf2_values[@]}")
-    for (( i=0; i<"${#a[@]}"; i+=3)); do
-        gconftool-2 --set "${a[i]}" --type "${a[i+1]}" "${a[i+2]}"
-    done
 
     local a=("${gsettings_values[@]}")
     for (( i=0; i<"${#a[@]}"; i+=3)); do

@@ -119,6 +119,8 @@ root_start() {
 
   if grep 'Ubuntu 16.04' /etc/issue &>/dev/null; then
     bash "$install_source"/provision/ubuntu16.04.sh
+  elif lsb_release -r | egrep '\b18\.\b' &>/dev/null; then
+    bash "$install_source"/provision/ubuntu18.sh
   fi
 }
 
