@@ -22,6 +22,7 @@ install_list=(
     cmus
     cryptsetup
     curl
+    dconf-editor
     dkms
     easytag # MP3 tag editor.
     festival
@@ -128,18 +129,6 @@ unnecessary_files=(
     examples.desktop
 )
 
-gconf2_values=(
-    /apps/gnome-terminal/profiles/Default/scrollbar_position string hidden
-    /apps/gnome-terminal/profiles/Default/use_system_font bool false
-    /apps/gnome-terminal/profiles/Default/use_theme_background bool false
-    /apps/gnome-terminal/profiles/Default/use_theme_colors bool false
-    /desktop/gnome/url-handlers/magnet/command string '/usr/bin/transmission-gtk %s'
-    /desktop/gnome/url-handlers/magnet/enabled bool true
-    /apps/gnome-terminal/profiles/Default/bold_color_same_as_fg bool false
-    /apps/gnome-terminal/profiles/Default/default_show_menubar bool false
-    /apps/gnome-terminal/profiles/Default/font string 'Ubuntu Mono 11'
-)
-
 gsettings_values=(
     org.gnome.desktop.background picture-options 'none'
     org.gnome.desktop.background picture-uri ''
@@ -235,6 +224,8 @@ set_options() {
     for (( i=0; i<"${#a[@]}"; i+=3)); do
         gsettings set "${a[i]}" "${a[i+1]}" "${a[i+2]}"
     done
+    tm 11
+    tm gruv
 }
 
 configure_dirs() {

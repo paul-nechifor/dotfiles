@@ -94,6 +94,8 @@ def set_theme(theme):
     gconf_set(ROOT + 'background_color', 'string', theme.background)
     gconf_set(ROOT + 'foreground_color', 'string', theme.foreground)
     gconf_set(ROOT + 'palette', 'string', theme.palette)
+    dconf_set('default-show-menubar', 'false')
+    dconf_set('use-theme-colors', 'false')
     dconf_set('background-color', rgb(theme.background))
     dconf_set('foreground-color', rgb(theme.foreground))
     dconf_set('palette', "['#%s']" % "', '#".join(theme.colors))
@@ -126,6 +128,8 @@ def set_font_size(size=16, relative=None):
         size = 32
     font = re.sub(r'\d+$', str(size), font)
     gconf_set(ROOT + 'font', 'string', font)
+    dconf_set('use-system-font', 'false')
+    dconf_set('font', '"Ubuntu Mono %s"' % size)
 
 
 def show_table():
