@@ -17,3 +17,4 @@ global-ignores =
   bower_components
   node_modules
   npm-debug.log
+  __pycache__

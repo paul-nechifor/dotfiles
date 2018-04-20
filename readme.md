@@ -27,6 +27,8 @@ Locally, just run:
 
 - Run `setxkbmap ro; xmodmap ~/.Xmodmap` every minute.
 
+- Use https://github.com/mitsuhiko/unp .
+
 - Start `nm-manager` in i3.
 
 - Add `sass-lint` to Syntastic
