@@ -20,6 +20,7 @@ install_list=(
     cheese # Webcam program.
     cloc # Counts lines of code.
     cmus
+    libblockdev-crypto2 # Because of a LUKS error.
     cryptsetup
     curl
     dconf-editor
