@@ -1,8 +1,0 @@
-#!/bin/bash
-
-main() {
-  git add --all
-  gc "$@"
-}
-
-main "$@"

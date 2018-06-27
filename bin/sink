@@ -1,9 +1,0 @@
-#!/bin/bash
-
-main() {
-  local sink
-  sink="$(pacmd list-sinks | grep '* index:' | egrep -o '[0-9]+')"
-  pactl -- set-sink-volume "$sink" "$1%"
-}
-
-main "$@"

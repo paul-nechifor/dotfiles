@@ -1,9 +1,0 @@
-#!/usr/bin/env bash
-echo -n \
-    "tabe $7 |" \
-    "let asdf=&syntax |" \
-    "vert diffsplit $6 |" \
-    "1 |" \
-    "exec \"set syntax=\" . asdf |" \
-    "wincmd l |" \
-    >> "$HOME/svn-vimdiff-arguments"

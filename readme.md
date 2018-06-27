@@ -1,3 +1,7 @@
+# This repository has been moved to [gitlab.com/paul-nechifor/dotfiles](http://gitlab.com/paul-nechifor/dotfiles).
+
+Old readme:
+
 # Dotfiles
 
 ![cover](screenshot.png)

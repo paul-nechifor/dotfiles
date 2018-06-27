@@ -1,8 +1,0 @@
-#!/bin/bash
-
-main() {
-  separator —
-  g diff --cached -M
-}
-
-main "$@"

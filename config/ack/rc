@@ -1,8 +1,0 @@
---ignore-dir=migrations/
---ignore-dir=.idea/
---ignore-dir=.ropeproject/
-
---type-set=scss=.scss
---type-set=jade=.jade
---type-set=json=.json
---type-set=rst=.rst
